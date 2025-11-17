@@ -1,5 +1,7 @@
 # Welcome to Stickies Kanban Board!
 
+![Screenshot](screenshot.png)
+
 This is single file 'fantasy retro Mac app'. Fantasy because it's a mashup of different bits from System 7 and Mac OS 8. If you run it full screen and zoomed 200%, it can give a feel of the simplicity of pre-internet software. It's a basic/minimal kanban. Make stickies in the first column. Prioritize them and move them with satisfying drag and drop. Or color coding. 
 
 If you set up a personal access token for github gists you can sync this to multiple computers.
