@@ -1,0 +1,4450 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stickies Kanban Board</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAARVBMVEX//7z87YL63lH87oT631f99Z399qT885f88pTv5Yvs33798pD8633520z9+7X68pvy6pX675H874nk2oDj0F/jz17axVVyRK6xAAAAR0lEQVQY083IxwGAIAwAwIRoGmLX/Uc1tgcbcM+DkioFEhEzO75ohYS0+bzjP3f4CAeFZyLQzE76ZoAu66Iy9UFEcwTUmo0LpWoCD3ehoF8AAAAASUVORK5CYII=">
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAilBMVEX//7z520r87YP+9p798I787H3985X98Ir874f76XX98pD87YD86nr86nj75mv642L76HHaxE7/+qn64V3631P//bT9+7D99ZvUuz/49Kfm13L75Wn53VH++KXx7Jzp3HzYwUn27pr464n16Ifp3X3az3jz4nTz32z64l/y2Vfx1EjTuz/Erj65ojfJ/E1+AAAA5klEQVQ4y+2MR3LDMAwAAbA3kRLVLMl2es//vxeMxrdkkmsO3gtIzGIB/wDQrk5lvwkUqGsoJVSN/Nl8Vm61LKyWghg0ePDLXSAKJknnnYwmkFUe0BGRHh/PD2don+gbgIqvzOFjWRZony3xFScSBxTXbALMhtTxcANMex+tjb5MzdToIhWZNAH6yPMivMoQZCNeutrlqRiKugJukuJwaHfh1lnrRB37oe+yjiSbAVA4nrDTvmmldB4REPqukeQEP9FTOs3z/D7Pn6diTDn2wOuhTon8CpdCty/H/FNBwK9chavw34QvXigNvB7wmT4AAAAASUVORK5CYII=">
+  <style>
+    @font-face {
+    font-family: 'Espy Sans Revived Ten';
+    font-weight: normal;
+    font-style: normal;
+    src: url("data:application/font-woff2;charset=utf-8;base64,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"
+) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Espy Sans Revived Ten';
+    font-weight: bold;
+    font-style: normal;
+    src: url("data:application/font-woff2;charset=utf-8;base64,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"
+) format('woff2');
+  }
+  </style>
+
+<style>
+	/**  */
+	html {
+		--ff: 'Espy Sans Revived Ten', sans-serif;
+
+		scrollbar-gutter: stable;
+	}
+
+	html, body, input, textarea {
+		font-family: var(--ff);
+		font-size: 10px;
+		line-height: 13px;
+	}
+
+	/**  */
+	html, body, h1, textarea, input {
+		padding: 0;
+		margin: 0;
+	}
+
+	body {
+    background-image: url("data:image/gif;base64,R0lGODlhgACAAPMAMXx8fCoqKi4uLjo6OjIyMkJCQj4+PjY2NgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAgACAAAAE/zCEI0kQVl5cgxWSYBiaRoVlF5BSYX5HnHmgl5JnetQeYRGCHAfkCgwGpNlGwNTMcBIWynYZoHjUDS1QLFqQqUsRhG1awyXmACihUJQEFygzEJytualJMzj4tBMUIDFUBEIqVHNNB1J4XD9WZGRtF4R1big/F0YWUlhZU357RiEFbB10KWVzGkEqPDVejFFpJWdadnx5PR67iHypGycyTZuqfkBHOBayLFLGErdNudG7f4ZoStHBTMN+xZ+VPnZgoqwVzyEWonrsK6RhgiWn0FbrFTv1IW/aNsklO77UMGNmSj9QTg7amgFnE4cV8vytkfRjRp0iYR6O0VHhRw1Dk/+ilSDxcaTJOliUGLh3JY6NMwTAYDmxxsk8hxk+kGKTDwi1kNBqafOhU8Uli5R48Ql1wEqBAuHQZDuXz0A4WOfQkImUAhsXUgVOpBvor1Kdlw4nXCjKi4DVjEGdUDDwrRXArq0Ufd37JZ2YK2lA3JKq5hQmOHKo1LmjttZdtTsGe5BcK8+Zbm2+kT02TtkEnQz9cnDHw51fPkBz0EPo5aWrGruKjWpB28QhhEGxzRBkNaovWpInhZyj5HUryibOuPHqldLDfNBcSd10+WEJjHf7fCBxtgKPa2GYEcfDFiiph1G7U/JoFx7sTYZyOFraJN2fgTlIFHlbqMeaP19lIBj/c7QoVsMzB8WEDifa/KYHZVTlVBIxgex1XTz5QHVgRJCwwURFqGGXRgYbPXbNR/nwMBhJss2A3ofL5aWHdIS5Z50GIlKi3QXcffedJnhB5d9n0QUViYDthZCVdEhO0UyBesCDyy19dPXDb/3UZKM3PkW5T2flgOaEVZflJiMbXXQAhiobrSIlYXYYphZi8EVDzXxJJuUGNU4gh6MLt5A0XX9W6FeGI1J4VZgrnTjWonODsSfSdG+8Y1dpk8ZCBgufMEofbBqFkcQEWIiIX1yZYSCYb7M5KBdEelUwWFi5FGQTF6KQOJirdbpQ1IF5cnHVF+UBFIQvst2qjpZcAKqB/6CDDjOKNGGg9Gxjz5RUBWDKNoFmbX1l1GZgb2oV53uVOpHYLzo9pJM9gyjyU5FwDXXfrUct1RiAmWbmlJCDTseGQgp6wB2/SWkFkDQwhZdJUt1JC3GwRsgGhaUGhVBmSmcSgY2KShxQAEoUaPcBbPIQktNtDGWySCNqmTKZQyEJYokrJ7DybqNeavMePGestEYRb0in7TxvAaFJyWupNUgSsLQAoB+3FDcddsqBwJ9jWihUp5KS0MeMDqvNFTFNBZ8Aw2xs4XhtR8fFg6QQ2GGRaFk2NaVCRDwCEhQmAsgBJDQAkvFBP6woMvJOvTQWa9SzwJdTbfGop7HDl7Zdyf8LHrhgQKSJiH0pKyS7S7l7k393m0gIa4Ec31tocokxsX0i38bZhTN1Bzd+iIoxIvi1+q1SYGRODO6cMpQNH90L4ndVB5Wmbe0hPk+6TveGhoPcqZIWWQgbd/kNcUBfyjtRrXC2qrbclZVcIqTLxlmCqdONn22g1KktNEYDsHQsaFTrqFCAlXCrfR3g1K3UhhcW5ChwPhjZc4KRJ2+1goH0ehLGgNezaymQB77y0AO78x1gRCED2GNexbzDkWuNATqYiBIhmnaFuaBGfzTQWyE+AQR+UGEXftCe95I3iGrVqw0S6gCFCJGjHMWACMWgizEg8UJ05WmG1iGDDe3kK7X/PcQAQora4JjwCb/QgQ5kzGHDtjAPRgEJiG5Bo7eCsMbV5LAtCUOiECvDkCKmAEI/TKINlkiBJmIIihuaotUC1ARnLSxJKBSQFPIAHYT8DIHlumP90ICnYhBrcVKppE3Mx7sLWahCGfPeq3bDo2TN5gblEg4Hw8c3PlWOEn4oWnvucCNyMe8jrhTBV4aDF1p80G3j+IsqSKgsLRlwTjdZFQsFBg8XqSJsiHgRBmKkpBnxapO+S0GO1LIjYaqHHuAJ0ngcpxQShdJy23LYGuMyjRKqA2zYIM1mNjcdcPbylHsopzBlMxOnCS4LP2oJDYUCn8BZwR6NyxkbIadAALlz/3vwtKVN5mmnXQzgf2KxVOAsREwZOUcQi/RVI8ulQ8IhMQSTNJayQmHESd3EmAcMIRlGuE+LZOCZKXwXMFtIiyri8oo5s6YrGjHS5qwQU9P8BV9cE5HaEfUIBySn7lDIu+KY7lcjiAfFfMaiKxq0adaEG04WahfQOJRx+XTZjCZQ0ckBNDmdQs4X9vA+fMRvh09F3f2ihUOuVcyjIMXpXzBS0m6elK2xoAERalGdfoyzZObokRMS2g/xDMkcl2ofejhZUEkZg5cKeRRgLHNTru1mbDUax+eKea0ZYoeVMhrMjapUhZTRon5DUOD18mQPn22SIymJGuv2lSJ9udFh//8wAQdIuCpwSvW6SmntHPfSmjWlYVy5DdiijkqncyxGJLFp4Z4kUzCFURK3lzGFPbHEESXILC46AdhjYDnTHNYAoknobAueaR6bvhamr6ykz/JoU8r0kDpS6WRJhoY/UUbJEwYc2IIfmiS1SQok+rjW0TbYI449iyU48VU1ZQKQfry3P/5wpXbX0r25eW+63plEk067MWeVSJWgMBw9c5Arz4Fux0canWuC4C7les9ebEGjO5Sj1n4F4l/pC1jsqIkrIIGSwU9u1ulmOEW4rJKve9wvLIPzvUwUp5YVpnIu8eE+rkLDE+IcFifo1YZjZUR3I2LWU6QELalMrlDCSgP/ol61gYlUKlur0UZrBFLVa14VdwHdalIOF5jJgVV4Y4WS8WDADgb27qvACytRAY2xUVdCBpuV6sV08COPCCG/0QCDV9PY500gyKeNefUePjeQlfCNWROQoCtMBghCDEJ+LLuVvOi6lEJCgma0E/Z5yYYCuhn2boMbpF2SOrNQbiEsK+CAW9rczeNhjL281hyjcdtN3SqBt3bwLfrOsx0veUokxQjI6WixjlKpUnw6CIg0xXrCdJOrr2T+I1R1pkgx3UtWozQldsg84ijpBs0y3ld2L0KYi9oObsprrk33DYpnlLi1K0Cx4VQMExZzjqhEslfjMLeQTEmHGPu8IJiW//E1g2VkHWklEpSqlZpY97cL1w7be/w8O4lqYkAY46Eq3UGTUqATzAhJ4X21DkWGi/eR4xPw12jyMyLbNBzWokVIqzc+87hIL9MLF5vmKlv2wtK2rc2Dre6pC43pW1BJFuaQsxAJUF3UJAU3Jdc0ivblqI2SNJRoB1qj9A/coVBRW4ngoLorkfQBYBoiqdmBNQUa6ScK2qrIf9yJpDVgMIB2WnqCYHKwBvUT7fFUO1Vyn5y44QZJdo5YwrrupYrx4GLZegWms4l3cBlBNOB1rMwdd21zo2ku6hYUUBaxNpi10ZOoonNoN8s+4I7NRz758Qn1W7CRFvoG61tN6fvai/+/JpF+gkVHhMVrxNU/RpBYMcc7n+dwKCB6a0F6j/FQIqMpk9V8t3EagqBjocVa/eVSL/VA32QjlrU9RpBZKxRV6XQTQuID5FEkWJBk6Wc5lUIP/2UnDbE1uBB2DqIeVqdCPWBxURY9BndKHHddKYE9vBFy9HV3ZYQ5WoJDPVRHPPRcdvYCadZtfRRs+sJQnTchdcFENtEQh0Bu7SVW35duPyB+0TEI5beFOVYS6eNUdvchk5Bk60IDPhEHdRBJKxcUFrQPr9AeGhR9WzgNVGINV5IN1cINP6cZzRcEC4YaiHUq78ApLsBYHGRSToNSjqFSkyUZLTVfkpRg9tQeQNT/SqyCBt1TC7IkOWkAZ5QiZ8yBec+hB7DFh8yzgFujNS5xDsN3ghLTGNQicc+HLY4hINOHUNU3Vd7VCtnnOuJ1LgyGYi6ADHmBTfwGUHUxbGezDVTGPG5XSuL0NtlFeezgR8qkBzQnK/fnDgkGJJ4WctlEY+lXIBVYQvewA7e2NiP1VxkBRuKGSfkDSS/VN3mkYFtXU5n0YMf1R8GGfhRGKVdhEjDFHpPAiZyFg1n1KnRBg2oWkF9hjWDjN3ZINgVFbJnhjZvGT8EWMu2BgTmoVFoIOkB2YOPkZiLgdyYBeMoieA25W4J3bzlTJX6EeE2jeJ2CPY3XZ493LZHnNo4C/zu2wT7wtHyvtD1BOUOVFi+ItlDvoyIj9Sz5Jhi+kCbJ1D+iR0r2V48oGQjs44aqESz11C0CAiNKBwiwEIKVFQaXVYL9dk6c5TArqCCg1Q6/V3xphzm/qHzBxnyoEnfvMHepNC8m1jUV2F2ikY1IeQyM12yhAktPOXCn4hsKd4JEFY4CMxc9QUotYGE6UFgFOImAWInng4lBJxs2A1m00SWOhJgeeI4xJV3GN34KA2UemC+T4mEIhDJYpmWGxn+3EhZeVnr9tEXl4hNwaGiClxt0CGEccIdKwwTyRztZKS1TRypdmUVBFiJcw3kNh4PToIMRNnFl0TxASDhCqHEAEf9tQNY4rKR4drGX4yhW5aRZKBhum7dOhZkWohODpcVGp2WDcFJM0klA1BlbAZKJeHYdelYTTkYqEedYMIcBgtab96dlqxhaxERL0RFnuDSLdZYUJcR57OB5ucaAvtaL9OCYWshyhqYm76Bf22KdinIuj+Yo8xVPqKAi0WID0QeBxvA/1NZQiwNRcdVQcxU5xKECN9kUeaWI89Qp2OgidblNdwkOF6SI49Ni3eaM3xaGoLB9ZFhh5wZ+achuWuBu5sd+2YkXYjhu91SG9UUEdmp0rZinbdiH2CmO4bGdydV+2QieqvJfbTctFAOZ0HeMdWcm3fQtzIh9WTV4cDIR5OX/PgeVdIVzlNbjVlXqDzH0OONWV1z6Tl8qT/P4cB/Kkdv4N3iRA9XIL2kkGyXZYifZjZzwjWuTMPKGEYniIrplVoJwqpCEJEOwqlTKYYlodfv0NG42qxhVq3gRpqMwo3uTOroYejoKpRNzehSoequ2dHylgaslkIgzWLFIgFEyO7aAgCRgiap3m5jyGiklWV8BisMYSAh2kE3lRT8VRm2ljE1YTE+YRlGoAnb0YOkER1e4CUTUo5k0fLhoo0YAenbhgG8pjBFYgqi3Uhb4kiQYnzLJgUbYk2MjR4qgQ4K0WT5UhXokY2wYa74ASCHrhTxRSHx5SMKSSB3nNPKaFjKL/xulKAo3KTk5SVtydwK39UqiCpSGx7G/BXP+tVwBhjkFRK0KyTNJihA880CmoIcT1Idu4iIYJEazt5soYHsqgHsniCDZwHsMgnP9GYocFYjJV6kT03zIFlm8yVIHi4sASkmlSFMO2YealEnoZVKfVGFZtpT28Sv5sRf84WkxQRR2Sx0EYilopHt9uyD/AbiGJbjY1SpX2aiwAqFlSCtLCVFey4p7RbC+uEs9BhbN54EK5UdZm0dbK5RdW5Te2W+LhxQB95mQRyqS13pSmSrzo1zWc2bOsbEeCxw3xqBbmqaw4KKQAaN8ZWfkirBxIS2R0RX440f50Fy/ZkJCQGZmU7psH2NCJqBsmHUfKMOx0EZ30LRzZUa4L1NtjzAzUndSJYMzD7MzWWe1tANfXpe2FPwGqumRV0mNn8GEJNk0IrKratGWM7QGyMqScRkOzJoQxsemfNYCHVos0hWifjNTJDoDgxYo9WixpGAoilbCjLYoR9oeZaBe6Am/vzcM8eJr8wBs9+t2bSkC+7sNAOG/fnkyKflshcAy8qpcWOUQPja8kStkSck5LjFbcKoP6mlBpWNXWEN4UUYBEQAAOw==");
+    background-repeat: repeat;
+	}
+
+	/**  */
+
+	/* CSS transitions to replace jQuery .animate() */
+	.drag-swap-transition {
+		position: relative;
+		transition: top 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+	}
+
+	.slide-transition {
+		overflow: hidden;
+		transition: height 200ms ease-out, opacity 200ms ease-out, margin-top 200ms ease-out;
+	}
+
+	.slide-down {
+		height: 0;
+		opacity: 0;
+		margin-top: 0;
+	}
+
+	.slide-up {
+		opacity: 0;
+	}
+
+	a {
+		text-decoration: none;
+		transition: color 200ms;
+	}
+
+	a, a:active, a:focus, textarea, input {
+		outline: none;
+	}
+
+	/* Menu item flash animation on select */
+	@keyframes menu-flash {
+		0%, 24% { background-color: #dadaff; }
+		25%, 49% { background-color: #fff; }
+		50%, 74% { background-color: #dadaff; }
+		75%, 99% { background-color: #fff; }
+		100% { background-color: #dadaff; }
+	}
+
+	.menu-flashing {
+		animation: menu-flash 0.4s steps(1, end);
+	}
+
+	#templates {
+		display: none;
+	}
+
+	/**  */
+	.no-user-select {
+		-webkit-touch-callout: none;
+		user-select: none;
+	}
+
+	/**  */
+	.clearfix::after,
+	.board::after,
+	.lists::after,
+	.notes::after,
+	.head::after,
+	.board .menu::after,
+	.list .menu::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	/**  */
+	body.dragging {
+		-webkit-touch-callout: none;
+		user-select: none;
+	}
+
+	/**  */
+	header{
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 20px;
+		background-color: #000;
+		line-height: 19px;
+		z-index: 999;
+		position: fixed;
+		display: block;
+	}
+
+	header>.container{
+		width: 100%;
+		height: 19px;
+		line-height: 19px;
+		font-size: 10px;
+		font-family: var(--ff);
+		font-weight: bold;
+		margin: 0;
+		background-color: #fff;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	header img.icon{
+		height: 19px;
+		width: 19px;
+		display: block;
+	}
+
+	header .menu{
+		float: left;
+		margin: 0 7px;
+	}
+
+	header .menu.right{
+		float: right;
+	}
+
+	header .menu.right .icon {
+		width: 16px;
+		height: 16px;
+		vertical-align: middle;
+		margin-right: 4px;
+		margin-top: -1px;
+	}
+
+	header .menu ul{
+		padding: 0;
+		margin: 0;
+	}
+
+	header .menu li{
+		display: inline-flex;
+		align-items: center;
+		height: 19px;
+	}
+
+	header .menu li:first-child{
+		vertical-align: top;
+	}
+
+	/* Center text for all menu items */
+	header .menu li>a{
+		color: #000;
+		padding: 3px 7px 0;
+		display: flex;
+		align-items: center;
+		height: 100%;
+		line-height: 1;
+	}
+
+	header .menu li:hover>a {
+		background-color: #000;
+		color: #fff;
+	}
+
+	header .menu li.disabled a{
+		color: #848484;
+	}
+
+	/* Windows menu dropdown */
+	header .menu li.windows-menu {
+		position: relative;
+	}
+
+	header .menu li.windows-menu .boards-dropdown {
+		display: none;
+		position: absolute;
+		top: 19px;
+		left: 0;
+		min-width: 200px;
+		background-color: #fff;
+		border: 1px solid #000;
+		border-top: 1px solid #000;
+		padding: 4px 0;
+		z-index: 1000;
+	}
+
+	header .menu li.windows-menu:hover .boards-dropdown {
+		display: block;
+	}
+
+	header .menu li.windows-menu .boards-dropdown a.load-board {
+		display: block;
+		padding: 2px 20px;
+		color: #000;
+		text-decoration: none;
+		white-space: nowrap;
+		font-size: 10px;
+		font-weight: bold;
+		position: relative;
+		top: 0;
+	}
+
+	header .menu li.windows-menu .boards-dropdown a.load-board:hover {
+		background-color: #dadaff;
+		color: #000;
+	}
+
+	header .menu li.windows-menu .boards-dropdown a.load-board.active::before {
+		content: '\2713 ';
+		position: absolute;
+		left: 7px;
+	}
+
+	/* File menu dropdown */
+	header .menu li.file-menu {
+		position: relative;
+	}
+
+	header .menu li.file-menu .file-dropdown {
+		display: none;
+		position: absolute;
+		top: 19px;
+		left: 0;
+		min-width: 200px;
+		background-color: #fff;
+		border: 1px solid #000;
+		border-top: 1px solid #000;
+		padding: 4px 0;
+		z-index: 1000;
+	}
+
+	header .menu li.file-menu:hover .file-dropdown {
+		display: block;
+	}
+
+	header .menu li.file-menu .file-dropdown a {
+		display: block;
+		padding: 2px 20px;
+		color: #000;
+		text-decoration: none;
+		white-space: nowrap;
+		position: relative;
+		cursor: pointer;
+	}
+
+	header .menu li.file-menu .file-dropdown a:hover {
+		background-color: #dadaff;
+		color: #000;
+	}
+
+	/* Edit menu dropdown */
+	header .menu li.edit-menu {
+		position: relative;
+	}
+
+	header .menu li.edit-menu .edit-dropdown {
+		display: none;
+		position: absolute;
+		top: 19px;
+		left: 0;
+		min-width: 200px;
+		background-color: #fff;
+		border: 1px solid #000;
+		border-top: 1px solid #000;
+		padding: 4px 0;
+		z-index: 1000;
+	}
+
+	header .menu li.edit-menu:hover .edit-dropdown {
+		display: block;
+	}
+
+	header .menu li.edit-menu .edit-dropdown a {
+		display: block;
+		padding: 2px 20px;
+		color: #000;
+		text-decoration: none;
+		white-space: nowrap;
+		position: relative;
+		cursor: pointer;
+	}
+
+	header .menu li.edit-menu .edit-dropdown a:hover {
+		background-color: #dadaff;
+		color: #000;
+	}
+
+	/* Menu dividers */
+	.menu-divider {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2px 0;
+		height: 16px;
+	}
+
+	.menu-divider::after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 1px;
+		background-color: #000;
+	}
+
+	/* Color menu dropdown */
+	header .menu li.color-menu {
+		position: relative;
+	}
+
+	header .menu li.color-menu .color-dropdown {
+		display: none;
+		position: absolute;
+		top: 19px;
+		left: 0;
+		min-width: 200px;
+		background-color: #fff;
+		border: 1px solid #000;
+		border-top: 1px solid #000;
+		padding: 4px 0;
+		z-index: 1000;
+	}
+
+	header .menu li.color-menu:hover .color-dropdown {
+		display: block;
+	}
+
+	/* Don't show dropdown when disabled */
+	header .menu li.color-menu.disabled:hover .color-dropdown {
+		display: none;
+	}
+
+	header .menu li.color-menu .color-dropdown a {
+		display: block;
+		padding: 2px 20px;
+		color: #000;
+		text-decoration: none;
+		white-space: nowrap;
+		position: relative;
+		cursor: pointer;
+	}
+
+	header .menu li.color-menu .color-dropdown a:hover {
+		background-color: #dadaff;
+		color: #000;
+	}
+
+	header .menu li.color-menu .color-dropdown a.active::before {
+		content: '\2713 ';
+		position: absolute;
+		left: 7px;
+	}
+
+	/* Color swatches in menu */
+	.color-swatch {
+		display: inline-block;
+		width: 19px;
+		height: 12px;
+		margin-right: 8px;
+		vertical-align: middle;
+		border: 1px solid;
+	}
+
+	.color-swatch[data-color='yellow'] {
+		background-color: #ffffb4;
+		border-color: #ffda03;
+	}
+
+	.color-swatch[data-color='blue'] {
+		background-color: #b2ffff;
+		border-color: #00daff;
+	}
+
+	.color-swatch[data-color='green'] {
+		background-color: #daffda;
+		border-color: #87ff87;
+	}
+
+	.color-swatch[data-color='pink'] {
+		background-color: #fbe0e0;
+		border-color: #ffb3b3;
+	}
+
+	.color-swatch[data-color='purple'] {
+		background-color: #dadaff;
+		border-color: #b3b3fe;
+	}
+
+	.color-swatch[data-color='gray'] {
+		background-color: #f3f3f3;
+		border-color: #cdcdcd;
+	}
+
+	/**  */
+	.window{
+		position: relative;
+		border: 1px solid #525252;
+		border-right-width: 2px;
+		border-bottom-width: 2px;
+		background-color: #fff;
+	}
+
+	.window.window-focus{
+		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAARCAMAAAArHTYgAAAAkFBMVEUAAABzc3OEhIS9vb3///8QEBAhISGtra1CQkLGxsbOzs7Ozv/e3t5SUlKlpaWMjIzeAAAAvQDv7+8xY2MxAJycY5ycnP+c//8xMWP//wBjY87/zpwAAN5j/wD/YzExnGPOnGPOzgAA/wCcAGMxMTGlpdb//84x/5wAAO//YwAQAAAAUgD/Y87O////AJzvAADKXxTxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIVFi03sofQtQAAABNJREFUCNdj4GYQAkJGHFiIQRUADNoA2WlHzfwAAAAASUVORK5CYII=') repeat-x top left #fff;
+		background-size: 1px 17px;
+		border-color: #000;
+	}
+
+	.window>.window-title{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 17px;
+		padding: 0 6px;
+		border-bottom: 1px solid #000;
+		color: #848484;
+	}
+
+	.window.window-focus>.window-title{
+		border-left: 1px solid #ceceff;
+		border-right: 1px solid #ceceff;
+		box-shadow: inset 1px 0 0 #efefef, inset -1px 0 0 #efefef;
+		color: #000;
+	}
+
+	.window.window-focus>.window-title>span.title{
+		padding: 2px 7px;
+		background-color: #efefef;
+		line-height: 1;
+	}
+
+	.window.window-focus>.window-title>a{
+		padding: 0 1px;
+		height: 11px;
+		width: 11px;
+		margin-top: 3px;
+		background-color: #efefef;
+		position: relative;
+	}
+
+	.window.window-focus>.window-title>a.btn-close{
+		float: left;
+	}
+
+	.window.window-focus>.window-title>a.btn-close::after{
+		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAMAAACecocUAAAAkFBMVEUAAABzc3OEhIS9vb3///8QEBAhISGtra1CQkLGxsbOzs7Ozv/e3t5SUlKlpaWMjIzeAAAAvQDv7+8xY2MxAJycY5ycnP+c//8xMWP//wBjY87/zpwAAN5j/wD/YzExnGPOnGPOzgAA/wCcAGMxMTGlpdb//84x/5wAAO//YwAQAAAAUgD/Y87O////AJzvAADKXxTxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIVFjkOwyyP6AAAAB1JREFUCNdjkEAABgluOACy+SBAgppsmFXcyHYBAAI4B5tBJbNQAAAAAElFTkSuQmCC') no-repeat #efefef;
+		display: block;
+		position: absolute;
+		width: 11px;
+		height: 11px;
+		left: 1px;
+		content: " ";
+	}
+
+	.window.window-focus>.window-title>a.btn-maximize{
+		float: right;
+	}
+
+	.window.window-focus>.window-title>a.btn-maximize::after{
+		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAMAAACecocUAAAAkFBMVEUAAABzc3OEhIS9vb3///8QEBAhISGtra1CQkLGxsbOzs7Ozv/e3t5SUlKlpaWMjIzeAAAAvQDv7+8xY2MxAJycY5ycnP+c//8xMWP//wBjY87/zpwAAN5j/wD/YzExnGPOnGPOzgAA/wCcAGMxMTGlpdb//84x/5wAAO//YwAQAAAAUgD/Y87O////AJzvAADKXxTxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIVFjg4FY0rMAAAACVJREFUCNdjkEAABgluOACy+YBAAoiIZYPNQBLnw8KGWcWNbBcAGe4H9V0Soj8AAAAASUVORK5CYII=') no-repeat #efefef;
+		display: block;
+		position: absolute;
+		width: 11px;
+		height: 11px;
+		left: 1px;
+		content: " ";
+	}
+
+	.window>.window-content{
+		display: block;
+	}
+
+	.board.window > .window-content {
+		padding: 20px;
+	}
+
+	/* Board-specific window titlebar overrides */
+	.board.window.window-focus > .window-title.head > span.title {
+		position: relative;
+		z-index: 1;
+		cursor: pointer;
+	}
+
+	.board.window.window-focus > .window-title.head > span.title > .text {
+		font-weight: bold;
+		font-family: var(--ff);
+		font-size: 10px;
+		border: none;
+		padding: 0;
+		margin: 0;
+		min-height: 0;
+		white-space: normal;
+		overflow: visible;
+		position: relative;
+		top: 1px;
+		cursor: pointer;
+		pointer-events: auto;
+	}
+
+	.board.window.window-focus > .window-title.head > .edit {
+		display: none;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(calc(-50% + 1px), calc(-50% + 1px));
+		min-width: 100px;
+		max-width: calc(100% - 100px);
+		height: 13px;
+		line-height: 13px;
+		font-size: 10px;
+		font-family: var(--ff);
+		font-weight: bold;
+		padding: 2px 7px;
+		border: 1px solid #000;
+		text-align: center;
+		background-color: rgb(204 204 251);
+		z-index: 10;
+	}
+
+	.board.window.window-focus > .window-title.head.editing > span.title {
+		visibility: hidden;
+	}
+
+	.board.window.window-focus > .window-title.head.editing > .edit {
+		display: block;
+	}
+
+	.board.window.window-focus > .window-title.head > .edit::placeholder {
+		font-weight: 400;
+		text-transform: uppercase;
+		color: #1489db;
+		opacity: 0.8;
+	}
+
+	/* Override default .board .head styles for window titlebar */
+	.board.window > .window-title.head {
+		background: none !important;
+		padding: 0 6px;
+		margin: 0;
+		border-radius: 0;
+		position: relative;
+	}
+
+	/* Window buttons */
+	.board.window.window-focus > .window-title.head > .btn-close,
+	.board.window.window-focus > .window-title.head > .btn-maximize {
+		pointer-events: none;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+	}
+
+	.board.window.window-focus > .window-title.head.editing > .btn-close,
+	.board.window.window-focus > .window-title.head.editing > .btn-maximize {
+		display: none;
+	}
+
+	/**  */
+	.board {
+		min-width: 320px;
+		min-height: 600px;
+		width: max-content;
+		margin: 28px auto 0;
+		padding: 20px;
+		-webkit-touch-callout: none;
+		user-select: none;
+	}
+
+	/* Ensure board.window keeps window background */
+	.board.window.window-focus {
+		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAARCAMAAAArHTYgAAAAkFBMVEUAAABzc3OEhIS9vb3///8QEBAhISGtra1CQkLGxsbOzs7Ozv/e3t5SUlKlpaWMjIzeAAAAvQDv7+8xY2MxAJycY5ycnP+c//8xMWP//wBjY87/zpwAAN5j/wD/YzExnGPOnGPOzgAA/wCcAGMxMTGlpdb//84x/5wAAO//YwAQAAAAUgD/Y87O////AJzvAADKXxTxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIVFi03sofQtQAAABNJREFUCNdj4GYQAkJGHFiIQRUADNoA2WlHzfwAAAAASUVORK5CYII=') repeat-x top left #fff;
+		background-size: 1px 17px;
+		padding: 0;
+	}
+
+	.crowded .board {
+		margin-top: 28px;
+	}
+
+	.board u {
+		text-decoration: none;
+	}
+
+	.board u::before {
+		content: '\00D7';
+		position: relative;
+		top: 2px;
+		font-weight: 400;
+	}
+
+	/**  */
+	.board .head {
+		padding: 5px 0;
+		margin: 1px 5px 0;
+		position: relative;
+	}
+
+	.board .head .text,
+	.board .head .edit {
+		font-weight: bold;
+		font-size: 10px;
+		padding: 0 5px 2px;
+		border: none;
+	}
+
+	.board .head .text {
+		min-height: 20px;
+		white-space: pre;
+		overflow: hidden;
+		text-align: center;
+	}
+
+	.board .head .edit {
+		display: none;
+	}
+
+	.board .head .edit::placeholder {
+		font-weight: 400;
+		text-transform: uppercase;
+		color: #1489db;
+		opacity: 0.8;
+	}
+
+	.board .head.editing .text {
+		display: none;
+	}
+
+	.board .head.editing .edit {
+		display: block;
+		outline: 1px solid #8eaedd;
+	}
+
+	/* List-specific title editing styles - keep same dimensions, just change background */
+	.board .list .head .text,
+	.board .list .head .edit {
+		font-weight: bold;
+		font-size: 10px;
+		padding: 0 5px 2px;
+		border: none;
+		text-align: center;
+		min-height: 20px;
+		white-space: pre;
+		overflow: hidden;
+	}
+
+	.board .list .head .edit {
+		display: none;
+		background-color: #dadaff;
+		outline: none;
+	}
+
+	.board .list .head.editing .text {
+		display: none;
+	}
+
+	.board .list .head.editing .edit {
+		display: block;
+	}
+
+
+	header .edit-dropdown .undo-board.disabled,
+	header .edit-dropdown .redo-board.disabled {
+		color: #848484;
+	}
+
+	.board > .head {
+		background: #EAEDF0;
+		padding: 5px;
+		margin: 0 0 10px;
+		border-radius: 2px;
+		position: relative;
+	}
+
+	/**  */
+	.board .lists-scroller {
+		height: auto;
+		margin: -1px 0 10px;
+		overflow: auto hidden;
+		display: none;
+	}
+
+	.lists-scroller div {
+		height: 1px;
+	}
+
+	.board .lists {
+		white-space: nowrap;
+		overflow: auto;
+		scrollbar-width: none;
+	}
+
+	.board .list {
+		display: inline-block;
+		vertical-align: top;
+		width: 200px;
+		margin: 0 5px 10px;
+		background: #cdcdcd;
+		border: 1px solid #000;
+		box-shadow:
+			inset 1px 1px 0 0 #dadaff;
+		border-radius: 0;
+		position: relative;
+	}
+
+	.board .list::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		box-shadow:
+			inset -1px -1px 0 0 #8787b0;
+		pointer-events: none;
+	}
+
+	.board .list .inner {
+		margin: 3px;
+		background-color: #f8f8f8;
+		border: 1px solid #000;
+		min-height: 80px;
+		box-shadow:
+			1px 1px 0 0 #dadaff,
+			1px 0 0 0 #dadaff,
+			0 1px 0 0 #dadaff,
+			-1px -1px 0 0 #8787b0,
+			-1px 1px 0 0 #8787b0,
+			1px -1px 0 0 #8787b0;
+	}
+
+	.board .list::-webkit-scrollbar {
+		display: none;
+	}
+
+	.board .list:first-child {
+		margin-left: 0;
+	}
+
+	.board .list:last-child {
+		margin-right: 0;
+	}
+
+	.board .list .notes {
+		padding: 0 5px;
+		min-height: 42px;
+		box-sizing: border-box;
+	}
+
+	/**  */
+
+	/* List head menu */
+	.board .list .head .menu {
+		display: none;
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 20px;
+		padding: 5px 6px 7px 30px;
+		background: linear-gradient(to right, #EAEDF000, #EAEDF0 10px);
+		font-size: 10px;
+	}
+
+	.board .list .head .menu .teaser {
+		position: absolute;
+		right: 3px;
+		top: 5px;
+		padding: 0 3px;
+	}
+
+	.board .list .head .menu .bulk {
+		display: none;
+		opacity: 0;
+		z-index: 1;
+	}
+
+	.board .list .head .menu:hover .bulk {
+		display: block;
+		opacity: 1;
+	}
+
+	.board .list .head .menu:hover .teaser {
+		display: none;
+	}
+
+	.board .list .head.editing .menu {
+		display: none;
+	}
+
+	/**  */
+	.board .list .menu .mov-list-r.half {
+		padding-left: 0;
+	}
+
+	.board .list .menu .full {
+		display: none;
+	}
+
+	.board .list:first-child .menu .half,
+	.board .list:last-child  .menu .half {
+		display: none;
+	}
+
+	.board .list:first-child .menu .mov-list-r.full,
+	.board .list:last-child  .menu .mov-list-l.full {
+		display: inline-block;
+	}
+
+	.board .list:first-child:last-child .menu .half,
+	.board .list:first-child:last-child .menu .full {
+		display: none;
+	}
+
+	/**  */
+
+	/* Sticky note color variables - shared by notes and dragster */
+	.board .note-yellow,
+	.note-dragster.note-yellow {
+		--pale-color: #ffffb4;
+		--dark-color: #ffda03;
+	}
+
+	.board .note-blue,
+	.note-dragster.note-blue {
+		--pale-color: #b2ffff;
+		--dark-color: #00daff;
+	}
+
+	.board .note-green,
+	.note-dragster.note-green {
+		--pale-color: #daffda;
+		--dark-color: #87ff87;
+	}
+
+	.board .note-pink,
+	.note-dragster.note-pink {
+		--pale-color: #fbe0e0;
+		--dark-color: #ffb3b3;
+	}
+
+	.board .note-purple,
+	.note-dragster.note-purple {
+		--pale-color: #dadaff;
+		--dark-color: #b3b3fe;
+	}
+
+	.board .note-gray,
+	.note-dragster.note-gray {
+		--pale-color: #f3f3f3;
+		--dark-color: #cdcdcd;
+	}
+
+	.board .note {
+		background: var(--pale-color, #fff);
+		margin-top: 5px;
+		box-shadow: none;
+		position: relative;
+		border-top: 1px solid white;
+		border-left: 1px solid white;
+		border-bottom: 1px solid var(--dark-color, #bbb);
+		border-right: 1px solid var(--dark-color, #bbb);
+		padding-bottom: 6px;
+	}
+
+	/* Sticky note icon */
+	.board .note .note-icon {
+		position: absolute;
+		left: 4px;
+		top: 1px;
+		width: 7px;
+		height: 7px;
+		opacity: 0;
+		transition: opacity 400ms;
+		z-index: 2;
+		background: var(--pale-color, #fff);
+		background-image:
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(var(--dark-color), var(--dark-color)),
+			linear-gradient(var(--dark-color), var(--dark-color)),
+			linear-gradient(var(--dark-color), var(--dark-color)),
+			linear-gradient(var(--dark-color), var(--dark-color));
+		background-size: 1px 4px, 4px 1px, 7px 1px, 1px 7px, 1px 4px, 4px 1px, 7px 1px, 1px 7px;
+		background-position: 1px 1px, 1px 1px, 0 6px, 6px 0, 1px 1px, 1px 1px, 0 6px, 6px 0;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	}
+
+	.board .note:hover .note-icon,
+	.board .note.selected .note-icon,
+	.board .note.editing .note-icon,
+	.board .note.dragging .note-icon {
+		opacity: 1;
+	}
+
+	/* Titlebar styling */
+	.board .note .titlebar {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 9px;
+		pointer-events: auto;
+		z-index: 1;
+	}
+
+	.board .note.selected .titlebar,
+	.board .note.editing .titlebar {
+		display: block;
+	}
+
+	/* Checkerboard pattern for titlebar - shared by selected/editing notes and dragster */
+	.board .note.selected .titlebar,
+	.board .note.editing .titlebar,
+	.note-dragster .titlebar {
+		background-image:
+			linear-gradient(45deg, var(--dark-color) 25%, transparent 25%, transparent 75%, var(--dark-color) 75%),
+			linear-gradient(45deg, var(--dark-color) 25%, transparent 25%, transparent 75%, var(--dark-color) 75%);
+		background-size: 2px 2px;
+		background-position: 0 0, 1px 1px;
+		background-color: var(--pale-color);
+	}
+
+	/* Selected/Editing state - dark borders all around */
+	.board .note.selected,
+	.board .note.editing {
+		border: 1px solid var(--dark-color, #757575);
+	}
+
+	.board .note.dragging,
+	.board .note.dragging.raw {
+		background: var(--pale-color, #CED4DA);
+		box-shadow: 0 +1px 0 #0001 inset,
+		            0 -1px 0 #0001 inset,
+		            +1px 0 0 #0001 inset,
+		            -1px 0 0 #0001 inset;
+	}
+
+	.board .note.dragging * {
+		opacity: 0 !important;
+	}
+
+	/**  */
+	.board .note:last-child {
+		margin-bottom: 5px;
+	}
+
+	.board .note .text,
+	.board .note .edit {
+		padding: 10px 8px 0;  /* Adjusted spacing to match target */
+		margin-right: 12px;
+		min-height: 100%;
+		font-size: 10px;
+		font-family: 'Espy Sans Revived Ten', sans-serif;
+	}
+
+	.board .note .text {
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
+		min-height: 13px;
+	}
+
+	/**  */
+	.board .head .text a,
+	.board .note .text a {
+		color: inherit;
+		cursor: default;
+		transition: none;
+	}
+
+	/**  */
+	.board .note .edit {
+		display: none;
+		border: none;
+	}
+
+	.board .note.editing .text {
+		display: none;
+	}
+
+	.board .note.editing .edit {
+		display: block;
+		resize: none;
+		background-color: var(--pale-color, #fff);
+	}
+
+
+	/**  */
+
+	/* Raw mode removed */
+
+	/* Collapse mode removed */
+
+	/**  */
+	.note-dragster {
+		z-index: 2;
+		position: fixed;
+		opacity: 0;
+		background: var(--pale-color, #fff);
+		white-space: pre-wrap;
+		cursor: move;
+		font-weight: 400;
+		font-size: 10px;
+		font-family: 'Espy Sans Revived Ten', sans-serif;
+		padding-bottom: 6px;
+		border: 1px solid var(--dark-color, #757575);
+		box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
+	}
+
+	/* Sticky note icon on dragster */
+	.note-dragster .note-icon {
+		position: absolute;
+		left: 4px;
+		top: 1px;
+		width: 7px;
+		height: 7px;
+		z-index: 2;
+		background: var(--pale-color, #fff);
+		background-image:
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 15%)),
+			linear-gradient(var(--dark-color), var(--dark-color)),
+			linear-gradient(var(--dark-color), var(--dark-color)),
+			linear-gradient(var(--dark-color), var(--dark-color)),
+			linear-gradient(var(--dark-color), var(--dark-color));
+		background-size: 1px 4px, 4px 1px, 7px 1px, 1px 7px, 1px 4px, 4px 1px, 7px 1px, 1px 7px;
+		background-position: 1px 1px, 1px 1px, 0 6px, 6px 0, 1px 1px, 1px 1px, 0 6px, 6px 0;
+		background-repeat: no-repeat;
+	}
+
+	.note-dragster .titlebar {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 9px;
+		z-index: 1;
+	}
+
+	.note-dragster .text {
+		padding: 10px 8px 0;
+		margin-right: 12px;
+	}
+
+	.note-dragster a {
+		color: #000;
+	}
+
+	/**  */
+
+	.load-dragster {
+		z-index: 10;
+		position: fixed;
+		opacity: 0;
+		padding-left: 5px;
+		background: #fff;
+		color: #000;
+		border-radius: 2px;
+		cursor: move;
+		font-size: 10px;
+		outline: 1px solid #ACB4BC;
+		box-shadow: 0 1px 3px #00000030;
+	}
+
+	/**  */
+	.adjusting * {
+		cursor: row-resize !important;
+	}
+
+	/**  */
+
+	@media print {
+		.board .head .teaser,
+		.list .head .teaser {
+			visibility: hidden;
+			display: none;
+		}
+
+		.board .note {
+			box-shadow: none;
+			text-shadow: none !important;
+			outline: 1px solid #888;
+		}
+
+		.list {
+			outline: 1px solid #555;
+
+		}
+
+		.board .note .raw {
+			outline: none;
+			text-shadow: none;
+		}
+
+		.board .head .text a,
+		.board .note .text a {
+			color: #333;
+			text-shadow: none;
+			text-decoration: underline;
+		}
+	}
+
+@media (resolution >= 2dppx), (resolution >= 192dpi) {
+      body {
+        background-size: 256px 256px;
+      }
+  }
+
+/* Sync indicator styles */
+.sync-indicator {
+	position: absolute;
+	left: 7px;
+}
+
+.sync-indicator.synced {
+	color: #000;
+}
+
+.sync-indicator.syncing,
+.sync-indicator.offline {
+	color: #888;
+}
+
+.sync-indicator .error-badge {
+	display: inline-block;
+}
+
+/* Dialog styles - Classic Mac System 7/8 aesthetic */
+
+/* Dialog overlay (backdrop) */
+.dialog-overlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgb(0 0 0 / 30%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 10000;
+}
+
+/* Dialog outer container - uses window styling */
+.dialog {
+	min-width: 400px;
+	max-width: 500px;
+	width: auto;
+	background: #cdcdcd;
+	border: 1px solid #000;
+	box-shadow: inset 1px 1px 0 0 #dadaff;
+	position: relative;
+}
+
+.dialog::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	box-shadow: inset -1px -1px 0 0 #8787b0;
+	pointer-events: none;
+}
+
+/* Dialog title bar - horizontal stripes like window titlebar */
+.dialog-title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 17px;
+	padding: 0 6px;
+	color: #000;
+	font-weight: bold;
+	font-size: 10px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAARCAMAAAArHTYgAAAAkFBMVEUAAABzc3OEhIS9vb3///8QEBAhISGtra1CQkLGxsbOzs7Ozv/e3t5SUlKlpaWMjIzeAAAAvQDv7+8xY2MxAJycY5ycnP+c//8xMWP//wBjY87/zpwAAN5j/wD/YzExnGPOnGPOzgAA/wCcAGMxMTGlpdb//84x/5wAAO//YwAQAAAAUgD/Y87O////AJzvAADKXxTxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIVFi03sofQtQAAABNJREFUCNdj4GYQAkJGHFiIQRUADNoA2WlHzfwAAAAASUVORK5CYII=') repeat-x top left #fff;
+	background-size: 1px 17px;
+	border-left: 1px solid #ceceff;
+	border-right: 1px solid #ceceff;
+	box-shadow: inset 1px 0 0 #efefef, inset -1px 0 0 #efefef;
+	position: relative;
+}
+
+.dialog-title::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 2px;
+	right: 2px;
+	border-bottom: 1px solid #000;
+}
+
+.dialog-title .title {
+	padding: 2px 7px;
+	background-color: #efefef;
+	line-height: 1;
+}
+
+.dialog-title .title .text {
+	position: relative;
+	top: 1px;
+}
+
+/* Dialog body - outer container like .list */
+.dialog-body {
+	margin: -1px 3px 3px;  /* Negative top margin to overlap titlebar border */
+}
+
+/* Dialog inner - white content area with 3D inset like .list .inner */
+.dialog-inner {
+	background-color: #f8f8f8;
+	border: 1px solid #000;
+	padding: 16px;
+	box-shadow:
+		1px 1px 0 0 #dadaff,
+		1px 0 0 0 #dadaff,
+		0 1px 0 0 #dadaff,
+		-1px -1px 0 0 #8787b0,
+		-1px 1px 0 0 #8787b0,
+		1px -1px 0 0 #8787b0;
+}
+
+/* Dialog content */
+.dialog-content {
+	font-size: 10px;
+	line-height: 1.6;
+	margin-bottom: 16px;
+	font-family: 'Espy Sans Revived Ten', sans-serif;
+	font-weight: bold;
+}
+
+.dialog-content p {
+	margin: 8px 0;
+}
+
+.dialog-content p:first-child {
+	margin-top: 0;
+}
+
+.dialog-content ol {
+	margin: 8px 0 8px 20px;
+	padding: 0;
+}
+
+.dialog-content ol li {
+	margin: 4px 0;
+}
+
+/* Dialog inputs */
+.dialog-input {
+	width: 100%;
+	padding: 4px 8px;
+	border: 1px solid #000;
+	margin-top: 8px;
+	box-sizing: border-box;
+	font-family: var(--ff);
+	font-size: 10px;
+}
+
+.dialog-error {
+	color: #f00;
+	margin-top: 8px;
+	font-weight: bold;
+}
+
+.token-hidden {
+	font-family: monospace;
+	letter-spacing: 2px;
+}
+
+.dialog-buttons {
+	margin-top: 16px;
+	text-align: right;
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+.dialog-button {
+  min-height: 20px;
+  min-width: 59px;
+  padding: 2px 20px 0;
+  background: #fff;
+  border-style: solid;
+  border-width: 5.5px;
+  border-image: url('data:image/svg+xml,<svg width="81" height="81" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M61 0H20V6H14H6V14V20H0V61H6V67V75H14H20V81H61V75H67H75V67V61H81V20H75V14V6H67H61V0ZM74 21H67V14H60V7H21V14H14V21H7V60H14V67H21V74H60V67H67V60H74V21Z" fill="black"/></svg>') 30 stretch;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  font-size: 10px;
+  font-family: 'Espy Sans Revived Ten', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dialog-button:hover:not(:disabled) {
+	background-color: #f0f0f0;
+}
+
+.dialog-button:active:not(:disabled) {
+	background-color: #000;
+	color: #fff
+}
+
+.dialog-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Default button (primary action) - darker/thicker appearance */
+.dialog-button.default {
+  border-image: url('data:image/svg+xml,<svg width="155" height="155" viewBox="0 0 155 155" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.1893 0H119.811V10.5571H144.443L144.443 35.1898H155V119.811H144.443V144.444H119.811V155H35.1893V144.444H10.5569V119.811H0V35.1898H10.5569V10.5571H35.1893V0ZM6.24161 113.57V113.57H16.7984V113.57H6.24161ZM30.8742 138.202L30.8741 138.202V138.201H41.4308L30.8742 138.202ZM113.569 138.201V148.759H41.431L113.569 148.759V138.201H124.126L113.569 138.201ZM148.758 41.4315V113.57H138.202L148.758 113.57V41.4314L148.758 41.4315ZM113.569 6.24161V16.7986H113.569V6.24161H113.569ZM18.5579 43.1907V111.81H18.5578V43.1906H30.8741V30.8744H43.1904V18.5578H111.81V18.5579H43.1905V30.8745H30.8742V43.1907H18.5579ZM30.8741 124.126V111.81H30.8742V124.126H30.8741ZM43.1904 136.442V124.126H43.1905V136.442L43.1904 136.442ZM124.126 30.8744V30.8745H111.81V30.8744H124.126ZM24.7995 49.4324V105.569H37.1158V117.884H49.4321V130.201H105.568V117.884H117.884V105.569H130.201V49.4324H117.884V37.1161H105.568V24.7995H49.4321V37.1161H37.1158V49.4324H24.7995ZM57 37.0002H98V43.0002H104H112V51.0002V57.0002H118V98.0002H112V104V112H104H98V118H57V112H51H43V104V98.0002H37V57.0002H43V51.0002V43.0002H51H57V37.0002ZM104 58.0002H111V97.0002H104V104H97V111H58V104H51V97.0002H44V58.0002H51V51.0002H58V44.0002H97V51.0002H104V58.0002Z" fill="black"/></svg>') 60 stretch;
+  border-width: 0.5em;
+  border-radius: 12px;
+}
+</style>
+
+</head>
+<body>
+	<header>
+		<div class="container">
+			<nav class="menu">
+				<ul>
+					<li><a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIQEiomp6E+bgAAAHdJREFUOMvtkssRgCAMRF8cK6EVS5GybIVWaCVe9CDgJP5GD+6NTHhk2cBrSigJ/RBohRkS1+Vh6WvVTJjXTgGsYKoOO9Ieorsz7L6qxPOwU5Pp2P6KynvGv0sBIwAAZXIBhSiPBbC/tGRjuiAH38q6hZbnX1c1Ax//IvZpwr+QAAAAAElFTkSuQmCC" class="icon" alt=""/></a></li>
+					<li class="file-menu">
+						<a href="#">File</a>
+						<div class="file-dropdown">
+							<a href="#" class='add-note-first'>New Note on first list</a>
+							<a href="#" class="add-board">New Kanban Board</a>
+							<div class='menu-divider'></div>
+							<a href="#" class='sync-gists'><span class='sync-indicator'></span>Sync (Github Gists)...</a>
+							<div class='menu-divider'></div>
+							<a href="#" class='del-board warn'>Delete Board...</a>
+						</div>
+					</li>
+					<li class="edit-menu">
+						<a href="#">Edit</a>
+						<div class="edit-dropdown">
+							<a href="#" class='undo-board'>Undo</a>
+							<a href="#" class='redo-board'>Redo</a>
+							<div class='menu-divider'></div>
+							<a href="#" class='add-list'>Add List</a>
+						</div>
+					</li>
+					<li class="color-menu">
+						<a href="#">Color</a>
+						<div class="color-dropdown">
+							<a href="#" class='set-color' data-color='yellow'><span class='color-swatch' data-color='yellow'></span>Yellow</a>
+							<a href="#" class='set-color' data-color='blue'><span class='color-swatch' data-color='blue'></span>Blue</a>
+							<a href="#" class='set-color' data-color='green'><span class='color-swatch' data-color='green'></span>Green</a>
+							<a href="#" class='set-color' data-color='pink'><span class='color-swatch' data-color='pink'></span>Pink</a>
+							<a href="#" class='set-color' data-color='purple'><span class='color-swatch' data-color='purple'></span>Purple</a>
+							<a href="#" class='set-color' data-color='gray'><span class='color-swatch' data-color='gray'></span>Gray</a>
+						</div>
+					</li>
+					<li class="windows-menu">
+						<a href="#">Boards</a>
+						<div class="boards-dropdown">
+							<!-- boards will be populated here -->
+						</div>
+					</li>
+				</ul>
+			</nav>
+			<nav class="menu right">
+				<ul>
+					<li><a href="#">Stickies Kanban Board</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<div class="wrap">
+	</div>
+
+	<div id="templates">
+		<!-- audio files -->
+		<audio id="soundPopr" preload="auto">
+			<source src="data:audio/wav;base64,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" type="audio/wav">
+		</audio>
+
+		<!-- templates -->
+		<div class="board window window-focus">
+			<div class="window-title head">
+				<span class="title"><span class="text board-title-display"></span></span>
+				<input class="edit" spellcheck="false" placeholder='Name of the board'>
+			</div>
+			<div class="window-content">
+				<div class="lists-scroller"><div></div></div>
+				<div class="lists">
+				</div>
+			</div>
+		</div>
+
+		<div class="list">
+			<div class="inner">
+				<div class="head">
+					<div class="text"></div>
+					<input class="edit" spellcheck="false" placeholder='Name of the list'>
+					<div class="menu">
+						<a href="#" class="teaser">&equiv;</a>
+						<div class="bulk">
+							<a href="#" class='del-list warn'><u></u> List</a>
+							<a href="#" class='mov-list-l full'>&lt; Move</a>
+							<a href="#" class='mov-list-l half'>&lt; Mo</a><a href="#" class='mov-list-r half'>ve &gt;</a>
+							<a href="#" class='mov-list-r full'>Move &gt;</a>
+							<a href="#" class='add-note'>+ Note</a>
+						</div>
+					</div>
+				</div>
+				<div class="notes">
+				</div>
+			</div>
+		</div>
+
+		<div class="note">
+			<div class="titlebar"></div>
+			<a href="#" class="note-icon"></a>
+			<div class="text"> </div>
+			<textarea class="edit" spellcheck="false"></textarea>
+		</div>
+
+		<a href="#" class="load-board"></a>
+
+		<textarea class="encoder"></textarea>
+
+	</div>
+
+</body>
+
+<script>
+(function(){"use strict";var C=document,D=window,st=C.documentElement,L=C.createElement.bind(C),ft=L("div"),q=L("table"),Mt=L("tbody"),ot=L("tr"),H=Array.isArray,S=Array.prototype,Dt=S.concat,U=S.filter,at=S.indexOf,ct=S.map,Bt=S.push,ht=S.slice,z=S.some,_t=S.splice,Pt=/^#(?:[\w-]|\\.|[^\x00-\xa0])*$/,Ht=/^\.(?:[\w-]|\\.|[^\x00-\xa0])*$/,$t=/<.+>/,jt=/^\w+$/;function J(t,n){var r=It(n);return!t||!r&&!A(n)&&!c(n)?[]:!r&&Ht.test(t)?n.getElementsByClassName(t.slice(1).replace(/\\/g,"")):!r&&jt.test(t)?n.getElementsByTagName(t):n.querySelectorAll(t)}var dt=function(){function t(n,r){if(n){if(Y(n))return n;var i=n;if(g(n)){var e=r||C;if(i=Pt.test(n)&&A(e)?e.getElementById(n.slice(1).replace(/\\/g,"")):$t.test(n)?yt(n):Y(e)?e.find(n):g(e)?o(e).find(n):J(n,e),!i)return}else if(O(n))return this.ready(n);(i.nodeType||i===D)&&(i=[i]),this.length=i.length;for(var s=0,f=this.length;s<f;s++)this[s]=i[s]}}return t.prototype.init=function(n,r){return new t(n,r)},t}(),u=dt.prototype,o=u.init;o.fn=o.prototype=u,u.length=0,u.splice=_t,typeof Symbol=="function"&&(u[Symbol.iterator]=S[Symbol.iterator]);function Y(t){return t instanceof dt}function B(t){return!!t&&t===t.window}function A(t){return!!t&&t.nodeType===9}function It(t){return!!t&&t.nodeType===11}function c(t){return!!t&&t.nodeType===1}function Ft(t){return!!t&&t.nodeType===3}function Wt(t){return typeof t=="boolean"}function O(t){return typeof t=="function"}function g(t){return typeof t=="string"}function v(t){return t===void 0}function P(t){return t===null}function lt(t){return!isNaN(parseFloat(t))&&isFinite(t)}function G(t){if(typeof t!="object"||t===null)return!1;var n=Object.getPrototypeOf(t);return n===null||n===Object.prototype}o.isWindow=B,o.isFunction=O,o.isArray=H,o.isNumeric=lt,o.isPlainObject=G;function d(t,n,r){if(r){for(var i=t.length;i--;)if(n.call(t[i],i,t[i])===!1)return t}else if(G(t))for(var e=Object.keys(t),i=0,s=e.length;i<s;i++){var f=e[i];if(n.call(t[f],f,t[f])===!1)return t}else for(var i=0,s=t.length;i<s;i++)if(n.call(t[i],i,t[i])===!1)return t;return t}o.each=d,u.each=function(t){return d(this,t)},u.empty=function(){return this.each(function(t,n){for(;n.firstChild;)n.removeChild(n.firstChild)})};function $(){for(var t=[],n=0;n<arguments.length;n++)t[n]=arguments[n];var r=Wt(t[0])?t.shift():!1,i=t.shift(),e=t.length;if(!i)return{};if(!e)return $(r,o,i);for(var s=0;s<e;s++){var f=t[s];for(var a in f)r&&(H(f[a])||G(f[a]))?((!i[a]||i[a].constructor!==f[a].constructor)&&(i[a]=new f[a].constructor),$(r,i[a],f[a])):i[a]=f[a]}return i}o.extend=$,u.extend=function(t){return $(u,t)};var qt=/\S+/g;function j(t){return g(t)?t.match(qt)||[]:[]}u.toggleClass=function(t,n){var r=j(t),i=!v(n);return this.each(function(e,s){c(s)&&d(r,function(f,a){i?n?s.classList.add(a):s.classList.remove(a):s.classList.toggle(a)})})},u.addClass=function(t){return this.toggleClass(t,!0)},u.removeAttr=function(t){var n=j(t);return this.each(function(r,i){c(i)&&d(n,function(e,s){i.removeAttribute(s)})})};function Ut(t,n){if(t){if(g(t)){if(arguments.length<2){if(!this[0]||!c(this[0]))return;var r=this[0].getAttribute(t);return P(r)?void 0:r}return v(n)?this:P(n)?this.removeAttr(t):this.each(function(e,s){c(s)&&s.setAttribute(t,n)})}for(var i in t)this.attr(i,t[i]);return this}}u.attr=Ut,u.removeClass=function(t){return arguments.length?this.toggleClass(t,!1):this.attr("class","")},u.hasClass=function(t){return!!t&&z.call(this,function(n){return c(n)&&n.classList.contains(t)})},u.get=function(t){return v(t)?ht.call(this):(t=Number(t),this[t<0?t+this.length:t])},u.eq=function(t){return o(this.get(t))},u.first=function(){return this.eq(0)},u.last=function(){return this.eq(-1)};function zt(t){return v(t)?this.get().map(function(n){return c(n)||Ft(n)?n.textContent:""}).join(""):this.each(function(n,r){c(r)&&(r.textContent=t)})}u.text=zt;function T(t,n,r){if(c(t)){var i=D.getComputedStyle(t,null);return r?i.getPropertyValue(n)||void 0:i[n]||t.style[n]}}function E(t,n){return parseInt(T(t,n),10)||0}function gt(t,n){return E(t,"border".concat(n?"Left":"Top","Width"))+E(t,"padding".concat(n?"Left":"Top"))+E(t,"padding".concat(n?"Right":"Bottom"))+E(t,"border".concat(n?"Right":"Bottom","Width"))}var X={};function Jt(t){if(X[t])return X[t];var n=L(t);C.body.insertBefore(n,null);var r=T(n,"display");return C.body.removeChild(n),X[t]=r!=="none"?r:"block"}function vt(t){return T(t,"display")==="none"}function pt(t,n){var r=t&&(t.matches||t.webkitMatchesSelector||t.msMatchesSelector);return!!r&&!!n&&r.call(t,n)}function I(t){return g(t)?function(n,r){return pt(r,t)}:O(t)?t:Y(t)?function(n,r){return t.is(r)}:t?function(n,r){return r===t}:function(){return!1}}u.filter=function(t){var n=I(t);return o(U.call(this,function(r,i){return n.call(r,i,r)}))};function x(t,n){return n?t.filter(n):t}u.detach=function(t){return x(this,t).each(function(n,r){r.parentNode&&r.parentNode.removeChild(r)}),this};var Yt=/^\s*<(\w+)[^>]*>/,Gt=/^<(\w+)\s*\/?>(?:<\/\1>)?$/,mt={"*":ft,tr:Mt,td:ot,th:ot,thead:q,tbody:q,tfoot:q};function yt(t){if(!g(t))return[];if(Gt.test(t))return[L(RegExp.$1)];var n=Yt.test(t)&&RegExp.$1,r=mt[n]||mt["*"];return r.innerHTML=t,o(r.childNodes).detach().get()}o.parseHTML=yt,u.has=function(t){var n=g(t)?function(r,i){return J(t,i).length}:function(r,i){return i.contains(t)};return this.filter(n)},u.not=function(t){var n=I(t);return this.filter(function(r,i){return(!g(t)||c(i))&&!n.call(i,r,i)})};function R(t,n,r,i){for(var e=[],s=O(n),f=i&&I(i),a=0,y=t.length;a<y;a++)if(s){var h=n(t[a]);h.length&&Bt.apply(e,h)}else for(var p=t[a][n];p!=null&&!(i&&f(-1,p));)e.push(p),p=r?p[n]:null;return e}function bt(t){return t.multiple&&t.options?R(U.call(t.options,function(n){return n.selected&&!n.disabled&&!n.parentNode.disabled}),"value"):t.value||""}function Xt(t){return arguments.length?this.each(function(n,r){var i=r.multiple&&r.options;if(i||Ot.test(r.type)){var e=H(t)?ct.call(t,String):P(t)?[]:[String(t)];i?d(r.options,function(s,f){f.selected=e.indexOf(f.value)>=0},!0):r.checked=e.indexOf(r.value)>=0}else r.value=v(t)||P(t)?"":t}):this[0]&&bt(this[0])}u.val=Xt,u.is=function(t){var n=I(t);return z.call(this,function(r,i){return n.call(r,i,r)})},o.guid=1;function w(t){return t.length>1?U.call(t,function(n,r,i){return at.call(i,n)===r}):t}o.unique=w,u.add=function(t,n){return o(w(this.get().concat(o(t,n).get())))},u.children=function(t){return x(o(w(R(this,function(n){return n.children}))),t)},u.parent=function(t){return x(o(w(R(this,"parentNode"))),t)},u.index=function(t){var n=t?o(t)[0]:this[0],r=t?this:o(n).parent().children();return at.call(r,n)},u.closest=function(t){var n=this.filter(t);if(n.length)return n;var r=this.parent();return r.length?r.closest(t):n},u.siblings=function(t){return x(o(w(R(this,function(n){return o(n).parent().children().not(n)}))),t)},u.find=function(t){return o(w(R(this,function(n){return J(t,n)})))};var Kt=/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g,Qt=/^$|^module$|\/(java|ecma)script/i,Vt=["type","src","nonce","noModule"];function Zt(t,n){var r=o(t);r.filter("script").add(r.find("script")).each(function(i,e){if(Qt.test(e.type)&&st.contains(e)){var s=L("script");s.text=e.textContent.replace(Kt,""),d(Vt,function(f,a){e[a]&&(s[a]=e[a])}),n.head.insertBefore(s,null),n.head.removeChild(s)}})}function kt(t,n,r,i,e){i?t.insertBefore(n,r?t.firstChild:null):t.nodeName==="HTML"?t.parentNode.replaceChild(n,t):t.parentNode.insertBefore(n,r?t:t.nextSibling),e&&Zt(n,t.ownerDocument)}function N(t,n,r,i,e,s,f,a){return d(t,function(y,h){d(o(h),function(p,M){d(o(n),function(b,W){var rt=r?M:W,it=r?W:M,m=r?p:b;kt(rt,m?it.cloneNode(!0):it,i,e,!m)},a)},f)},s),n}u.after=function(){return N(arguments,this,!1,!1,!1,!0,!0)},u.append=function(){return N(arguments,this,!1,!1,!0)};function tn(t){if(!arguments.length)return this[0]&&this[0].innerHTML;if(v(t))return this;var n=/<script[\s>]/.test(t);return this.each(function(r,i){c(i)&&(n?o(i).empty().append(t):i.innerHTML=t)})}u.html=tn,u.appendTo=function(t){return N(arguments,this,!0,!1,!0)},u.wrapInner=function(t){return this.each(function(n,r){var i=o(r),e=i.contents();e.length?e.wrapAll(t):i.append(t)})},u.before=function(){return N(arguments,this,!1,!0)},u.wrapAll=function(t){for(var n=o(t),r=n[0];r.children.length;)r=r.firstElementChild;return this.first().before(n),this.appendTo(r)},u.wrap=function(t){return this.each(function(n,r){var i=o(t)[0];o(r).wrapAll(n?i.cloneNode(!0):i)})},u.insertAfter=function(t){return N(arguments,this,!0,!1,!1,!1,!1,!0)},u.insertBefore=function(t){return N(arguments,this,!0,!0)},u.prepend=function(){return N(arguments,this,!1,!0,!0,!0,!0)},u.prependTo=function(t){return N(arguments,this,!0,!0,!0,!1,!1,!0)},u.contents=function(){return o(w(R(this,function(t){return t.tagName==="IFRAME"?[t.contentDocument]:t.tagName==="TEMPLATE"?t.content.childNodes:t.childNodes})))},u.next=function(t,n,r){return x(o(w(R(this,"nextElementSibling",n,r))),t)},u.nextAll=function(t){return this.next(t,!0)},u.nextUntil=function(t,n){return this.next(n,!0,t)},u.parents=function(t,n){return x(o(w(R(this,"parentElement",!0,n))),t)},u.parentsUntil=function(t,n){return this.parents(n,t)},u.prev=function(t,n,r){return x(o(w(R(this,"previousElementSibling",n,r))),t)},u.prevAll=function(t){return this.prev(t,!0)},u.prevUntil=function(t,n){return this.prev(n,!0,t)},u.map=function(t){return o(Dt.apply([],ct.call(this,function(n,r){return t.call(n,r,n)})))},u.clone=function(){return this.map(function(t,n){return n.cloneNode(!0)})},u.offsetParent=function(){return this.map(function(t,n){for(var r=n.offsetParent;r&&T(r,"position")==="static";)r=r.offsetParent;return r||st})},u.slice=function(t,n){return o(ht.call(this,t,n))};var nn=/-([a-z])/g;function K(t){return t.replace(nn,function(n,r){return r.toUpperCase()})}u.ready=function(t){var n=function(){return setTimeout(t,0,o)};return C.readyState!=="loading"?n():C.addEventListener("DOMContentLoaded",n),this},u.unwrap=function(){return this.parent().each(function(t,n){if(n.tagName!=="BODY"){var r=o(n);r.replaceWith(r.children())}}),this},u.offset=function(){var t=this[0];if(t){var n=t.getBoundingClientRect();return{top:n.top+D.pageYOffset,left:n.left+D.pageXOffset}}},u.position=function(){var t=this[0];if(t){var n=T(t,"position")==="fixed",r=n?t.getBoundingClientRect():this.offset();if(!n){for(var i=t.ownerDocument,e=t.offsetParent||i.documentElement;(e===i.body||e===i.documentElement)&&T(e,"position")==="static";)e=e.parentNode;if(e!==t&&c(e)){var s=o(e).offset();r.top-=s.top+E(e,"borderTopWidth"),r.left-=s.left+E(e,"borderLeftWidth")}}return{top:r.top-E(t,"marginTop"),left:r.left-E(t,"marginLeft")}}};var Et={class:"className",contenteditable:"contentEditable",for:"htmlFor",readonly:"readOnly",maxlength:"maxLength",tabindex:"tabIndex",colspan:"colSpan",rowspan:"rowSpan",usemap:"useMap"};u.prop=function(t,n){if(t){if(g(t))return t=Et[t]||t,arguments.length<2?this[0]&&this[0][t]:this.each(function(i,e){e[t]=n});for(var r in t)this.prop(r,t[r]);return this}},u.removeProp=function(t){return this.each(function(n,r){delete r[Et[t]||t]})};var rn=/^--/;function Q(t){return rn.test(t)}var V={},en=ft.style,un=["webkit","moz","ms"];function sn(t,n){if(n===void 0&&(n=Q(t)),n)return t;if(!V[t]){var r=K(t),i="".concat(r[0].toUpperCase()).concat(r.slice(1)),e="".concat(r," ").concat(un.join("".concat(i," "))).concat(i).split(" ");d(e,function(s,f){if(f in en)return V[t]=f,!1})}return V[t]}var fn={animationIterationCount:!0,columnCount:!0,flexGrow:!0,flexShrink:!0,fontWeight:!0,gridArea:!0,gridColumn:!0,gridColumnEnd:!0,gridColumnStart:!0,gridRow:!0,gridRowEnd:!0,gridRowStart:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,widows:!0,zIndex:!0};function wt(t,n,r){return r===void 0&&(r=Q(t)),!r&&!fn[t]&&lt(n)?"".concat(n,"px"):n}function on(t,n){if(g(t)){var r=Q(t);return t=sn(t,r),arguments.length<2?this[0]&&T(this[0],t,r):t?(n=wt(t,n,r),this.each(function(e,s){c(s)&&(r?s.style.setProperty(t,n):s.style[t]=n)})):this}for(var i in t)this.css(i,t[i]);return this}u.css=on;function Ct(t,n){try{return t(n)}catch{return n}}var an=/^\s+|\s+$/;function St(t,n){var r=t.dataset[n]||t.dataset[K(n)];return an.test(r)?r:Ct(JSON.parse,r)}function cn(t,n,r){r=Ct(JSON.stringify,r),t.dataset[K(n)]=r}function hn(t,n){if(!t){if(!this[0])return;var r={};for(var i in this[0].dataset)r[i]=St(this[0],i);return r}if(g(t))return arguments.length<2?this[0]&&St(this[0],t):v(n)?this:this.each(function(e,s){cn(s,t,n)});for(var i in t)this.data(i,t[i]);return this}u.data=hn;function Tt(t,n){var r=t.documentElement;return Math.max(t.body["scroll".concat(n)],r["scroll".concat(n)],t.body["offset".concat(n)],r["offset".concat(n)],r["client".concat(n)])}d([!0,!1],function(t,n){d(["Width","Height"],function(r,i){var e="".concat(n?"outer":"inner").concat(i);u[e]=function(s){if(this[0])return B(this[0])?n?this[0]["inner".concat(i)]:this[0].document.documentElement["client".concat(i)]:A(this[0])?Tt(this[0],i):this[0]["".concat(n?"offset":"client").concat(i)]+(s&&n?E(this[0],"margin".concat(r?"Top":"Left"))+E(this[0],"margin".concat(r?"Bottom":"Right")):0)}})}),d(["Width","Height"],function(t,n){var r=n.toLowerCase();u[r]=function(i){if(!this[0])return v(i)?void 0:this;if(!arguments.length)return B(this[0])?this[0].document.documentElement["client".concat(n)]:A(this[0])?Tt(this[0],n):this[0].getBoundingClientRect()[r]-gt(this[0],!t);var e=parseInt(i,10);return this.each(function(s,f){if(c(f)){var a=T(f,"boxSizing");f.style[r]=wt(r,e+(a==="border-box"?gt(f,!t):0))}})}});var Rt="___cd";u.toggle=function(t){return this.each(function(n,r){if(c(r)){var i=vt(r),e=v(t)?i:t;e?(r.style.display=r[Rt]||"",vt(r)&&(r.style.display=Jt(r.tagName))):i||(r[Rt]=T(r,"display"),r.style.display="none")}})},u.hide=function(){return this.toggle(!1)},u.show=function(){return this.toggle(!0)};var xt="___ce",Z=".",k={focus:"focusin",blur:"focusout"},Nt={mouseenter:"mouseover",mouseleave:"mouseout"},dn=/^(mouse|pointer|contextmenu|drag|drop|click|dblclick)/i;function tt(t){return Nt[t]||k[t]||t}function nt(t){var n=t.split(Z);return[n[0],n.slice(1).sort()]}u.trigger=function(t,n){if(g(t)){var r=nt(t),i=r[0],e=r[1],s=tt(i);if(!s)return this;var f=dn.test(s)?"MouseEvents":"HTMLEvents";t=C.createEvent(f),t.initEvent(s,!0,!0),t.namespace=e.join(Z),t.___ot=i}t.___td=n;var a=t.___ot in k;return this.each(function(y,h){a&&O(h[t.___ot])&&(h["___i".concat(t.type)]=!0,h[t.___ot](),h["___i".concat(t.type)]=!1),h.dispatchEvent(t)})};function Lt(t){return t[xt]=t[xt]||{}}function ln(t,n,r,i,e){var s=Lt(t);s[n]=s[n]||[],s[n].push([r,i,e]),t.addEventListener(n,e)}function At(t,n){return!n||!z.call(n,function(r){return t.indexOf(r)<0})}function F(t,n,r,i,e){var s=Lt(t);if(n)s[n]&&(s[n]=s[n].filter(function(f){var a=f[0],y=f[1],h=f[2];if(e&&h.guid!==e.guid||!At(a,r)||i&&i!==y)return!0;t.removeEventListener(n,h)}));else for(n in s)F(t,n,r,i,e)}u.off=function(t,n,r){var i=this;if(v(t))this.each(function(s,f){!c(f)&&!A(f)&&!B(f)||F(f)});else if(g(t))O(n)&&(r=n,n=""),d(j(t),function(s,f){var a=nt(f),y=a[0],h=a[1],p=tt(y);i.each(function(M,b){!c(b)&&!A(b)&&!B(b)||F(b,p,h,n,r)})});else for(var e in t)this.off(e,t[e]);return this},u.remove=function(t){return x(this,t).detach().off(),this},u.replaceWith=function(t){return this.before(t).remove()},u.replaceAll=function(t){return o(t).replaceWith(this),this};function gn(t,n,r,i,e){var s=this;if(!g(t)){for(var f in t)this.on(f,n,r,t[f],e);return this}return g(n)||(v(n)||P(n)?n="":v(r)?(r=n,n=""):(i=r,r=n,n="")),O(i)||(i=r,r=void 0),i?(d(j(t),function(a,y){var h=nt(y),p=h[0],M=h[1],b=tt(p),W=p in Nt,rt=p in k;b&&s.each(function(it,m){if(!(!c(m)&&!A(m)&&!B(m))){var et=function(l){if(l.target["___i".concat(l.type)])return l.stopImmediatePropagation();if(!(l.namespace&&!At(M,l.namespace.split(Z)))&&!(!n&&(rt&&(l.target!==m||l.___ot===b)||W&&l.relatedTarget&&m.contains(l.relatedTarget)))){var ut=m;if(n){for(var _=l.target;!pt(_,n);)if(_===m||(_=_.parentNode,!_))return;ut=_}Object.defineProperty(l,"currentTarget",{configurable:!0,get:function(){return ut}}),Object.defineProperty(l,"delegateTarget",{configurable:!0,get:function(){return m}}),Object.defineProperty(l,"data",{configurable:!0,get:function(){return r}});var bn=i.call(ut,l,l.___td);e&&F(m,b,M,n,et),bn===!1&&(l.preventDefault(),l.stopPropagation())}};et.guid=i.guid=i.guid||o.guid++,ln(m,b,M,n,et)}})}),this):this}u.on=gn;function vn(t,n,r,i){return this.on(t,n,r,i,!0)}u.one=vn;var pn=/\r?\n/g;function mn(t,n){return"&".concat(encodeURIComponent(t),"=").concat(encodeURIComponent(n.replace(pn,`\r
+`)))}var yn=/file|reset|submit|button|image/i,Ot=/radio|checkbox/i;u.serialize=function(){var t="";return this.each(function(n,r){d(r.elements||[r],function(i,e){if(!(e.disabled||!e.name||e.tagName==="FIELDSET"||yn.test(e.type)||Ot.test(e.type)&&!e.checked)){var s=bt(e);if(!v(s)){var f=H(s)?s:[s];d(f,function(a,y){t+=mn(e.name,y)})}}})}),t.slice(1)},typeof exports<"u"?module.exports=o:D.cash=D.$=o})();
+</script>
+
+<script type="text/javascript">
+
+	Number.prototype.clamp = function(min, max)
+	{
+		return Math.min(Math.max(this, min), max);
+	};
+
+	/*
+	 *	add a blank line to push 'Prevent this page from opening ...'
+	 *	tack-on from the actual message we are trying to display
+	 */
+	var confirm_org = window.confirm;
+	var alert_org   = window.alert;
+	window.confirm = function(msg) { return confirm_org(msg + "\n "); }
+	window.alert   = function(msg) { return alert_org  (msg + "\n "); }
+
+</script>
+
+<script>
+function AppConfig() {
+  this.verLast = null; // last used codeVersion
+  this.verSeen = null; // latest codeVersion they saw the changelog for
+
+  this.maxUndo = 20; // board revisions to keep
+
+  this.fileLinks = false; // mark up `foo` as <a href=file:///foo>...</a>
+
+  this.board = null; // active board
+}
+
+function BoardMeta() {
+  this.title = '';
+  this.current = 1; // revision
+  this.uiSpot = 0; // 0 = not set
+  this.history = []; // revision IDs
+}
+
+class Storage {
+  constructor() {
+    this.type = '?';
+
+    this.conf = new AppConfig();
+    this.boardIndex = new Map();
+  }
+
+  open() {
+    return this.openInner();
+  }
+
+  wipe() {
+    return this.wipeInner();
+  }
+
+  getConfig() {
+    return this.conf;
+  }
+
+  setVerLast() {
+    if (this.conf.verLast === SKB.codeVersion) return true;
+
+    this.conf.verLast = SKB.codeVersion;
+    return this.saveConfig();
+  }
+
+  setVerSeen(ver) {
+    this.conf.verSeen = ver || SKB.codeVersion;
+    return this.saveConfig();
+  }
+
+  setActiveBoard(boardId) {
+    const meta = boardId ? this.boardIndex.get(boardId) : true;
+
+    if (!meta) throw `Invalid boardId in setActiveBoard(... ${boardId})`;
+
+    if (this.conf.board === boardId) return true;
+
+    this.conf.board = boardId;
+    return this.saveConfig();
+  }
+
+  saveConfig() {
+    return this.setJson('config', this.conf);
+  }
+
+  //
+
+  getBoardIndex() {
+    return this.boardIndex;
+  }
+
+  saveBoard(board) {
+    /*
+			 *	1. assign new revision (next unused)
+			 *	2. trim all in-between revisions bypassed by undos if any
+			 *	3. cap history as per config
+			 */
+    let meta = this.boardIndex.get(board.id);
+    let okData; let
+      okMeta;
+
+    delete board.history; // remove temporarily
+
+    if (!meta) {
+      board.revision = 1;
+
+      okData = this.setJson(this.bk(board.id, board.revision), board);
+
+      meta = new BoardMeta();
+      meta.title = board.title || '(Untitled board)';
+      meta.current = board.revision;
+      meta.history = [board.revision];
+
+      this.boardIndex.set(board.id, meta);
+    } else {
+      const revOld = board.revision;
+      const revNew = meta.history[0] + 1;
+
+      board.revision = revNew;
+
+      okData = this.setJson(this.bk(board.id, board.revision), board);
+
+      meta.title = board.title || '(Untitled board)';
+      meta.current = board.revision;
+
+      // trim revisions skipped over with undo and cap the revision count
+
+      const rebuild = [board.revision];
+
+      for (const rev of meta.history) {
+        if ((revOld < rev && rev < revNew) || (rebuild.length >= this.conf.maxUndo)) {
+          this.delItem(`board.${board.id}.${rev}`);
+        } else {
+          rebuild.push(rev);
+        }
+      }
+
+      meta.history = rebuild;
+    }
+
+    /*
+			 *	save meta
+       */
+    okMeta = this.setJson(this.bmk(board.id), meta)
+      && this.setJson(`board.${board.id}`, meta.current); // for older versions
+
+    board.history = meta.history; // restore
+
+    // Trigger sync if enabled
+    if (window.GistSync && window.GistSync.isEnabled()) {
+      window.GistSync.queueBoardForSync(board.id);
+    }
+
+    return okData && okMeta;
+  }
+
+  loadBoard(boardId, revision) {
+    const meta = this.boardIndex.get(boardId);
+
+    if (!meta) throw `Invalid boardId in loadBoard(${boardId}, ${revision})`;
+
+    if (revision == null) revision = meta.current;
+
+    if (!meta.history.includes(revision)) throw `Invalid revision in loadBoard(${boardId}, ${revision})`;
+
+    const board = this.getJson(this.bk(boardId, revision));
+    if (!board) return false;
+
+    // Accept both old (20190412) and new (20251115) format versions
+    const validFormats = [20190412, 20251115];
+    if (!validFormats.includes(board.format)) {
+      return false;
+    }
+
+    if (board.revision !== revision) {
+      return false;
+    }
+
+    board.history = meta.history;
+
+    return Object.assign(new Board(), board);
+  }
+
+  nukeBoard(boardId) {
+    const meta = this.boardIndex.get(boardId);
+
+    if (!meta) throw `Invalid boardId in nukeBoard(${boardId})`;
+
+    const title = `${meta.title}`;
+
+    for (const rev of meta.history) this.delItem(this.bk(boardId, rev));
+
+    this.delItem(this.bmk(boardId));
+    this.boardIndex.delete(boardId);
+
+    // Delete gist if sync enabled
+    if (window.GistSync && window.GistSync.isEnabled()) {
+      const gistId = window.GistSync.getGistId(boardId);
+      if (gistId) {
+        window.GistSync.deleteGist(gistId).catch(() => {
+          // Add to retry queue
+          window.GistSync.addToRetryQueue(boardId);
+        });
+        window.GistSync.deleteGistId(boardId);
+      }
+    }
+
+    return title;
+  }
+
+  getBoardHistory(boardId) {
+    const meta = this.boardIndex.get(boardId);
+
+    if (!meta) throw `Invalid boardId in getBoardHistory(${boardId})`;
+
+    return meta.history;
+  }
+
+  setBoardRevision(boardId, revision) {
+    const meta = this.boardIndex.get(boardId);
+
+    if (!meta) throw `Invalid boardId in setBoardRevision(${boardId}, ${revision})`;
+
+    if (!meta.history.includes(revision)) throw `Invalid revision in setBoardRevision(${boardId}, ${revision})`;
+
+    if (meta.current === revision) // wth
+    { return true; }
+
+    meta.current = revision;
+
+    return this.setJson(this.bmk(boardId), meta)
+      && this.setJson(this.bk(boardId), revision); // for older versions
+  }
+
+  setBoardUiSpot(boardId, uiSpot) {
+    const meta = this.boardIndex.get(boardId);
+
+    if (!meta) throw `Invalid boardId in setBoardUiSpot(${boardId}, ${uiSpot})`;
+
+    meta.uiSpot = uiSpot;
+
+    return this.setJson(this.bmk(boardId), meta);
+  }
+
+  /*
+		 *	private
+		 */
+
+  getItem(_name) { throw 'implement-me'; }
+
+  setItem(_name) { throw 'implement-me'; }
+
+  delItem(_name) { throw 'implement-me'; }
+
+  openInner() { throw 'implement-me'; }
+
+  wipeInner() { throw 'implement-me'; }
+
+  bk(id, rev) { return `board.${id}${rev !== undefined ? `.${rev}` : ''}`; }
+
+  bmk(id) { return `board.${id}.meta`; }
+
+  getJson(name) {
+    let foo = this.getItem(name);
+    if (!foo) return false;
+
+    try { foo = JSON.parse(foo); } catch (x) { return false; }
+    return foo;
+  }
+
+  setJson(name, val) {
+    if (!this.setItem(name, JSON.stringify(val))) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /*
+		 *	config
+		 */
+  fixupConfig(_newInstall) {
+    // const { conf } = this;
+  }
+}
+
+class StorageLocal extends Storage {
+  constructor() {
+    super();
+    this.type = 'LocalStorage';
+    this.pfx = 'stickiesboard.';
+  }
+
+  getItem(name) {
+    return localStorage.getItem(this.pfx + name);
+  }
+
+  setItem(name, val) {
+    localStorage.setItem(this.pfx + name, val);
+    return true;
+  }
+
+  delItem(name) {
+    localStorage.removeItem(this.pfx + name);
+    return true;
+  }
+
+  openInner() {
+    const conf = this.getJson('config');
+    let newInstall = true;
+
+    //			if (conf && (conf.format !== SKB.confVersion))
+    //			{
+    //				if (! confirm('Preferences are stored in an unsupported format. Reset them?'))
+    //					return false;
+    //
+    //				conf = null;
+    //			}
+
+    if (conf) {
+      this.conf = Object.assign(new AppConfig(), conf);
+    } else {
+      if (this.getItem('fsize') === 'z1') {
+      }
+
+      if (!this.setJson('config', this.conf)) {
+        this.conf = null;
+        return false;
+      }
+
+      this.conf.board = this.getItem('last_board');
+    }
+
+    this.boardIndex = new Map();
+
+    // new format
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const k = localStorage.key(i);
+      const m = k.match(new RegExp(`^${this.pfx}board\\.(\\d+).meta$`));
+
+      if (!m) continue;
+
+      const boardId = parseInt(m[1], 10);
+      let meta = this.getJson(this.bmk(boardId));
+
+      if (!meta.hasOwnProperty('history')) {
+        continue;
+      }
+
+      for (const rev of meta.history) {
+        if (!this.getJson(this.bk(boardId, rev))) {
+          meta = this.rebuildMeta(boardId);
+          break;
+        }
+      }
+
+      if (!meta) continue;
+
+      meta = Object.assign(new BoardMeta(), meta);
+      this.boardIndex.set(boardId, meta);
+    }
+
+    // old format
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const k = localStorage.key(i);
+      const m = k.match(new RegExp(`^${this.pfx}board\\.(\\d+)$`));
+
+      if (!m) continue;
+
+      newInstall = false;
+
+      const boardId = parseInt(m[1], 10);
+      if (this.boardIndex.has(boardId)) continue;
+
+      let meta = this.rebuildMeta(boardId);
+      if (!meta) continue;
+
+      meta = Object.assign(new BoardMeta(), meta);
+      this.boardIndex.set(boardId, meta);
+    }
+
+    this.fixupConfig(newInstall);
+
+    this.type = 'LocalStorage';
+
+    // Pull from GitHub if sync enabled
+    if (window.GistSync && window.GistSync.isEnabled()) {
+      // Pull in background (don't block app load)
+      setTimeout(async () => {
+        try {
+          await window.GistSync.pullAllGistsFromGitHub();
+
+          // Reload current board if it was updated
+          if (this.conf.board) {
+            const currentBoardId = this.conf.board;
+            const updatedBoard = this.loadBoard(currentBoardId);
+            if (updatedBoard && window.SKB) {
+              window.SKB.board = updatedBoard;
+              // Trigger UI refresh if needed
+              if (window.refreshBoard) {
+                window.refreshBoard();
+              }
+            }
+          }
+        } catch (error) {
+          // Silently fail initial sync
+        }
+      }, 100);
+    }
+
+    return true;
+  }
+
+  wipeInner() {
+    for (let i = 0; i < localStorage.length;) {
+      const k = localStorage.key(i);
+      const m = k.indexOf(this.pfx) === 0;
+
+      if (m) localStorage.removeItem(k);
+      else i += 1;
+    }
+
+    this.conf = new AppConfig();
+    this.boardIndex = new Map();
+  }
+
+  /*
+		 *	private
+		 */
+  rebuildMeta(boardId) {
+    const meta = new BoardMeta();
+
+    // get current revision
+
+    meta.current = this.getItem(`board.${boardId}`); // may be null
+
+    // load history
+
+    const re = new RegExp(`^${this.pfx}board.${boardId}\\.(\\d+)$`);
+    const revs = new Array();
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const m = localStorage.key(i).match(re);
+      if (m) revs.push(parseInt(m[1], 10));
+    }
+
+    if (!revs.length) {
+      this.delItem(`board.${boardId}`);
+      return false;
+    }
+
+    revs.sort((a, b) => b - a);
+    meta.history = revs;
+
+    // validate current revision
+
+    if (!meta.history.includes(meta.current)) meta.current = meta.history[meta.history.length - 1];
+
+    // get board title
+
+    const board = this.getJson(`board.${boardId}.${meta.current}`);
+    meta.title = (board.title || '(untitled board)');
+
+    this.setJson(this.bmk(boardId), meta);
+
+    return meta;
+  }
+}
+
+// Export for use in functions.js
+window.StorageLocal = StorageLocal;
+</script>
+
+<script type="text/javascript">
+
+	function Note(text, color)
+	{
+		this.text = text;
+		this.color = color || 'gray';
+	}
+
+	function List(title)
+	{
+		this.title = title;
+		this.notes = [ ];
+
+		this.addNote = function(text, color)
+		{
+			var x = new Note(text, color);
+			this.notes.push(x);
+			return x;
+		}
+	}
+
+	function Board(title)
+	{
+		this.format   = SKB.blobVersion;
+		this.id       = +new Date();
+		this.revision = 0;
+		this.title    = title || '';
+		this.lists    = [ ];
+
+		this.addList = function(title)
+		{
+			var x = new List(title);
+			this.lists.push(x);
+			return x;
+		}
+	}
+
+</script>
+
+<script>
+function Drag2() {
+  // config
+  this.listSel = null;
+  this.itemSel = null;
+  this.dragster = null;
+  this.onDragging = function (_started) { };
+  this.swapAnimMs = 200;
+
+  // state
+  this.item = null;
+  this.priming = null;
+  this.primeXY = { x: 0, y: 0 };
+  this.$drag = null;
+  this.mouseEv = null;
+  this.delta = { x: 0, y: 0 };
+  this.inSwap = 0;
+  this.swapped = false;
+
+  // api
+  this.prime = function (item, ev) {
+    const self = this;
+
+    this.item = item;
+    this.swapped = false;
+    this.priming = setTimeout(() => { self.onPrimed.call(self); }, ev.altKey ? 1 : 500);
+    this.primeXY = { x: ev.clientX, y: ev.clientY };
+    this.mouseEv = ev;
+  };
+
+  this.cancelPriming = function () {
+    if (!this.item || !this.priming) return;
+
+    clearTimeout(this.priming);
+    this.priming = null;
+    this.item = null;
+  };
+
+  this.end = function () {
+    this.cancelPriming();
+    this.stopDragging();
+  };
+
+  this.isActive = function () {
+    return this.item && (this.priming === null);
+  };
+
+  this.onPrimed = function () {
+    clearTimeout(this.priming);
+    this.priming = null;
+
+    removeTextSelection();
+
+    const $item = $(this.item);
+    $item.addClass('dragging');
+
+    $('body').append(`<div class="${this.dragster}"></div>`);
+    const $drag = $(`body .${this.dragster}`).last();
+
+    $drag.css({ width: `${$item.outerWidth()}px`, height: `${$item.outerHeight()}px` });
+
+    this.$drag = $drag;
+
+    if (this.onDragging) this.onDragging.call(this, true); // started
+
+    const scrollX = window.pageXOffset;
+    const scrollY = window.pageYOffset;
+
+    const pos = $item.offset();
+    this.delta.x = pos.left - this.mouseEv.clientX - scrollX;
+    this.delta.y = pos.top - this.mouseEv.clientY - scrollY;
+
+    this.adjustDrag();
+
+    $drag.css({ opacity: 1 });
+
+    $('body').addClass('dragging');
+  };
+
+  this.adjustDrag = function () {
+    if (!this.$drag) return;
+
+    const drag = this;
+    const { $drag } = this;
+
+    // Using fixed positioning, so no scroll offset needed
+    const dragX = drag.mouseEv.clientX + drag.delta.x;
+    const dragY = drag.mouseEv.clientY + drag.delta.y;
+
+    $drag.css({ left: `${dragX}px`, top: `${dragY}px` });
+
+    if (drag.inSwap) return;
+
+    /*
+			 *	see if a swap is in order
+			 */
+    const x = drag.mouseEv.clientX;
+    const y = drag.mouseEv.clientY;
+
+    let targetList = null;
+    let targetItem = null; // if over some item
+    let before = false; // if should go before targetItem
+
+    let $target;
+
+    $(this.listSel).each(function () {
+      const list = this;
+      const rcList = list.getBoundingClientRect();
+      let yTop; let
+        itemTop = null;
+      let yBottom; let
+        itemBottom = null;
+
+      if (x <= rcList.left || rcList.right <= x) return;
+
+      // Check if we're within this list's vertical bounds
+      if (y < rcList.top || y >= rcList.bottom) return;
+
+      let hasItems = false;
+      $(list).find(drag.itemSel).each(function () {
+        hasItems = true;
+        const rcItem = this.getBoundingClientRect();
+
+        if (!itemTop || rcItem.top < yTop) {
+          itemTop = this;
+          yTop = rcItem.top;
+        }
+
+        if (!itemBottom || yBottom < rcItem.bottom) {
+          itemBottom = this;
+          yBottom = rcItem.bottom;
+        }
+
+        if (y <= rcItem.top || rcItem.bottom <= y) return;
+
+        if (this === drag.item) return;
+
+        targetList = list;
+        targetItem = this;
+        before = (y < (rcItem.top + rcItem.bottom) / 2);
+      });
+
+      // Only set as target if we haven't found a specific item
+      // This handles empty lists
+      if (!targetItem && !hasItems) {
+        targetList = list;
+        targetItem = null; // Will append to end of list
+      }
+    });
+
+    if (!targetList) return;
+
+    if (targetItem) {
+      if (targetItem === drag.item) return;
+
+      $target = $(targetItem);
+
+      if (!before && $target.next()[0] === drag.item
+        || before && $target.prev()[0] === drag.item) return;
+    }
+
+    /*
+			 *	swap 'em
+			 */
+    const have = drag.item;
+    const $have = $(have);
+    let $want = $have.clone();
+
+    $want.css({ display: 'none' });
+
+    // Mark that a swap is happening
+    drag.swapped = true;
+
+    if (targetItem) {
+      if (before) {
+        $want.insertBefore($target);
+        $want = $target.prev();
+      } else {
+        $want.insertAfter($target);
+        $want = $target.next();
+      }
+    } else {
+      const $list = $(targetList);
+      $want = $list.append($want).find(drag.itemSel).last();
+    }
+
+    drag.item = $want[0];
+
+    if (!drag.swapAnimMs) {
+      $have.remove();
+      $want.show();
+      return;
+    }
+
+    /*
+			 *	see if it's a same-list move
+			 */
+    if (targetList === have.parentNode && targetItem) {
+      // Animated same-list swap (only if there's a target item to animate with)
+      const delta = $have.offset().top - $target.offset().top;
+
+      let dBulk = 0;
+      let dHave = 0;
+      let $bulk = $();
+
+      if (delta < 0) // item is moving down
+      {
+        for (let $i = $have.next(); $i.length && $i[0] !== $want[0]; $i = $i.next()) $bulk = $bulk.add($i);
+      } else {
+        for (let $i = $want.next(); $i.length && $i[0] !== $have[0]; $i = $i.next()) $bulk = $bulk.add($i);
+      }
+
+      if ($bulk.length > 0) {
+        dBulk = $have.outerHeight(true);
+        dHave = $bulk.last().offset().top + $bulk.last().outerHeight(true) - $bulk.first().offset().top;
+
+        if (delta < 0) dBulk = -dBulk;
+        else dHave = -dHave;
+
+        $have.parent().css({ position: 'relative' });
+        $have.css({ position: 'relative', 'z-index': 0 });
+        $bulk.css({ position: 'relative', 'z-index': 1 });
+
+        // Block new swaps during animation
+        drag.inSwap = 1;
+
+        // Use CSS transitions for smooth animation
+        $have.addClass('drag-swap-transition').css({ top: `${dHave}px` });
+        $bulk.addClass('drag-swap-transition').css({ top: `${dBulk}px` });
+
+        // Clean up after animation completes (but don't block if it fails)
+        setTimeout(() => {
+          $have.parent().css({ position: '' });
+          $have.remove();
+          $want.show();
+          $bulk.removeClass('drag-swap-transition').css({ position: '', 'z-index': '', top: '' });
+          drag.inSwap = 0; // Unblock for next swap
+          drag.adjustDrag();
+        }, 200); // Match the CSS transition duration
+      } else {
+        // No animation needed for adjacent swaps
+        $have.remove();
+        $want.show();
+        drag.inSwap = 0; // Unblock for next swap
+        drag.adjustDrag();
+      }
+    } else {
+      // Cross-list move with fade animation
+      drag.inSwap = 1;
+
+      // Fade out the old item
+      $have.css({ transition: 'opacity 200ms cubic-bezier(0.4, 0.0, 0.2, 1)', opacity: 1 });
+      setTimeout(() => {
+        $have.css({ opacity: 0 });
+      }, 10);
+
+      // Prepare and fade in the new item
+      $want.css({ opacity: 0 }).show();
+      setTimeout(() => {
+        $want.css({ transition: 'opacity 200ms cubic-bezier(0.4, 0.0, 0.2, 1)', opacity: 1 });
+      }, 10);
+
+      // Clean up after animation completes
+      setTimeout(() => {
+        $have.remove();
+        $want.css({ transition: '', opacity: '' });
+        drag.inSwap = 0;
+        drag.adjustDrag();
+      }, 220); // Slightly longer than transition to ensure it completes
+    }
+  };
+
+  this.onMouseMove = function (ev) {
+    this.mouseEv = ev;
+
+    if (!this.item) return;
+
+    if (this.priming) {
+      const x = ev.clientX - this.primeXY.x;
+      const y = ev.clientY - this.primeXY.y;
+      if (x * x + y * y > 5 * 5) this.onPrimed();
+    } else {
+      this.adjustDrag();
+    }
+  };
+
+  this.stopDragging = function () {
+    const $item = $(this.item);
+
+    $item.removeClass('dragging');
+    $('body').removeClass('dragging');
+
+    if (this.$drag) {
+      this.$drag.remove();
+      this.$drag = null;
+
+      removeTextSelection();
+
+      if (this.onDragging) this.onDragging.call(this, false); // stopped
+    }
+
+    // Play drag end sound only if a swap actually occurred
+    if (this.swapped) {
+      const audioPopr = document.getElementById('soundPopr');
+      if (audioPopr && audioPopr.readyState >= 2) {
+        // Clean up any previous clone to prevent accumulation
+        if (Drag2.lastAudioClone) {
+          Drag2.lastAudioClone.pause();
+          Drag2.lastAudioClone = null;
+        }
+        // Create a fresh clone for this drop
+        const audioClone = audioPopr.cloneNode(true);
+        audioClone.currentTime = 0;
+        Drag2.lastAudioClone = audioClone;
+        // Clean up reference after audio finishes
+        audioClone.addEventListener('ended', () => {
+          Drag2.lastAudioClone = null;
+        }, { once: true });
+        // Also cleanup if audio duration is exceeded (safety timeout)
+        setTimeout(() => {
+          if (Drag2.lastAudioClone === audioClone) {
+            Drag2.lastAudioClone = null;
+          }
+        }, 500);
+        // Attempt to play
+        audioClone.play().catch(() => {
+          Drag2.lastAudioClone = null;
+        });
+      }
+      // Reset the swapped flag after playing sound
+      this.swapped = false;
+    }
+
+    this.item = null;
+  };
+}
+
+// Static reference for audio clone management (shared across all Drag2 instances)
+Drag2.lastAudioClone = null;
+</script>
+
+<script type="text/javascript">
+
+	function VarAdjust()
+	{
+		// state
+		this.onChange = null;
+		this.onFinish = null;
+		this.startY = 0;
+		this.used = false;
+
+		// api
+		this.start = function(ev, onChange, onFinish)
+		{
+			if (! onChange)
+				return;
+
+			this.onChange = onChange;
+			this.onFinish = onFinish;
+			this.startY = ev.clientY;
+			this.used = false;
+
+			var self = this;
+			setTimeout(function(){
+				if (! self.onChange)
+					return;
+				$('body').addClass('adjusting');
+				self.used = true;
+			}, 250);
+		}
+
+		this.onMouseMove = function(ev)
+		{
+			if (! this.onChange)
+				return;
+
+			$('body').addClass('adjusting');
+			self.used = true;
+			this.onChange(ev.clientY - this.startY);
+		}
+
+		this.end = function()
+		{
+			if (! this.onChange)
+				return;
+
+			$('body').removeClass('adjusting');
+			this.onChange = null;
+
+			if (this.onFinish) this.onFinish();
+		}
+	}
+
+</script>
+
+<script>
+const GistSync = {
+  // Configuration
+  API_BASE: 'https://api.github.com',
+  FILENAME_PREFIX: 'stickies-kanban-',
+  FILENAME_SUFFIX: '.json',
+
+  // State
+  syncDebounceTimers: new Map(),
+  retryQueue: [],
+  retryTimer: null,
+  isOffline: false,
+
+  // Initialize
+  init() {
+    this.loadRetryQueue();
+    this.setupBeforeUnload();
+    this.setupOnlineListener();
+  },
+
+  // Configuration helpers
+  isEnabled() {
+    return localStorage.getItem('stickiesboard.sync.enabled') === 'true';
+  },
+
+  getToken() {
+    return localStorage.getItem('stickiesboard.sync.token');
+  },
+
+  setEnabled(enabled) {
+    localStorage.setItem('stickiesboard.sync.enabled', enabled ? 'true' : 'false');
+  },
+
+  setToken(token) {
+    localStorage.setItem('stickiesboard.sync.token', token || '');
+  },
+
+  getGistId(boardId) {
+    return localStorage.getItem(`stickiesboard.sync.gistId.${boardId}`);
+  },
+
+  setGistId(boardId, gistId) {
+    localStorage.setItem(`stickiesboard.sync.gistId.${boardId}`, gistId);
+  },
+
+  deleteGistId(boardId) {
+    localStorage.removeItem(`stickiesboard.sync.gistId.${boardId}`);
+  },
+
+  getLastSyncRev(boardId) {
+    const rev = localStorage.getItem(`stickiesboard.sync.lastSyncRev.${boardId}`);
+    return rev ? parseInt(rev, 10) : 0;
+  },
+
+  setLastSyncRev(boardId, revision) {
+    localStorage.setItem(`stickiesboard.sync.lastSyncRev.${boardId}`, revision.toString());
+  },
+
+  setOffline(offline) {
+    this.isOffline = offline;
+    localStorage.setItem('stickiesboard.sync.offline', offline ? 'true' : 'false');
+    if (window.SyncUI) {
+      window.SyncUI.updateIndicator();
+    }
+  },
+
+  // API request wrapper with error handling
+  async _apiRequest(method, endpoint, body = null) {
+    const token = this.getToken();
+    if (!token) {
+      throw new Error('No GitHub token configured');
+    }
+
+    const options = {
+      method,
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(this.API_BASE + endpoint, options);
+
+    // Handle errors
+    if (response.status === 401) {
+      this.setEnabled(false);
+      if (window.SyncUI) {
+        window.SyncUI.updateIndicator();
+        window.SyncUI.showError('Token invalid or expired. Please update token.');
+      }
+      throw new Error('Invalid or expired token');
+    }
+
+    if (response.status === 403) {
+      // Rate limit - enter offline mode
+      this.setOffline(true);
+      throw new Error('Rate limit exceeded');
+    }
+
+    if (response.status >= 500) {
+      // Server error - enter offline mode
+      this.setOffline(true);
+      throw new Error('GitHub API unavailable');
+    }
+
+    if (response.status === 404 && method === 'GET') {
+      return null; // Gist not found
+    }
+
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status}`);
+    }
+
+    // DELETE returns 204 No Content
+    if (response.status === 204) {
+      return { success: true };
+    }
+
+    return await response.json();
+  },
+
+  async validateToken(token) {
+    try {
+      // Temporarily set token for validation
+      const oldToken = this.getToken();
+      this.setToken(token);
+
+      const result = await this._apiRequest('GET', '/gists');
+
+      // Restore old token if validation failed
+      if (!result) {
+        this.setToken(oldToken);
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      this.setToken('');
+      return false;
+    }
+  },
+
+  async createGist(boardId, boardData) {
+    const filename = this.FILENAME_PREFIX + boardId + this.FILENAME_SUFFIX;
+
+    // Remove history before syncing
+    const cleanData = { ...boardData };
+    delete cleanData.history;
+
+    const body = {
+      description: 'Stickies Kanban Board Data',
+      public: false,
+      files: {},
+    };
+    body.files[filename] = {
+      content: JSON.stringify(cleanData),
+    };
+
+    const result = await this._apiRequest('POST', '/gists', body);
+    return result.id;
+  },
+
+  async updateGist(gistId, boardData) {
+    const filename = this.FILENAME_PREFIX + boardData.id + this.FILENAME_SUFFIX;
+
+    // Remove history before syncing
+    const cleanData = { ...boardData };
+    delete cleanData.history;
+
+    const body = {
+      files: {},
+    };
+    body.files[filename] = {
+      content: JSON.stringify(cleanData),
+    };
+
+    await this._apiRequest('PATCH', `/gists/${gistId}`, body);
+    return true;
+  },
+
+  async fetchGist(gistId) {
+    const result = await this._apiRequest('GET', `/gists/${gistId}`);
+    if (!result) return null;
+
+    // Find the sticky-kanban file
+    for (const filename in result.files) {
+      if (filename.startsWith(this.FILENAME_PREFIX) && filename.endsWith(this.FILENAME_SUFFIX)) {
+        const { content } = result.files[filename];
+        try {
+          return JSON.parse(content);
+        } catch (error) {
+          throw new Error(`Invalid board data in gist ${gistId}`);
+        }
+      }
+    }
+
+    return null;
+  },
+
+  async listAllGists() {
+    const result = await this._apiRequest('GET', '/gists');
+    if (!result) return [];
+
+    const boards = [];
+
+    for (const gist of result) {
+      for (const filename in gist.files) {
+        if (filename.startsWith(this.FILENAME_PREFIX) && filename.endsWith(this.FILENAME_SUFFIX)) {
+          // Extract board ID from filename
+          const boardId = filename.substring(
+            this.FILENAME_PREFIX.length,
+            filename.length - this.FILENAME_SUFFIX.length,
+          );
+
+          try {
+            let { content } = gist.files[filename];
+
+            // If content is not available in list, fetch the full gist
+            if (!content || gist.files[filename].truncated) {
+              const fullGistResponse = await this._apiRequest('GET', `/gists/${gist.id}`);
+              if (fullGistResponse && fullGistResponse.files && fullGistResponse.files[filename]) {
+                content = fullGistResponse.files[filename].content;
+              }
+            }
+
+            if (!content) {
+              continue;
+            }
+
+            const boardData = JSON.parse(content);
+
+            // Board IDs are numbers (created as +new Date() in board.js)
+            // Parse to ensure type consistency with boardIndex Map keys
+            boards.push({
+              gistId: gist.id,
+              boardId: parseInt(boardId, 10),
+              boardData,
+            });
+          } catch (error) {
+            // Skip corrupted gists rather than failing completely
+          }
+        }
+      }
+    }
+
+    return boards;
+  },
+
+  async deleteGist(gistId) {
+    await this._apiRequest('DELETE', `/gists/${gistId}`);
+    return true;
+  },
+
+  // Sync operations
+  async syncBoardToGist(boardId) {
+    if (!this.isEnabled()) return;
+
+    try {
+      // Check if board still exists in index (may have been deleted)
+      const boardIndex = SKB.storage.getBoardIndex();
+      if (!boardIndex.has(boardId)) {
+        return;
+      }
+
+      // Update indicator to syncing state
+      if (window.SyncUI) {
+        window.SyncUI.updateIndicator('syncing');
+      }
+
+      // Load board from storage
+      const board = SKB.storage.loadBoard(boardId);
+      if (!board) {
+        return;
+      }
+
+      const gistId = this.getGistId(boardId);
+
+      if (gistId) {
+        // Update existing gist
+        try {
+          await this.updateGist(gistId, board);
+        } catch (error) {
+          // If gist was deleted from GitHub, create a new one
+          if (error.message && error.message.includes('404')) {
+            this.deleteGistId(boardId);
+            const newGistId = await this.createGist(boardId, board);
+            this.setGistId(boardId, newGistId);
+          } else {
+            throw error;
+          }
+        }
+      } else {
+        // Create new gist
+        const newGistId = await this.createGist(boardId, board);
+        this.setGistId(boardId, newGistId);
+      }
+
+      // Update last synced revision
+      this.setLastSyncRev(boardId, board.revision);
+
+      // Clear offline flag on success
+      if (this.isOffline) {
+        this.setOffline(false);
+      }
+
+      // Update indicator to synced state
+      if (window.SyncUI) {
+        window.SyncUI.updateIndicator('synced');
+      }
+    } catch (error) {
+      // Error handling done in _apiRequest
+      throw error;
+    }
+  },
+
+  async pullAllGistsFromGitHub(isInitialSync = false) {
+    if (!this.isEnabled()) return;
+
+    try {
+      const gists = await this.listAllGists();
+      const localBoardIndex = SKB.storage.getBoardIndex();
+
+      // Capture snapshot of local board IDs BEFORE importing
+      const localBoardIds = new Set(localBoardIndex.keys());
+      const gistBoardIds = new Set();
+
+      // Process each gist
+      for (const gist of gists) {
+        gistBoardIds.add(gist.boardId);
+
+        // Store gist ID mapping
+        this.setGistId(gist.boardId, gist.gistId);
+
+        const localMeta = localBoardIndex.get(gist.boardId);
+
+        if (!localMeta) {
+          // Board doesn't exist locally - import it
+          // Restore history array
+          gist.boardData.history = [gist.boardData.revision];
+
+          SKB.storage.saveBoard(gist.boardData);
+          this.setLastSyncRev(gist.boardId, gist.boardData.revision);
+        } else {
+          // Board exists - compare revisions
+          if (gist.boardData.revision > localMeta.current) {
+            // GitHub version wins - use only its revision for history
+            gist.boardData.history = [gist.boardData.revision];
+
+            SKB.storage.saveBoard(gist.boardData);
+            this.setLastSyncRev(gist.boardId, gist.boardData.revision);
+          }
+        }
+      }
+
+      // Check for boards with missing gists (deleted from GitHub)
+      // Use the snapshot of IDs from BEFORE import to avoid checking newly imported boards
+      for (const boardId of localBoardIds) {
+        const meta = localBoardIndex.get(boardId);
+        if (!meta) continue; // Board was already deleted
+        const hasGistId = this.getGistId(boardId);
+        if (hasGistId && !gistBoardIds.has(boardId)) {
+          if (isInitialSync) {
+            // During initial sync setup - assume gist was manually deleted, keep board
+            this.deleteGistId(boardId);
+          } else {
+            // During regular sync - board was deleted on another device
+            SKB.storage.nukeBoard(boardId);
+            this.deleteGistId(boardId);
+          }
+        }
+      }
+    } catch (error) {
+      // Don't throw - allow app to continue working locally
+    } finally {
+      // Always update board index UI after pull (new/updated/deleted boards)
+      if (window.updateBoardIndex) {
+        window.updateBoardIndex();
+      }
+    }
+  },
+  queueBoardForSync(boardId) {
+    if (!this.isEnabled()) return;
+
+    // Update indicator to show sync is pending
+    if (window.SyncUI) {
+      window.SyncUI.updateIndicator('syncing');
+    }
+
+    // Clear existing timer for THIS board only
+    if (this.syncDebounceTimers.has(boardId)) {
+      clearTimeout(this.syncDebounceTimers.get(boardId));
+    }
+
+    // Start new 15-second timer for this board
+    const timer = setTimeout(async () => {
+      this.syncDebounceTimers.delete(boardId);
+      try {
+        await this.syncBoardToGist(boardId);
+
+        // Remove from retry queue if present
+        this.retryQueue = this.retryQueue.filter((item) => item.boardId !== boardId);
+        this.saveRetryQueue();
+      } catch (error) {
+        // Add to retry queue
+        this.addToRetryQueue(boardId);
+      }
+    }, 15000); // 15 seconds
+
+    this.syncDebounceTimers.set(boardId, timer);
+  },
+
+  cancelPendingSync(boardId) {
+    // Clear any pending sync timer for this board
+    if (this.syncDebounceTimers.has(boardId)) {
+      clearTimeout(this.syncDebounceTimers.get(boardId));
+      this.syncDebounceTimers.delete(boardId);
+    }
+
+    // Remove from retry queue
+    this.retryQueue = this.retryQueue.filter((item) => item.boardId !== boardId);
+    this.saveRetryQueue();
+  },
+
+  addToRetryQueue(boardId) {
+    // Check if already in queue
+    const existing = this.retryQueue.find((item) => item.boardId === boardId);
+
+    if (existing) {
+      // Increment attempt
+      existing.attempt += 1;
+      existing.nextRetry = Date.now() + this.getRetryDelay(existing.attempt);
+    } else {
+      // Add new entry
+      this.retryQueue.push({
+        boardId,
+        attempt: 1,
+        nextRetry: Date.now() + this.getRetryDelay(1),
+      });
+    }
+
+    this.saveRetryQueue();
+    this.scheduleRetryProcessor();
+  },
+
+  getRetryDelay(attempt) {
+    switch (attempt) {
+    case 1: return 15000; // 15 seconds
+    case 2: return 30000; // 30 seconds
+    case 3: return 60000; // 60 seconds
+    default: return null; // No more retries - go offline
+    }
+  },
+
+  loadRetryQueue() {
+    try {
+      const stored = localStorage.getItem('stickiesboard.sync.queue');
+      this.retryQueue = stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      this.retryQueue = [];
+      localStorage.removeItem('stickiesboard.sync.queue');
+    }
+  },
+  saveRetryQueue() {
+    try {
+      localStorage.setItem('stickiesboard.sync.queue', JSON.stringify(this.retryQueue));
+    } catch (error) {
+      // Silently fail
+    }
+  },
+
+  scheduleRetryProcessor() {
+    // Clear existing timer
+    if (this.retryTimer) {
+      clearTimeout(this.retryTimer);
+    }
+
+    // Find next retry time
+    let nextRetry = null;
+    for (const item of this.retryQueue) {
+      if (!nextRetry || item.nextRetry < nextRetry) {
+        nextRetry = item.nextRetry;
+      }
+    }
+
+    if (nextRetry) {
+      const delay = Math.max(0, nextRetry - Date.now());
+      this.retryTimer = setTimeout(() => {
+        this.processRetryQueue();
+      }, delay);
+    }
+  },
+  async processRetryQueue() {
+    const now = Date.now();
+    const remaining = [];
+
+    for (const item of this.retryQueue) {
+      if (item.nextRetry <= now) {
+        try {
+          await this.syncBoardToGist(item.boardId);
+          // Success - don't add to remaining
+        } catch (error) {
+          // Failed - check if should retry or go offline
+          if (item.attempt >= 3) {
+            this.setOffline(true);
+            // Keep in queue for when online
+            remaining.push({
+              boardId: item.boardId,
+              attempt: 0, // Reset for when we come back online
+              nextRetry: now + 60000,
+            });
+          } else {
+            // Add back with incremented attempt
+            item.attempt += 1;
+            item.nextRetry = now + this.getRetryDelay(item.attempt);
+            remaining.push(item);
+          }
+        }
+      } else {
+        remaining.push(item);
+      }
+    }
+
+    this.retryQueue = remaining;
+    this.saveRetryQueue();
+
+    // Schedule next processing
+    if (this.retryQueue.length > 0) {
+      this.scheduleRetryProcessor();
+    }
+  },
+  setupBeforeUnload() {
+    window.addEventListener('beforeunload', (event) => {
+      // Check if there are pending operations
+      const hasPending = this.syncDebounceTimers.size > 0 || this.retryQueue.length > 0;
+
+      if (hasPending && this.isEnabled()) {
+        // Attempt synchronous sync for pending items
+        const pendingBoards = [];
+
+        // Add debounced boards
+        for (const boardId of this.syncDebounceTimers.keys()) {
+          pendingBoards.push(boardId);
+        }
+
+        // Add retry queue boards
+        for (const item of this.retryQueue) {
+          if (!pendingBoards.includes(item.boardId)) {
+            pendingBoards.push(item.boardId);
+          }
+        }
+
+        // Try to sync synchronously (browsers allow this in beforeunload)
+        for (const boardId of pendingBoards) {
+          try {
+            // Note: This uses synchronous XMLHttpRequest which is deprecated
+            // but still supported in beforeunload context
+            this.syncBoardToGistSync(boardId);
+          } catch (error) {
+            // Silently fail
+          }
+        }
+
+        // If we get here and still have pending, warn user
+        if (pendingBoards.length > 0) {
+          event.preventDefault();
+          event.returnValue = 'Changes are still syncing to GitHub. Leave anyway?';
+        }
+      }
+    });
+  },
+
+  // Synchronous version for beforeunload
+  syncBoardToGistSync(boardId) {
+    if (!this.isEnabled()) return;
+
+    const token = this.getToken();
+    if (!token) return;
+
+    const board = SKB.storage.loadBoard(boardId);
+    if (!board) return;
+
+    const gistId = this.getGistId(boardId);
+    if (!gistId) return; // Can't create gist synchronously, skip
+
+    // Update existing gist only
+    const filename = this.FILENAME_PREFIX + boardId + this.FILENAME_SUFFIX;
+    const cleanData = { ...board };
+    delete cleanData.history;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('PATCH', `${this.API_BASE}/gists/${gistId}`, false); // false = synchronous
+    xhr.setRequestHeader('Authorization', `token ${token}`);
+    xhr.setRequestHeader('Accept', 'application/vnd.github.v3+json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const body = { files: {} };
+    body.files[filename] = { content: JSON.stringify(cleanData) };
+
+    xhr.send(JSON.stringify(body));
+
+    if (xhr.status === 200) {
+      this.setLastSyncRev(boardId, board.revision);
+    }
+  },
+
+  setupOnlineListener() {
+    window.addEventListener('online', () => {
+      if (this.isOffline && this.isEnabled()) {
+        this.setOffline(false);
+
+        // Process retry queue immediately
+        this.processRetryQueue();
+      }
+    });
+  },
+};
+
+// Export to window
+window.GistSync = GistSync;
+
+// Auto-initialize when script loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    GistSync.init();
+  });
+} else {
+  GistSync.init();
+}
+</script>
+
+<script>
+const SyncUI = {
+  dialogOpen: false,
+
+  init() {
+    this.setupMenuHandler();
+    this.updateIndicator();
+  },
+
+  setupMenuHandler() {
+    // Will be connected to menu item click
+    $(document).on('click', '.sync-gists', (e) => {
+      e.preventDefault();
+      this.showSyncDialog();
+    });
+  },
+
+  showSyncDialog() {
+    if (this.dialogOpen) return;
+    this.dialogOpen = true;
+
+    const isEnabled = GistSync.isEnabled();
+
+    let dialogHTML = '';
+
+    if (isEnabled) {
+      // Already enabled - show status
+      const boardCount = this.countSyncedBoards();
+      dialogHTML = `
+				<div class="dialog-overlay">
+					<div class="dialog">
+						<div class="dialog-title">
+							<span class="title"><div class="text">GitHub Gist Sync</div></span>
+						</div>
+						<div class="dialog-body">
+							<div class="dialog-inner">
+								<div class="dialog-content">
+									<p>Token: <span class="token-hidden">••••••••••••</span></p>
+									<p>Status: ✓ Syncing ${boardCount} boards</p>
+								</div>
+								<div class="dialog-buttons">
+									<button class="dialog-button sync-disable-btn">Disable Sync</button>
+									<button class="dialog-button sync-update-token-btn">Update Token</button>
+									<button class="dialog-button default sync-close-btn">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+    } else {
+      // Not enabled - show setup
+      dialogHTML = `
+				<div class="dialog-overlay">
+					<div class="dialog">
+						<div class="dialog-title">
+							<span class="title"><div class="text">GitHub Gist Sync Setup</div></span>
+						</div>
+						<div class="dialog-body">
+							<div class="dialog-inner">
+								<div class="dialog-content">
+									<p>To enable sync:</p>
+									<ol>
+										<li>Go to github.com/settings/tokens</li>
+										<li>Create token with 'gist' scope</li>
+										<li>Paste token below</li>
+									</ol>
+									<input type="text" class="dialog-input" placeholder="github_pat_..." />
+									<div class="dialog-error" style="display:none;"></div>
+								</div>
+								<div class="dialog-buttons">
+									<button class="dialog-button default sync-enable-btn">Enable Sync</button>
+									<button class="dialog-button sync-cancel-btn">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+    }
+
+    $('body').append(dialogHTML);
+
+    // Setup button handlers
+    this.setupDialogHandlers();
+  },
+
+  setupDialogHandlers() {
+    const self = this;
+
+    // Unbind previous handlers to prevent duplicates
+    $(document).off('click.syncDialog');
+
+    // Enable sync (use namespaced event)
+    $(document).on('click.syncDialog', '.sync-enable-btn', async () => {
+      const token = $('.dialog-input').val().trim();
+      if (!token) {
+        self.showDialogError('Please enter a token');
+        return;
+      }
+
+      await self.handleEnableSync(token);
+    });
+
+    // Update token (use namespaced event)
+    $(document).on('click.syncDialog', '.sync-update-token-btn', () => {
+      self.closeDialog();
+      // Show setup dialog with pre-filled token option
+      setTimeout(() => {
+        self.showUpdateTokenDialog();
+      }, 100);
+    });
+
+    // Disable sync (use namespaced event)
+    $(document).on('click.syncDialog', '.sync-disable-btn', () => {
+      self.handleDisableSync();
+    });
+
+    // Close/Cancel (use namespaced event)
+    $(document).on('click.syncDialog', '.sync-close-btn, .sync-cancel-btn, .dialog-overlay', (e) => {
+      if (e.target === e.currentTarget) {
+        self.closeDialog();
+      }
+    });
+  },
+
+  showUpdateTokenDialog() {
+    // Similar to setup but for updating token
+    const dialogHTML = `
+			<div class="dialog-overlay">
+				<div class="dialog">
+					<div class="dialog-title">
+						<span class="title"><div class="text">Update GitHub Token</div></span>
+					</div>
+					<div class="dialog-body">
+						<div class="dialog-inner">
+							<div class="dialog-content">
+								<p>Enter new GitHub Personal Access Token:</p>
+								<input type="text" class="dialog-input" placeholder="github_pat_..." />
+								<div class="dialog-error" style="display:none;"></div>
+							</div>
+							<div class="dialog-buttons">
+								<button class="dialog-button default sync-enable-btn">Update Token</button>
+								<button class="dialog-button sync-cancel-btn">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		`;
+
+    $('body').append(dialogHTML);
+    this.dialogOpen = true;
+    this.setupDialogHandlers();
+  },
+
+  closeDialog() {
+    $('.dialog-overlay').remove();
+    $(document).off('click.syncDialog'); // Clean up event handlers
+    this.dialogOpen = false;
+  },
+
+  showDialogError(message) {
+    $('.dialog-error').text(message).show();
+  },
+
+  async handleEnableSync(token) {
+    // Show loading state
+    $('.sync-enable-btn').prop('disabled', true).text('Validating...');
+
+    // Validate token
+    const valid = await GistSync.validateToken(token);
+
+    if (!valid) {
+      this.showDialogError('Invalid token or no access to gists');
+      $('.sync-enable-btn').prop('disabled', false).text('Enable Sync');
+      return;
+    }
+
+    // Enable sync
+    GistSync.setEnabled(true);
+    GistSync.setToken(token);
+
+    // Update button
+    $('.sync-enable-btn').text('Syncing...');
+
+    // Initial sync - pull then push
+    try {
+      await GistSync.pullAllGistsFromGitHub(true);
+
+      // Push all local boards that don't have gists
+      const boardIndex = SKB.storage.getBoardIndex();
+      let _uploadCount = 0;
+
+      for (const [boardId, _meta] of boardIndex) {
+        const gistId = GistSync.getGistId(boardId);
+        if (!gistId) {
+          // No gist yet - create one
+          await GistSync.syncBoardToGist(boardId);
+          _uploadCount += 1;
+        }
+      }
+
+      // Update indicator
+      this.updateIndicator();
+
+      // Close dialog and show success
+      this.closeDialog();
+      alert(`Sync enabled! ${boardIndex.size} boards are now syncing.`);
+    } catch (error) {
+      // Rollback on failure
+      GistSync.setEnabled(false);
+      GistSync.setToken('');
+      this.showDialogError(`Sync failed: ${error.message}`);
+      $('.sync-enable-btn').prop('disabled', false).text('Enable Sync');
+    }
+  },
+
+  handleDisableSync() {
+    GistSync.setEnabled(false);
+    GistSync.setToken('');
+    this.updateIndicator();
+    this.closeDialog();
+  },
+
+  updateIndicator(state) {
+    // state can be: 'synced', 'syncing', 'error', 'offline', or auto-detect
+    if (!state) {
+      // Auto-detect state
+      if (!GistSync.isEnabled()) {
+        state = 'disabled';
+      } else if (GistSync.isOffline) {
+        state = 'offline';
+      } else {
+        // Check if token is valid by seeing if we have it
+        const token = GistSync.getToken();
+        if (!token) {
+          state = 'error';
+        } else {
+          state = 'synced';
+        }
+      }
+    }
+
+    const $indicator = $('.sync-indicator');
+
+    switch (state) {
+    case 'disabled':
+      $indicator.html('').removeClass('synced syncing error offline');
+      break;
+    case 'synced':
+      $indicator.html('✓ ').removeClass('syncing error offline').addClass('synced');
+      break;
+    case 'syncing':
+    case 'offline':
+      $indicator.html('✓ ').removeClass('synced error').addClass(state);
+      break;
+    case 'error':
+      $indicator.html('<span class="error-badge">✗</span> ').removeClass('synced syncing offline').addClass('error');
+      break;
+    }
+  },
+
+  countSyncedBoards() {
+    const boardIndex = SKB.storage.getBoardIndex();
+    let count = 0;
+    for (const [boardId, _meta] of boardIndex) {
+      if (GistSync.getGistId(boardId)) {
+        count++;
+      }
+    }
+    return count;
+  },
+
+  showError(message) {
+    // Show error notification (could be improved with toast)
+    alert(message);
+  },
+};
+
+// Auto-initialize when script loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    window.SyncUI = SyncUI;
+    SyncUI.init();
+  });
+} else {
+  window.SyncUI = SyncUI;
+  SyncUI.init();
+}
+</script>
+
+<script>
+
+let easyMartina = false;
+
+window.onerror = function (message, _file, _line, _col, e) {
+  if (!easyMartina) alert(`Error occurred: ${e && e.message ? e.message : message}`);
+  return false;
+};
+
+window.addEventListener('error', (e) => {
+  if (!easyMartina) alert(`Error occurred: ${e && e.error && e.error.message ? e.error.message : 'Unknown error'}`);
+  return false;
+});
+
+/*
+	 *	notes / lists / boards
+	 */
+const $tNote = $('#templates .note');
+const $tList = $('#templates .list');
+const $tBoard = $('#templates .board');
+const $tLoad = $('#templates .load-board');
+
+function addNote($list, $after, $before, color) {
+  let $note = $tNote.clone();
+  const $notes = $list.find('.notes');
+
+  $note.find('.text').html('');
+  $note.addClass('brand-new');
+
+  // Set color (default to gray if not provided)
+  color = color || 'gray';
+  $note.addClass(`note-${color}`);
+
+  if ($before && $before.length) {
+    $before.before($note);
+    $note = $before.prev();
+  } else
+    if ($after && $after.length) {
+      $after.after($note);
+      $note = $after.next();
+    } else {
+      $notes.append($note);
+      $note = $notes.find('.note').last();
+    }
+
+  $note.find('.text')[0].click();
+}
+
+function deleteNote($note) {
+  $note.remove();
+  saveBoard();
+}
+
+function noteLocation($item) {
+  let loc = 0;
+  for (let $p = $item.closest('.note'); $p.length; $p = $p.prev(), loc += 1);
+  for (let $p = $item.closest('.list'); $p.length; $p = $p.prev(), loc += 10000);
+  return loc;
+}
+
+//
+function addList() {
+  const $board = $('.wrap .board');
+  const $lists = $board.find('.lists');
+  const $list = $tList.clone();
+
+  $list.find('.text').html('');
+  $list.find('.head').addClass('brand-new');
+
+  $lists.append($list);
+  const $lastText = $board.find('.lists .list .head .text').last();
+  if ($lastText.length) $lastText[0].click();
+
+  const lists = $lists[0];
+  lists.scrollLeft = Math.max(0, lists.scrollWidth - lists.clientWidth);
+
+  setupListScrolling();
+}
+
+function deleteList($list) {
+  let empty = true;
+
+  $list.find('.note .text').each(function () {
+    empty &= ($(this).html().length === 0);
+  });
+
+  if (!empty && !confirm('Delete this list and all its notes?')) return;
+
+  $list.remove();
+  saveBoard();
+
+  setupListScrolling();
+}
+
+function moveList($list, left) {
+  const $a = $list;
+  const $b = left ? $a.prev() : $a.next();
+
+  const _$menuA = $a.children('.head').find('.menu .bulk');
+  const _$menuB = $b.children('.head').find('.menu .bulk');
+
+  const _pos_a = $a.offset().left;
+  const _pos_b = $b.offset().left;
+
+  // Swap lists immediately
+  if (left) $list.prev().before($list);
+  else $list.before($list.next());
+
+  saveBoard();
+}
+
+//
+function openBoard(boardId) {
+  closeBoard(true);
+
+  SKB.board = SKB.storage.loadBoard(boardId, null);
+  SKB.storage.setActiveBoard(boardId);
+
+  showBoard(true);
+}
+
+function reopenBoard(revision) {
+  const boardId = SKB.board.id;
+
+  SKB.storage.setBoardRevision(boardId, revision);
+
+  openBoard(boardId);
+}
+
+function closeBoard(_quick) {
+  if (!SKB.board) return;
+
+  const $board = $('.wrap .board');
+
+  $board.remove();
+
+  SKB.board = null;
+  SKB.storage.setActiveBoard(null);
+
+  //		updateUndoRedo();
+  updateBoardIndex();
+  updatePageTitle();
+}
+
+//
+function addBoard() {
+  closeBoard(true);
+
+  // Find a unique "Untitled Board" name
+  const index = SKB.storage.getBoardIndex();
+  const existingTitles = [];
+
+  index.forEach((meta, _boardId) => {
+    existingTitles.push(meta.title);
+  });
+
+  let boardTitle = 'Untitled Board';
+  let counter = 2;
+
+  while (existingTitles.indexOf(boardTitle) !== -1) {
+    boardTitle = `Untitled Board ${counter}`;
+    counter++;
+  }
+
+  // Create board with the unique title
+  SKB.board = new Board(boardTitle);
+
+  // Add default lists
+  const firstList = SKB.board.addList('Ideas/Someday');
+  firstList.addNote('Start ideas here.');
+  SKB.board.addList('ToDo');
+  SKB.board.addList('Doing');
+  SKB.board.addList('Done');
+
+  showBoard(true);
+
+  // Save the board immediately so it persists on reload
+  saveBoard();
+
+  $('.wrap .board .head').addClass('brand-new');
+  $('.wrap .board .head .text')[0].click();
+}
+
+function saveBoard() {
+  const $board = $('.wrap .board');
+  const board = Object.assign(new Board(), SKB.board); // id, revision & title
+
+  board.lists = [];
+
+  $board.find('.list').each(function () {
+    const $list = $(this);
+    const l = board.addList(getText($list.find('.head .text')));
+
+    $list.find('.note').each(function () {
+      const $note = $(this);
+      const text = getText($note.find('.text'));
+
+      // Extract color from note class
+      let color = 'gray';
+      const colorClass = $note.attr('class').match(/\bnote-(yellow|blue|green|pink|purple|gray)\b/);
+      if (colorClass) {
+        color = colorClass[1];
+      }
+
+      const _n = l.addNote(text, color);
+    });
+  });
+
+  SKB.storage.saveBoard(board);
+  SKB.board = board;
+
+  updateUndoRedo();
+  updateBoardIndex();
+}
+
+function deleteBoard() {
+  const _$list = $('.wrap .board .list');
+  const boardId = SKB.board.id;
+
+  closeBoard();
+
+  // Cancel any pending sync for this board
+  if (window.GistSync && window.GistSync.cancelPendingSync) {
+    window.GistSync.cancelPendingSync(boardId);
+  }
+
+  SKB.storage.nukeBoard(boardId);
+
+  updateBoardIndex();
+
+  // If no boards remain, create the demo board
+  if (SKB.storage.getBoardIndex().size === 0) {
+    createDemoBoard();
+    showBoard(true);
+    selectWelcomeBoardNote();
+  }
+}
+
+//
+function undoBoard() {
+  if (!SKB.board) return false;
+
+  const hist = SKB.storage.getBoardHistory(SKB.board.id);
+  const have = SKB.board.revision;
+  let want = 0;
+
+  for (let i = 0; i < hist.length - 1 && !want; i += 1) if (have === hist[i]) want = hist[i + 1];
+
+  if (!want) {
+    return false;
+  }
+
+  reopenBoard(want);
+  return true;
+}
+
+function redoBoard() {
+  if (!SKB.board) return false;
+
+  const hist = SKB.storage.getBoardHistory(SKB.board.id);
+  const have = SKB.board.revision;
+  let want = 0;
+
+  for (let i = 1; i < hist.length && !want; i += 1) if (have === hist[i]) want = hist[i - 1];
+
+  if (!want) {
+    return false;
+  }
+
+  reopenBoard(want);
+  return true;
+}
+
+//
+function showBoard(quick) {
+  const { board } = SKB;
+
+  const $wrap = $('.wrap');
+
+  const $b = $tBoard.clone();
+  const $bLists = $b.find('.lists');
+
+  $b[0].boardId = board.id;
+  setText($b.find('.head .text'), board.title);
+
+  // Ensure lists array exists
+  if (!board.lists) {
+    board.lists = [];
+  }
+
+  board.lists.forEach((list) => {
+    const $l = $tList.clone();
+    const $lNotes = $l.find('.notes');
+
+    setText($l.find('.head .text'), list.title);
+
+    list.notes.forEach((n) => {
+      const $n = $tNote.clone();
+      setText($n.find('.text'), n.text);
+      // Apply note color
+      const color = n.color || 'gray';
+      $n.addClass(`note-${color}`);
+      $lNotes.append($n);
+    });
+
+    $bLists.append($l);
+  });
+
+  if (quick) $wrap.html('').append($b);
+  else $wrap.html('').append($b).css({ opacity: 1 });
+
+  // Reset scroll to top when showing board
+  window.scrollTo(0, 0);
+
+  updatePageTitle();
+  updateUndoRedo();
+  updateBoardIndex();
+  setupListScrolling();
+}
+
+/*
+	 *	demo board
+	 */
+function createDemoBoard() {
+  // Create board with welcome title
+  SKB.board = new Board('Welcome to Stickies Kanban Board');
+
+  // Add default lists
+  const firstList = SKB.board.addList('Ideas/Someday');
+  firstList.addNote('Awesome running 200% Zoom and Fullscreen', 'green');
+  firstList.addNote('Board titles and list titles can be changed by clicking on them.', 'gray');
+  firstList.addNote('Control-Enter while editing to make a new note below', 'pink');
+  firstList.addNote('Organize by:\n• Dragging & Dropping notes\n• Changing colors\n• Control-Shift-8 for bullets', 'gray');
+  SKB.board.addList('ToDo');
+  SKB.board.addList('Doing');
+  const doneList = SKB.board.addList('Done');
+  doneList.addNote('Ephemeral Process, here. Thinking not twiddling.', 'yellow');
+
+  // Save the board immediately so it persists on reload
+  SKB.storage.saveBoard(SKB.board);
+  SKB.storage.setActiveBoard(SKB.board.id);
+
+  return SKB.board;
+}
+
+/*
+	 *	select note in welcome board
+	 */
+function selectWelcomeBoardNote() {
+  const $lastList = $('.board .list').last();
+  const $lastNote = $lastList.find('.note').last();
+  if ($lastNote.length) {
+    $('.board .note').removeClass('selected');
+    $lastNote.addClass('selected');
+    SKB.selectedNote = $lastNote[0];
+    $('.color-menu').removeClass('disabled');
+  }
+}
+
+/*
+	 *
+	 */
+function saveBoardOrder() {
+  const $index = $('.boards-dropdown .load-board');
+  let spot = 1;
+
+  $index.each(function () {
+    const id = parseInt($(this).attr('boardId'), 10);
+    SKB.storage.setBoardUiSpot(id, spot++);
+  });
+}
+
+/*
+	 *
+	 */
+function updatePageTitle() {
+  let title = 'Stickies Board';
+
+  if (SKB.board) {
+    title = SKB.board.title;
+    title = `SKB - ${title || '(untitled board)'}`;
+  }
+
+  document.title = title;
+}
+
+function updateUndoRedo() {
+  const $undo = $('header .undo-board');
+  const $redo = $('header .redo-board');
+
+  let undo = false;
+  let redo = false;
+
+  if (SKB.board && SKB.board.revision) {
+    const history = SKB.storage.getBoardHistory(SKB.board.id);
+    const rev = SKB.board.revision;
+
+    undo = (rev !== history[history.length - 1]);
+    redo = (rev !== history[0]);
+  }
+
+  if (undo) $undo.removeClass('disabled'); else $undo.addClass('disabled');
+  if (redo) $redo.removeClass('disabled'); else $redo.addClass('disabled');
+}
+
+function updateBoardIndex() {
+  const $index = $('.boards-dropdown');
+
+  const _$board = $('.wrap .board');
+  const idNow = SKB.board && SKB.board.id;
+  let empty = true;
+
+  $index.html('');
+
+  const boards = SKB.storage.getBoardIndex();
+  const index = [];
+
+  boards.forEach((meta, id) => { index.push({ id, meta }); });
+
+  index.sort((a, b) => b.meta.uiSpot && a.meta.uiSpot > b.meta.uiSpot);
+
+  index.forEach((entry) => {
+    const $e = $tLoad.clone();
+    $e.attr('boardId', entry.id);
+    $e.html(entry.meta.title);
+
+    if (entry.id === idNow) $e.addClass('active');
+
+    $index.append($e);
+    empty = false;
+  });
+}
+
+// Expose to window for sync-ui.js
+window.updateBoardIndex = updateBoardIndex;
+
+/*
+	 *	generic utils
+	 */
+function htmlEncode(raw) {
+  // Use vanilla JS instead of jQuery hack
+  const div = document.createElement('div');
+  div.textContent = raw;
+  return div.innerHTML;
+}
+
+function setText($note, text) {
+  $note.attr('_text', text);
+
+  text = htmlEncode(text);
+
+  const hmmm = /\b(https?:\/\/[^\s]+)/mg;
+  text = text.replace(hmmm, (url) => `<a href="${url}" target=_blank>${url}</a>`);
+
+  if (SKB.peek('fileLinks')) {
+    const xmmm = /`(.*?)`/mg;
+    text = text.replace(xmmm, (full, text) => {
+      const link = `file:///${text.replace('\\', '/')}`;
+      return `\`<a href="${link}" target=_blank>${text}</a>\``;
+    });
+  }
+
+  $note.html(text); // ? text : ' ');
+}
+
+function getText($note) {
+  return $note.attr('_text');
+}
+
+function removeTextSelection() {
+  if (window.getSelection) { window.getSelection().removeAllRanges(); } else if (document.selection) { document.selection.empty(); }
+}
+
+// Export for use in drag.js
+window.removeTextSelection = removeTextSelection;
+
+/*
+	 *	inline editing
+	 */
+function startEditing($text, _ev) {
+  const $note = $text.parent();
+  const $edit = $note.find('.edit');
+
+  $edit.val(getText($text));
+  $edit.width($text.width());
+
+  $edit.height($text.height());
+  $note.addClass('editing');
+
+  if ($edit.length) $edit[0].focus();
+}
+
+function stopEditing($edit, viaEscape, viaXclick) {
+  const $item = $edit.parent();
+  if (!$item.hasClass('editing')) return;
+
+  $item.removeClass('editing');
+
+  //
+  const $text = $item.find('.text');
+  const textNow = $edit.val().trimRight();
+  const textWas = getText($text);
+
+  //
+  const brandNew = $item.hasClass('brand-new');
+  $item.removeClass('brand-new');
+
+  if (viaEscape) {
+    if (brandNew) $item.closest('.note, .list, .board').remove();
+    return;
+  }
+
+  if (viaXclick && brandNew && !textNow.length) {
+    $item.closest('.note, .list, .board').remove();
+    return;
+  }
+
+  if (textNow !== textWas || brandNew) {
+    setText($text, textNow);
+
+    if ($item.parent().hasClass('board')) SKB.board.title = textNow;
+
+    updatePageTitle();
+    saveBoard();
+  }
+
+  //
+  if (brandNew && $item.hasClass('list')) addNote($item);
+}
+
+function handleTab(ev) {
+  const $this = $(this);
+  const $note = $this.closest('.note');
+  const $sibl = ev.shiftKey ? $note.prev() : $note.next();
+
+  if ($sibl.length) {
+    stopEditing($this, false, false);
+    if ($sibl.length) $sibl.find('.text')[0].click();
+  }
+}
+
+// setRevealState removed - Ctrl/CapsLock reveal functionality disabled
+
+/*
+	 *	adjust this and that
+	 */
+function adjustLayout() {
+  const $body = $('body');
+  const $board = $('.board');
+
+  if (!$board.length) return;
+
+  const listW = 240;
+
+  const lists = $board.find('.list').length;
+  const listsW = (lists < 2) ? listW : (listW + 10) * lists - 10;
+  const bodyW = $body.width();
+
+  if (listsW + 190 <= bodyW) {
+    $board.css('max-width', '');
+    $body.removeClass('crowded');
+  } else {
+    let max = Math.floor((bodyW - 40) / (listW + 10));
+    max = (max < 2) ? listW : (listW + 10) * max - 10;
+    $board.css('max-width', `${max}px`);
+    $body.addClass('crowded');
+  }
+}
+
+//
+function adjustListScroller() {
+  const $board = $('.board');
+  if (!$board.length) return;
+
+  const $lists = $('.board .lists');
+  const $scroller = $('.board .lists-scroller');
+  const $inner = $scroller.find('div');
+
+  const max = $board.width();
+  const want = $lists[0].scrollWidth;
+  const have = $inner.outerWidth();
+
+  if (want <= max + 5) {
+    $scroller.hide();
+    return;
+  }
+
+  $scroller.show();
+  if (want === have) return;
+
+  $inner.width(want);
+  cloneScrollPos($lists, $scroller);
+}
+
+function cloneScrollPos($src, $dst) {
+  const src = $src[0];
+  const dst = $dst[0];
+
+  if (src._busyScrolling) {
+    src._busyScrolling--;
+    return;
+  }
+
+  dst._busyScrolling++;
+  dst.scrollLeft = src.scrollLeft;
+}
+
+function setupListScrolling() {
+  const $lists = $('.board .lists');
+  const $scroller = $('.board .lists-scroller');
+
+  adjustListScroller();
+
+  $lists[0]._busyScrolling = 0;
+  $scroller[0]._busyScrolling = 0;
+
+  $scroller.on('scroll', () => { cloneScrollPos($scroller, $lists); });
+  $lists.on('scroll', () => { cloneScrollPos($lists, $scroller); });
+
+  adjustLayout();
+}
+
+/*
+	 *	dragsters
+	 */
+function initDragAndDrop() {
+  SKB.noteDrag = new Drag2();
+  SKB.noteDrag.listSel = '.board .list .notes';
+  SKB.noteDrag.itemSel = '.note';
+  SKB.noteDrag.dragster = 'note-dragster';
+  SKB.noteDrag.onDragging = function (started) {
+    const drag = this;
+    const $note = $(drag.item);
+
+    if (started) {
+      const { $drag } = drag;
+
+      $drag.html('<div class=titlebar></div><a href=# class=note-icon></a><div class=text></div>');
+      $drag.find('.text').html($note.find('.text').html());
+
+      // Copy color class from note to dragster
+      const colorClass = $note.attr('class').match(/\bnote-(yellow|blue|green|pink|purple|gray)\b/);
+      if (colorClass) {
+        $drag.addClass(colorClass[0]);
+      }
+
+      drag.org_loc = noteLocation($note);
+    } else if (this.org_loc !== noteLocation($note)) saveBoard();
+  };
+
+  SKB.loadDrag = new Drag2();
+  SKB.loadDrag.listSel = '.boards-dropdown';
+  SKB.loadDrag.itemSel = 'a.load-board';
+  SKB.loadDrag.dragster = 'load-dragster';
+  SKB.loadDrag.onDragging = function (started) {
+    const drag = this;
+
+    if (started) {
+      const { $drag } = drag;
+
+      $drag.html($(this.item).html());
+    } else {
+      saveBoardOrder();
+    }
+  };
+}
+
+/*
+   *  Initialize SKB object
+   */
+const SKB = {
+  codeVersion: 20251115,
+  blobVersion: 20251115, // board blob format in Storage
+  board: null,
+  storage: null,
+  selectedNote: null,
+
+  peek(name) {
+    return this.storage.getConfig()[name];
+  },
+
+  poke(name, val) {
+    const conf = this.storage.getConfig();
+    conf[name] = val;
+    return this.storage.saveConfig();
+  },
+};
+
+/*
+	 *	event handlers
+	 */
+// Window blur handler removed - reveal functionality disabled
+
+// Global hotkeys removed
+
+$('.wrap').on('click', '.board .text', function (ev) {
+  if (this.was_dragged) {
+    this.was_dragged = false;
+    return false;
+  }
+
+  SKB.noteDrag.cancelPriming();
+
+  // Select this note and enable color menu
+  const $note = $(this).closest('.note');
+  $('.board .note').removeClass('selected');
+  $note.addClass('selected');
+  SKB.selectedNote = $note[0];
+  $('.color-menu').removeClass('disabled');
+
+  startEditing($(this), ev);
+  return false;
+});
+
+// Special handler for board title in window titlebar
+$('.wrap').on('click', '.board .window-title.head .text', function (_ev) {
+  const $head = $(this).closest('.window-title.head');
+  const $edit = $head.find('.edit');
+  const $text = $(this);
+  const $titleSpan = $head.find('span.title');
+
+  $edit.val(getText($text));
+
+  // Match the width of the gray title area (span.title)
+  // span.title has padding: 0 7px (14px total)
+  // edit input has padding: 2px 7px (14px) + border: 1px (2px) = 16px total
+  // .width() sets content width, so subtract edit padding+border from span outerWidth
+  const titleWidth = $titleSpan.outerWidth() - 16;
+  $edit.width(titleWidth);
+
+  $head.addClass('editing');
+
+  if ($edit.length) $edit[0].focus();
+
+  return false;
+});
+
+// Board title edit keydown handler
+$('.wrap').on('keydown', '.board .window-title.head .edit', function (ev) {
+  const $this = $(this);
+  const $head = $this.closest('.window-title.head');
+
+  // Enter or Escape to finish editing
+  if (ev.keyCode === 13 || ev.keyCode === 27) {
+    const $text = $head.find('.text');
+    const textNow = $this.val().trimRight();
+
+    if (ev.keyCode === 13 && textNow) {
+      setText($text, textNow);
+      if (SKB.board) SKB.board.title = textNow;
+      saveBoard();
+      updateBoardIndex();
+    }
+
+    $head.removeClass('editing');
+    return false;
+  }
+});
+
+// Board title edit blur handler
+$('.wrap').on('blur', '.board .window-title.head .edit', function (_ev) {
+  const $this = $(this);
+  const $head = $this.closest('.window-title.head');
+  const $text = $head.find('.text');
+  const textNow = $this.val().trimRight();
+
+  if (textNow) {
+    setText($text, textNow);
+    if (SKB.board) SKB.board.title = textNow;
+    saveBoard();
+    updateBoardIndex();
+  }
+
+  $head.removeClass('editing');
+});
+
+// Board title edit input handler - resize as typing
+$('.wrap').on('input', '.board .window-title.head .edit', function () {
+  const $this = $(this);
+  const $head = $this.closest('.window-title.head');
+
+  // Calculate what span.title width would be with this text
+  // span.title has padding: 0 7px
+  const tempSpan = $('<span>').css({
+    'font-size': '10px',
+    'font-family': $this.css('font-family'),
+    'font-weight': 'bold',
+    padding: '0 7px',
+    visibility: 'hidden',
+    position: 'absolute',
+    'white-space': 'nowrap',
+  }).text($this.val() || 'A').appendTo('body');
+
+  // Get the outerWidth (includes padding) and subtract edit input's padding+border
+  const titleOuterWidth = tempSpan.outerWidth();
+  tempSpan.remove();
+
+  const contentWidth = titleOuterWidth - 16; // Subtract edit input's padding (14px) + border (2px)
+  const maxWidth = $head.width() - 100; // Leave room for buttons
+
+  $this.width(Math.max(100, Math.min(contentWidth, maxWidth)));
+});
+
+//
+$('.wrap').on('keydown', '.board .edit', function (ev) {
+  const $this = $(this);
+  let $note = $this.closest('.note');
+  const $list = $this.closest('.list');
+
+  const isNote = $note.length > 0;
+  const isList = $list.length > 0;
+
+  // esc
+  if (ev.keyCode === 27) {
+    stopEditing($this, true, false);
+    return false;
+  }
+
+  // tab
+  if (ev.keyCode === 9) {
+    handleTab.call(this, ev);
+    return false;
+  }
+
+  // done
+  if (ev.keyCode === 13 && ev.altKey
+    || ev.keyCode === 13 && ev.shiftKey && !ev.ctrlKey) {
+    stopEditing($this, false, false);
+    return false;
+  }
+
+  // done + add after
+  if (ev.keyCode === 13 && ev.ctrlKey) {
+    stopEditing($this, false, false);
+
+    if (isNote) {
+      // Get the color of the current note
+      let currentColor = 'gray';
+      const colorMatch = $note.attr('class').match(/\bnote-(yellow|blue|green|pink|purple|gray)\b/);
+      if (colorMatch) {
+        currentColor = colorMatch[1];
+      }
+      addNote($list, $note, null, currentColor);
+    } else
+      if (isList) {
+        $note = $list.find('.note').last();
+        addNote($list, $note);
+      } else {
+        addList();
+      }
+
+    return false;
+  }
+
+  // done on Enter if editing board or list title
+  if (ev.keyCode === 13 && !isNote) {
+    stopEditing($this, false, false);
+    return false;
+  }
+
+  // Alt + Arrow and Alt + R hotkeys removed
+
+  // ctrl-shift-8
+  if (isNote && ev.key === '*' && ev.ctrlKey) {
+    const have = this.value;
+    const pos = this.selectionStart;
+    const want = `${have.substr(0, pos)}\u2022 ${have.substr(this.selectionEnd)}`;
+    $this.val(want);
+    this.selectionStart = this.selectionEnd = pos + 2;
+    return false;
+  }
+
+  return true;
+});
+
+$('.wrap').on('keypress', '.board .edit', function (ev) {
+  // tab
+  if (ev.keyCode === 9) {
+    handleTab.call(this, ev);
+    return false;
+  }
+});
+
+//
+$('.wrap').on('blur', '.board .edit', function (_ev) {
+  if (document.activeElement !== this) stopEditing($(this), false, true);
+  else ; // switch away from the browser window
+});
+
+//
+$('.wrap').on('input propertychange', '.board .note .edit', function () {
+  const delta = $(this).outerHeight() - $(this).height();
+
+  $(this).height(10);
+
+  if (this.scrollHeight > this.clientHeight) $(this).height(this.scrollHeight - delta);
+});
+
+//
+// Helper function to flash menu item and handle click
+function flash($el) {
+  $el.addClass('menu-flashing');
+  setTimeout(() => { $el.removeClass('menu-flashing'); }, 600);
+}
+function handleClick(fn) {
+  return function () {
+    flash($(this));
+    fn.call(this);
+    return false;
+  };
+}
+
+$('header').on('click', '.add-board', handleClick(addBoard));
+
+$('header').on('click', '.add-note-first', handleClick(() => {
+  const $fl = $('.wrap .board .lists .list').first();
+  if ($fl.length) addNote($fl);
+}));
+
+// Click handler for Windows menu dropdown
+$('header').on('click', '.load-board', handleClick(function () {
+  const boardId = parseInt($(this).attr('boardId'), 10);
+  SKB.loadDrag.cancelPriming();
+  if (SKB.board && (SKB.board.id === boardId)) closeBoard();
+  else openBoard(boardId);
+}));
+
+$('header').on('click', '.del-board', handleClick(deleteBoard));
+$('header').on('click', '.undo-board', handleClick(undoBoard));
+$('header').on('click', '.redo-board', handleClick(redoBoard));
+
+//
+// Color menu handler
+//
+$('header').on('click', '.set-color', handleClick(function () {
+  if ($('.color-menu').hasClass('disabled')) return;
+  const color = $(this).data('color');
+  const $note = $(SKB.selectedNote);
+  if (!$note.length) return;
+  $note.removeClass('note-yellow note-blue note-green note-pink note-purple note-gray');
+  $note.addClass(`note-${color}`);
+  const listIndex = $note.closest('.list').index();
+  const noteIndex = $note.index();
+  if (SKB.board.lists[listIndex] && SKB.board.lists[listIndex].notes[noteIndex]) {
+    SKB.board.lists[listIndex].notes[noteIndex].color = color;
+    saveBoard();
+  }
+}));
+
+// Update color menu checkmarks when hovering over Color menu
+$('header').on('mouseenter', '.color-menu', () => {
+  $('.color-dropdown a').removeClass('active');
+
+  if (SKB.selectedNote) {
+    const $note = $(SKB.selectedNote);
+    let currentColor = 'gray';
+
+    // Extract color from class
+    const classes = $note.attr('class').split(' ');
+    for (let i = 0; i < classes.length; i += 1) {
+      if (classes[i].match(/^note-/)) {
+        currentColor = classes[i].replace('note-', '');
+        break;
+      }
+    }
+
+    $(`.color-dropdown a[data-color="${currentColor}"]`).addClass('active');
+  }
+});
+
+//
+$('header').on('click', '.add-list', handleClick(addList));
+
+$('.wrap').on('click', '.board .del-list', function () {
+  deleteList($(this).closest('.list'));
+  return false;
+});
+
+$('.wrap').on('click', '.board .mov-list-l', function () {
+  moveList($(this).closest('.list'), true);
+  return false;
+});
+
+$('.wrap').on('click', '.board .mov-list-r', function () {
+  moveList($(this).closest('.list'), false);
+  return false;
+});
+
+//
+$('.wrap').on('click', '.board .add-note', function () {
+  addNote($(this).closest('.list'));
+  return false;
+});
+
+$('.wrap').on('click', '.board .note-icon', function () {
+  deleteNote($(this).closest('.note'));
+  return false;
+});
+
+//
+// Note selection management
+//
+
+// Select note when clicking on it (not on text)
+$('.wrap').on('click', '.board .note', function (ev) {
+  // Don't select if clicking on text (text handler will manage)
+  if ($(ev.target).closest('.text').length) return;
+
+  // Deselect all notes
+  $('.board .note').removeClass('selected');
+
+  // Select this note
+  $(this).addClass('selected');
+  SKB.selectedNote = this;
+
+  // Enable color menu
+  $('.color-menu').removeClass('disabled');
+
+  return false;
+});
+
+// Deselect when clicking outside notes (but not on header/menus)
+$('.wrap').on('click', (ev) => {
+  if (!$(ev.target).closest('.note').length && !$(ev.target).closest('header').length) {
+    $('.board .note').removeClass('selected');
+    SKB.selectedNote = null;
+
+    // Disable color menu
+    $('.color-menu').addClass('disabled');
+  }
+});
+
+// Raw note toggle removed
+// Collapse toggle removed
+
+//
+// Drag from anywhere when NOT editing
+$('.wrap').on('mousedown', '.board .note:not(.editing) .text', function (ev) {
+  ev.preventDefault();
+  SKB.noteDrag.prime(this.parentNode, ev);
+});
+
+// Drag from titlebar only when editing
+$('.wrap').on('mousedown', '.board .note.editing .titlebar', function (ev) {
+  ev.preventDefault();
+  SKB.noteDrag.prime(this.parentNode, ev);
+});
+
+// Mousedown handler for Windows menu dropdown
+$('header').on('mousedown', 'a.load-board', function (ev) {
+  if ($('header a.load-board').length > 1) SKB.loadDrag.prime(this, ev);
+});
+
+//
+$(document).on('mouseup', (_ev) => {
+  if (SKB.noteDrag) SKB.noteDrag.end();
+  if (SKB.loadDrag) SKB.loadDrag.end();
+  if (SKB.varAdjust) SKB.varAdjust.end();
+});
+
+$(document).on('mousemove', (ev) => {
+  if (SKB.noteDrag) SKB.noteDrag.onMouseMove(ev);
+  if (SKB.loadDrag) SKB.loadDrag.onMouseMove(ev);
+  if (SKB.varAdjust) SKB.varAdjust.onMouseMove(ev);
+});
+
+/***/
+
+$(window).on('resize', adjustLayout);
+
+$('body').on('dragstart', () => false);
+
+/*
+	 *	the init()
+	 */
+SKB.storage = new StorageLocal();
+
+if (!SKB.storage.open()) {
+  easyMartina = true;
+  throw new Error();
+}
+
+const boards = SKB.storage.getBoardIndex();
+
+boards.forEach((_meta, _boardId) => {
+  const _hist = _meta.history.join(', ');
+});
+
+//
+const conf = SKB.storage.getConfig();
+
+/*
+	 *	the ui
+	 */
+initDragAndDrop();
+
+SKB.varAdjust = new VarAdjust();
+
+// Insert favicon into menu.right
+const faviconLink = document.querySelector('link[rel="icon"][sizes="32x32"]');
+if (faviconLink) {
+  const img = document.createElement('img');
+  img.src = faviconLink.href;
+  img.className = 'icon';
+  img.alt = '';
+
+  const menuItem = document.querySelector('header .menu.right li a');
+  if (menuItem) {
+    menuItem.insertBefore(img, menuItem.firstChild);
+  }
+}
+
+//
+if (conf.board && SKB.storage.getBoardIndex().has(conf.board)) openBoard(conf.board);
+
+adjustLayout();
+
+updateBoardIndex();
+
+SKB.storage.setVerLast();
+
+//
+if (!SKB.board && !$('.boards-dropdown .load-board').length) SKB.board = createDemoBoard();
+
+if (SKB.board) {
+  showBoard(true);
+
+  // Select last note in last column if this is the welcome board
+  if (SKB.board.title === 'Welcome to Stickies Kanban Board') {
+    selectWelcomeBoardNote();
+  } else {
+    // Initialize color menu as disabled (will enable when note is selected)
+    $('.color-menu').addClass('disabled');
+  }
+} else {
+  // Initialize color menu as disabled (will enable when note is selected)
+  $('.color-menu').addClass('disabled');
+}
+
+//
+setInterval(adjustListScroller, 100);
+
+setupListScrolling();
+</script>
+
+</html>
