@@ -6,6 +6,7 @@
   <title>Stickies Kanban Board</title>
   <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAARVBMVEX//7z87YL63lH87oT631f99Z399qT885f88pTv5Yvs33798pD8633520z9+7X68pvy6pX675H874nk2oDj0F/jz17axVVyRK6xAAAAR0lEQVQY083IxwGAIAwAwIRoGmLX/Uc1tgcbcM+DkioFEhEzO75ohYS0+bzjP3f4CAeFZyLQzE76ZoAu66Iy9UFEcwTUmo0LpWoCD3ehoF8AAAAASUVORK5CYII=">
   <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAilBMVEX//7z520r87YP+9p798I787H3985X98Ir874f76XX98pD87YD86nr86nj75mv642L76HHaxE7/+qn64V3631P//bT9+7D99ZvUuz/49Kfm13L75Wn53VH++KXx7Jzp3HzYwUn27pr464n16Ifp3X3az3jz4nTz32z64l/y2Vfx1EjTuz/Erj65ojfJ/E1+AAAA5klEQVQ4y+2MR3LDMAwAAbA3kRLVLMl2es//vxeMxrdkkmsO3gtIzGIB/wDQrk5lvwkUqGsoJVSN/Nl8Vm61LKyWghg0ePDLXSAKJknnnYwmkFUe0BGRHh/PD2don+gbgIqvzOFjWRZony3xFScSBxTXbALMhtTxcANMex+tjb5MzdToIhWZNAH6yPMivMoQZCNeutrlqRiKugJukuJwaHfh1lnrRB37oe+yjiSbAVA4nrDTvmmldB4REPqukeQEP9FTOs3z/D7Pn6diTDn2wOuhTon8CpdCty/H/FNBwK9chavw34QvXigNvB7wmT4AAAAASUVORK5CYII=">
+  <link rel="manifest" id="pwa-manifest">
   <style>
     @font-face {
     font-family: 'Espy Sans Revived Ten';
@@ -4412,6 +4413,35 @@ if (faviconLink) {
   if (menuItem) {
     menuItem.insertBefore(img, menuItem.firstChild);
   }
+}
+
+// Generate PWA manifest dynamically
+(function() {
+  const favicon32 = document.querySelector('link[rel="icon"][sizes="32x32"]').href;
+  const manifest = {
+    name: "Stickies Kanban Board",
+    short_name: "Stickies KB",
+    description: "Fantasy Retro Mac Kanban Application",
+    start_url: ".",
+    display: "standalone",
+    background_color: "#ffffff",
+    theme_color: "#000000",
+    icons: [
+      {
+        src: favicon32,
+        sizes: "32x32",
+        type: "image/png",
+        purpose: "any maskable"
+      }
+    ]
+  };
+  document.getElementById('pwa-manifest').href =
+    'data:application/json,' + encodeURIComponent(JSON.stringify(manifest));
+})();
+
+// Register service worker for offline support
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
 }
 
 //
