@@ -173,6 +173,19 @@
 		margin-top: -1px;
 	}
 
+	header .menubar-clock {
+		margin-right: 12px;
+	}
+
+	header .menubar-clock span {
+		color: #000;
+		padding: 3px 7px 0;
+		display: flex;
+		align-items: center;
+		height: 100%;
+		line-height: 1;
+	}
+
 	header .menu ul{
 		padding: 0;
 		margin: 0;
@@ -1399,6 +1412,7 @@
 			</nav>
 			<nav class="menu right">
 				<ul>
+					<li class="menubar-clock"><span id="menubar-clock"></span></li>
 					<li><a href="#">Stickies Kanban Board</a></li>
 				</ul>
 			</nav>
@@ -4475,6 +4489,23 @@ if (SKB.board) {
 setInterval(adjustListScroller, 100);
 
 setupListScrolling();
+
+// Menubar clock
+function updateMenubarClock() {
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12 || 12;
+
+  const clockEl = document.getElementById('menubar-clock');
+  if (clockEl) {
+    clockEl.textContent = `${hours}:${minutes}${ampm}`;
+  }
+}
+
+updateMenubarClock();
+setInterval(updateMenubarClock, 1000);
 </script>
 
 </html>
