@@ -220,12 +220,12 @@
 		color: #848484;
 	}
 
-	/* Windows menu dropdown */
-	header .menu li.windows-menu {
+	/* Consolidated dropdown menu styles */
+	header .menu li.has-dropdown {
 		position: relative;
 	}
 
-	header .menu li.windows-menu .boards-dropdown {
+	header .menu .dropdown {
 		display: none;
 		position: absolute;
 		top: 19px;
@@ -238,11 +238,17 @@
 		z-index: 1000;
 	}
 
-	header .menu li.windows-menu:hover .boards-dropdown {
+	header .menu li.has-dropdown:hover .dropdown {
 		display: block;
 	}
 
-	header .menu li.windows-menu .boards-dropdown a.load-board {
+	/* Don't show dropdown when disabled */
+	header .menu li.has-dropdown.disabled:hover .dropdown {
+		display: none;
+	}
+
+	/* Unified link styling */
+	header .menu .dropdown a {
 		display: block;
 		padding: 2px 20px;
 		color: #000;
@@ -251,92 +257,19 @@
 		font-size: 10px;
 		font-weight: bold;
 		position: relative;
-		top: 0;
+		cursor: pointer;
 	}
 
-	header .menu li.windows-menu .boards-dropdown a.load-board:hover {
+	header .menu .dropdown a:hover {
 		background-color: #dadaff;
 		color: #000;
 	}
 
-	header .menu li.windows-menu .boards-dropdown a.load-board.active::before {
+	/* Active item indicator for boards and color dropdowns */
+	header .menu .dropdown a.active::before {
 		content: '\2713 ';
 		position: absolute;
 		left: 7px;
-	}
-
-	/* File menu dropdown */
-	header .menu li.file-menu {
-		position: relative;
-	}
-
-	header .menu li.file-menu .file-dropdown {
-		display: none;
-		position: absolute;
-		top: 19px;
-		left: 0;
-		min-width: 200px;
-		background-color: #fff;
-		border: 1px solid #000;
-		border-top: 1px solid #000;
-		padding: 4px 0;
-		z-index: 1000;
-	}
-
-	header .menu li.file-menu:hover .file-dropdown {
-		display: block;
-	}
-
-	header .menu li.file-menu .file-dropdown a {
-		display: block;
-		padding: 2px 20px;
-		color: #000;
-		text-decoration: none;
-		white-space: nowrap;
-		position: relative;
-		cursor: pointer;
-	}
-
-	header .menu li.file-menu .file-dropdown a:hover {
-		background-color: #dadaff;
-		color: #000;
-	}
-
-	/* Edit menu dropdown */
-	header .menu li.edit-menu {
-		position: relative;
-	}
-
-	header .menu li.edit-menu .edit-dropdown {
-		display: none;
-		position: absolute;
-		top: 19px;
-		left: 0;
-		min-width: 200px;
-		background-color: #fff;
-		border: 1px solid #000;
-		border-top: 1px solid #000;
-		padding: 4px 0;
-		z-index: 1000;
-	}
-
-	header .menu li.edit-menu:hover .edit-dropdown {
-		display: block;
-	}
-
-	header .menu li.edit-menu .edit-dropdown a {
-		display: block;
-		padding: 2px 20px;
-		color: #000;
-		text-decoration: none;
-		white-space: nowrap;
-		position: relative;
-		cursor: pointer;
-	}
-
-	header .menu li.edit-menu .edit-dropdown a:hover {
-		background-color: #dadaff;
-		color: #000;
 	}
 
 	/* Menu dividers */
@@ -356,54 +289,7 @@
 		background-color: #000;
 	}
 
-	/* Color menu dropdown */
-	header .menu li.color-menu {
-		position: relative;
-	}
-
-	header .menu li.color-menu .color-dropdown {
-		display: none;
-		position: absolute;
-		top: 19px;
-		left: 0;
-		min-width: 200px;
-		background-color: #fff;
-		border: 1px solid #000;
-		border-top: 1px solid #000;
-		padding: 4px 0;
-		z-index: 1000;
-	}
-
-	header .menu li.color-menu:hover .color-dropdown {
-		display: block;
-	}
-
-	/* Don't show dropdown when disabled */
-	header .menu li.color-menu.disabled:hover .color-dropdown {
-		display: none;
-	}
-
-	header .menu li.color-menu .color-dropdown a {
-		display: block;
-		padding: 2px 20px;
-		color: #000;
-		text-decoration: none;
-		white-space: nowrap;
-		position: relative;
-		cursor: pointer;
-	}
-
-	header .menu li.color-menu .color-dropdown a:hover {
-		background-color: #dadaff;
-		color: #000;
-	}
-
-	header .menu li.color-menu .color-dropdown a.active::before {
-		content: '\2713 ';
-		position: absolute;
-		left: 7px;
-	}
-
+	
 	/* Color swatches in menu */
 	.color-swatch {
 		display: inline-block;
@@ -1371,9 +1257,9 @@
 			<nav class="menu">
 				<ul>
 					<li><a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIQEiomp6E+bgAAAHdJREFUOMvtkssRgCAMRF8cK6EVS5GybIVWaCVe9CDgJP5GD+6NTHhk2cBrSigJ/RBohRkS1+Vh6WvVTJjXTgGsYKoOO9Ieorsz7L6qxPOwU5Pp2P6KynvGv0sBIwAAZXIBhSiPBbC/tGRjuiAH38q6hZbnX1c1Ax//IvZpwr+QAAAAAElFTkSuQmCC" class="icon" alt=""/></a></li>
-					<li class="file-menu">
+					<li class="has-dropdown file-menu">
 						<a href="#">File</a>
-						<div class="file-dropdown">
+						<div class="dropdown file-dropdown">
 							<a href="#" class='add-note-first'>New Note on first list</a>
 							<a href="#" class="add-board">New Kanban Board</a>
 							<div class='menu-divider'></div>
@@ -1382,18 +1268,18 @@
 							<a href="#" class='del-board warn'>Delete Board...</a>
 						</div>
 					</li>
-					<li class="edit-menu">
+					<li class="has-dropdown edit-menu">
 						<a href="#">Edit</a>
-						<div class="edit-dropdown">
+						<div class="dropdown edit-dropdown">
 							<a href="#" class='undo-board'>Undo</a>
 							<a href="#" class='redo-board'>Redo</a>
 							<div class='menu-divider'></div>
 							<a href="#" class='add-list'>Add List</a>
 						</div>
 					</li>
-					<li class="color-menu">
+					<li class="has-dropdown color-menu">
 						<a href="#">Color</a>
-						<div class="color-dropdown">
+						<div class="dropdown color-dropdown">
 							<a href="#" class='set-color' data-color='yellow'><span class='color-swatch' data-color='yellow'></span>Yellow</a>
 							<a href="#" class='set-color' data-color='blue'><span class='color-swatch' data-color='blue'></span>Blue</a>
 							<a href="#" class='set-color' data-color='green'><span class='color-swatch' data-color='green'></span>Green</a>
@@ -1402,9 +1288,9 @@
 							<a href="#" class='set-color' data-color='gray'><span class='color-swatch' data-color='gray'></span>Gray</a>
 						</div>
 					</li>
-					<li class="windows-menu">
+					<li class="has-dropdown windows-menu">
 						<a href="#">Boards</a>
-						<div class="boards-dropdown">
+						<div class="dropdown boards-dropdown">
 							<!-- boards will be populated here -->
 						</div>
 					</li>
