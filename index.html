@@ -1774,7 +1774,7 @@ class StorageLocal extends Storage {
             }
           }
         } catch (error) {
-          // Silently fail initial sync
+          console.warn('[GistSync] Initial pull failed:', error.message || error);
         }
       }, 100);
     }
@@ -2591,7 +2591,7 @@ const GistSync = {
         window.SyncUI.updateIndicator('synced');
       }
     } catch (error) {
-      // Error handling done in _apiRequest
+      console.error(`[GistSync] Push failed for board ${boardId}:`, error.message || error);
       throw error;
     }
   },
@@ -2652,8 +2652,9 @@ const GistSync = {
           }
         }
       }
+      console.info(`[GistSync] Pull complete: ${gists.length} gists found, ${gistBoardIds.size} boards synced`);
     } catch (error) {
-      // Don't throw - allow app to continue working locally
+      console.error('[GistSync] Pull failed:', error.message || error);
     } finally {
       // Always update board index UI after pull (new/updated/deleted boards)
       if (window.updateBoardIndex) {
