@@ -987,21 +987,6 @@
 		color: #000;
 	}
 
-	/**  */
-
-	.load-dragster {
-		z-index: 10;
-		position: fixed;
-		opacity: 0;
-		padding-left: 5px;
-		background: #fff;
-		color: #000;
-		border-radius: 2px;
-		cursor: move;
-		font-size: 10px;
-		outline: 1px solid #ACB4BC;
-		box-shadow: 0 1px 3px #00000030;
-	}
 
 	/**  */
 	.adjusting * {
@@ -1060,9 +1045,8 @@
 						<a href="#">File</a>
 						<div class="dropdown file-dropdown">
 							<a href="#" class='add-note-first'>New Note on first list</a>
-							<a href="#" class="add-board">New Kanban Board</a>
 							<div class='menu-divider'></div>
-							<a href="#" class='del-board warn'>Delete Board...</a>
+							<a href="#" class='del-board warn'>Reset Board...</a>
 						</div>
 					</li>
 					<li class="has-dropdown edit-menu">
@@ -1083,12 +1067,6 @@
 							<a href="#" class='set-color' data-color='pink'><span class='color-swatch' data-color='pink'></span>Pink</a>
 							<a href="#" class='set-color' data-color='purple'><span class='color-swatch' data-color='purple'></span>Purple</a>
 							<a href="#" class='set-color' data-color='gray'><span class='color-swatch' data-color='gray'></span>Gray</a>
-						</div>
-					</li>
-					<li class="has-dropdown windows-menu">
-						<a href="#">Boards</a>
-						<div class="dropdown boards-dropdown">
-							<!-- boards will be populated here -->
 						</div>
 					</li>
 				</ul>
@@ -1151,8 +1129,6 @@
 			<div class="text"> </div>
 			<textarea class="edit" spellcheck="false"></textarea>
 		</div>
-
-		<a href="#" class="load-board"></a>
 
 		<textarea class="encoder"></textarea>
 
@@ -1379,16 +1355,6 @@ class Storage {
 
     return this.setJson(this.bmk(boardId), meta)
       && this.setJson(this.bk(boardId), revision); // for older versions
-  }
-
-  setBoardUiSpot(boardId, uiSpot) {
-    const meta = this.boardIndex.get(boardId);
-
-    if (!meta) throw `Invalid boardId in setBoardUiSpot(${boardId}, ${uiSpot})`;
-
-    meta.uiSpot = uiSpot;
-
-    return this.setJson(this.bmk(boardId), meta);
   }
 
   /*
@@ -2051,7 +2017,6 @@ window.addEventListener('error', (e) => {
 const $tNote = $('#templates .note');
 const $tList = $('#templates .list');
 const $tBoard = $('#templates .board');
-const $tLoad = $('#templates .load-board');
 
 function addNote($list, $after, $before, color) {
   let $note = $tNote.clone();
@@ -2170,33 +2135,12 @@ function closeBoard(_quick) {
   SKB.board = null;
   SKB.storage.setActiveBoard(null);
 
-  //		updateUndoRedo();
-  updateBoardIndex();
   updatePageTitle();
 }
 
 //
-function addBoard() {
-  closeBoard(true);
-
-  // Find a unique "Untitled Board" name
-  const index = SKB.storage.getBoardIndex();
-  const existingTitles = [];
-
-  index.forEach((meta, _boardId) => {
-    existingTitles.push(meta.title);
-  });
-
-  let boardTitle = 'Untitled Board';
-  let counter = 2;
-
-  while (existingTitles.indexOf(boardTitle) !== -1) {
-    boardTitle = `Untitled Board ${counter}`;
-    counter++;
-  }
-
-  // Create board with the unique title
-  SKB.board = new Board(boardTitle);
+function createBoard(title) {
+  SKB.board = new Board(title || 'Untitled Board');
 
   // Add default lists
   const firstList = SKB.board.addList('Ideas/Someday');
@@ -2205,13 +2149,11 @@ function addBoard() {
   SKB.board.addList('Doing');
   SKB.board.addList('Done');
 
-  showBoard(true);
-
   // Save the board immediately so it persists on reload
-  saveBoard();
+  SKB.storage.saveBoard(SKB.board);
+  SKB.storage.setActiveBoard(SKB.board.id);
 
-  $('.wrap .board .head').addClass('brand-new');
-  $('.wrap .board .head .text')[0].click();
+  return SKB.board;
 }
 
 function saveBoard() {
@@ -2243,25 +2185,21 @@ function saveBoard() {
   SKB.board = board;
 
   updateUndoRedo();
-  updateBoardIndex();
 }
 
 function deleteBoard() {
-  const _$list = $('.wrap .board .list');
-  const boardId = SKB.board.id;
+  const boardId = SKB.board && SKB.board.id;
 
   closeBoard();
 
-  SKB.storage.nukeBoard(boardId);
+  if (boardId) SKB.storage.nukeBoard(boardId);
 
-  updateBoardIndex();
+  // Single-board app: replace the board with a fresh empty one
+  createBoard('Untitled Board');
+  showBoard(true);
 
-  // If no boards remain, create the demo board
-  if (SKB.storage.getBoardIndex().size === 0) {
-    createDemoBoard();
-    showBoard(true);
-    selectWelcomeBoardNote();
-  }
+  $('.wrap .board .head').addClass('brand-new');
+  $('.wrap .board .head .text')[0].click();
 }
 
 //
@@ -2342,7 +2280,6 @@ function showBoard(quick) {
 
   updatePageTitle();
   updateUndoRedo();
-  updateBoardIndex();
   setupListScrolling();
 }
 
@@ -2388,19 +2325,6 @@ function selectWelcomeBoardNote() {
 /*
 	 *
 	 */
-function saveBoardOrder() {
-  const $index = $('.boards-dropdown .load-board');
-  let spot = 1;
-
-  $index.each(function () {
-    const id = parseInt($(this).attr('boardId'), 10);
-    SKB.storage.setBoardUiSpot(id, spot++);
-  });
-}
-
-/*
-	 *
-	 */
 function updatePageTitle() {
   let title = 'Stickies Board';
 
@@ -2430,37 +2354,6 @@ function updateUndoRedo() {
   if (undo) $undo.removeClass('disabled'); else $undo.addClass('disabled');
   if (redo) $redo.removeClass('disabled'); else $redo.addClass('disabled');
 }
-
-function updateBoardIndex() {
-  const $index = $('.boards-dropdown');
-
-  const _$board = $('.wrap .board');
-  const idNow = SKB.board && SKB.board.id;
-  let empty = true;
-
-  $index.html('');
-
-  const boards = SKB.storage.getBoardIndex();
-  const index = [];
-
-  boards.forEach((meta, id) => { index.push({ id, meta }); });
-
-  index.sort((a, b) => b.meta.uiSpot && a.meta.uiSpot > b.meta.uiSpot);
-
-  index.forEach((entry) => {
-    const $e = $tLoad.clone();
-    $e.attr('boardId', entry.id);
-    $e.html(entry.meta.title);
-
-    if (entry.id === idNow) $e.addClass('active');
-
-    $index.append($e);
-    empty = false;
-  });
-}
-
-// Expose to window for sync-ui.js
-window.updateBoardIndex = updateBoardIndex;
 
 /*
 	 *	generic utils
@@ -2675,22 +2568,6 @@ function initDragAndDrop() {
       drag.org_loc = noteLocation($note);
     } else if (this.org_loc !== noteLocation($note)) saveBoard();
   };
-
-  SKB.loadDrag = new Drag2();
-  SKB.loadDrag.listSel = '.boards-dropdown';
-  SKB.loadDrag.itemSel = 'a.load-board';
-  SKB.loadDrag.dragster = 'load-dragster';
-  SKB.loadDrag.onDragging = function (started) {
-    const drag = this;
-
-    if (started) {
-      const { $drag } = drag;
-
-      $drag.html($(this.item).html());
-    } else {
-      saveBoardOrder();
-    }
-  };
 }
 
 /*
@@ -2777,7 +2654,6 @@ $('.wrap').on('keydown', '.board .window-title.head .edit', function (ev) {
       setText($text, textNow);
       if (SKB.board) SKB.board.title = textNow;
       saveBoard();
-      updateBoardIndex();
     }
 
     $head.removeClass('editing');
@@ -2796,7 +2672,6 @@ $('.wrap').on('blur', '.board .window-title.head .edit', function (_ev) {
     setText($text, textNow);
     if (SKB.board) SKB.board.title = textNow;
     saveBoard();
-    updateBoardIndex();
   }
 
   $head.removeClass('editing');
@@ -2938,19 +2813,9 @@ function handleClick(fn) {
   };
 }
 
-$('header').on('click', '.add-board', handleClick(addBoard));
-
 $('header').on('click', '.add-note-first', handleClick(() => {
   const $fl = $('.wrap .board .lists .list').first();
   if ($fl.length) addNote($fl);
-}));
-
-// Click handler for Windows menu dropdown
-$('header').on('click', '.load-board', handleClick(function () {
-  const boardId = parseInt($(this).attr('boardId'), 10);
-  SKB.loadDrag.cancelPriming();
-  if (SKB.board && (SKB.board.id === boardId)) closeBoard();
-  else openBoard(boardId);
 }));
 
 $('header').on('click', '.del-board', handleClick(deleteBoard));
@@ -3074,21 +2939,14 @@ $('.wrap').on('mousedown', '.board .note.editing .titlebar', function (ev) {
   SKB.noteDrag.prime(this.parentNode, ev);
 });
 
-// Mousedown handler for Windows menu dropdown
-$('header').on('mousedown', 'a.load-board', function (ev) {
-  if ($('header a.load-board').length > 1) SKB.loadDrag.prime(this, ev);
-});
-
 //
 $(document).on('mouseup', (_ev) => {
   if (SKB.noteDrag) SKB.noteDrag.end();
-  if (SKB.loadDrag) SKB.loadDrag.end();
   if (SKB.varAdjust) SKB.varAdjust.end();
 });
 
 $(document).on('mousemove', (ev) => {
   if (SKB.noteDrag) SKB.noteDrag.onMouseMove(ev);
-  if (SKB.loadDrag) SKB.loadDrag.onMouseMove(ev);
   if (SKB.varAdjust) SKB.varAdjust.onMouseMove(ev);
 });
 
@@ -3107,12 +2965,6 @@ if (!SKB.storage.open()) {
   easyMartina = true;
   throw new Error();
 }
-
-const boards = SKB.storage.getBoardIndex();
-
-boards.forEach((_meta, _boardId) => {
-  const _hist = _meta.history.join(', ');
-});
 
 //
 const conf = SKB.storage.getConfig();
@@ -3168,17 +3020,20 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
 
-//
-if (conf.board && SKB.storage.getBoardIndex().has(conf.board)) openBoard(conf.board);
+// Load the single board (configured, else first existing, else welcome board)
+let _boardId = conf.board;
+if (!_boardId || !SKB.storage.getBoardIndex().has(_boardId)) {
+  const _ids = [...SKB.storage.getBoardIndex().keys()];
+  _boardId = _ids.length ? _ids[0] : null;
+}
+if (_boardId) openBoard(_boardId);
 
 adjustLayout();
-
-updateBoardIndex();
 
 SKB.storage.setVerLast();
 
 //
-if (!SKB.board && !$('.boards-dropdown .load-board').length) SKB.board = createDemoBoard();
+if (!SKB.board) SKB.board = createDemoBoard();
 
 if (SKB.board) {
   showBoard(true);
