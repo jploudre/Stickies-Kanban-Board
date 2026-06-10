@@ -1303,8 +1303,8 @@ class Storage {
     const board = this.getJson(this.bk(boardId, revision));
     if (!board) return false;
 
-    // Accept both old (20190412) and new (20251115) format versions
-    const validFormats = [20190412, 20251115];
+    // Accept old (20190412), prior (20251115), and current blob format versions
+    const validFormats = [20190412, 20251115, SKB.blobVersion];
     if (!validFormats.includes(board.format)) {
       return false;
     }
