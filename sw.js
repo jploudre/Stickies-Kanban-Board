@@ -1,4 +1,6 @@
-const CACHE_NAME = 'stickies-2025.Dec.11';
+// Keep this version in sync with SKB.codeVersion in index.html. Changing it
+// busts the old cache so an updated app is served when installed as a PWA.
+const CACHE_NAME = 'stickies-2026.Jun.11';
 const urlsToCache = ['./index.html'];
 
 self.addEventListener('install', (event) => {
