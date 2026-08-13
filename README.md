@@ -8,6 +8,41 @@ This is single file 'fantasy retro Mac app'. Fantasy because it's a mashup of di
 
 This is a single-board scratchpad. The app maintains up to 20 board revisions for undo/redo history. Life is short, don't waste time with "Are you sure you want to delete?" messages. "Reset Board" wipes the board and starts fresh, and it's permanent. But since this is a 'scratchpad', I think that's a reasonable simplification. More like a sheet of paper than a 'enterprise data integrity' doodad.
 
+### Project structure
+
+The shipped app stays a **single, self-contained `index.html`** (all CSS, JS, and binary assets inlined as `data:` URIs) — great for sharing as one file.
+
+Development works on **split source files** under `src/` so each piece is small enough to fit in context, with the stable binaries (fonts, icons, sound) kept out of the way:
+
+```
+index.html          <- BUILT artifact (single file, committed)
+build.py            <- assembles index.html from src/
+src/
+  index.html        <- dev shell (links css/js, references assets/)
+  css/              01-fonts, 02-layout, 03-board, 04-lists, 05-notes, 06-dragster
+  js/               01-lib, 02-util, 03-state, 04-model, 05-drag, 06-varadjust, 07-app
+  assets/           binaries (fonts, images, sound) referenced by path
+  sw.js             (see note below)
+tools/split.py      <- one-off: produced src/ from the original single file
+```
+
+### Development workflow
+
+Edit files under `src/`, then rebuild the single file when done:
+
+```bash
+make dev     # serve src/ locally -> http://localhost:8000 (split files, fast preview)
+make watch   # rebuild index.html automatically whenever src/ changes
+make         # build index.html once from src/
+make verify  # syntax-check JS and do a test build
+```
+
+Or run the Python directly: `python3 build.py` (add `--watch` / `--out FILE`).
+
+> **Note:** The production service worker (`sw.js` at the repo root) caches `./index.html`. During dev you serve `src/`, so the SW won't register there — that's expected and harmless.
+
+When you're done, `make` and commit both the `src/` changes **and** the rebuilt single-file `index.html`, so the repo always ships the single-file artifact.
+
 ### Credits
 
 Thanks to Nullboard: This minimalist kanban was the starting point. Slick and modern.

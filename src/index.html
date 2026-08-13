@@ -1,0 +1,130 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stickies Kanban Board</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="manifest" id="pwa-manifest">
+  <link rel="stylesheet" href="css/01-fonts.css">
+
+<link rel="stylesheet" href="css/app.css">
+
+</head>
+<body>
+	<header>
+		<div class="container">
+			<nav class="menu">
+				<ul>
+					<li><a href="#"><img src="assets/icon-apple.png" class="icon" alt=""/></a></li>
+					<li class="has-dropdown file-menu">
+						<a href="#">File</a>
+						<div class="dropdown file-dropdown">
+							<a href="#" class='add-note-first'>New Note on first list</a>
+							<div class='menu-divider'></div>
+							<a href="#" class='del-board warn'>Reset Board...</a>
+						</div>
+					</li>
+					<li class="has-dropdown edit-menu">
+						<a href="#">Edit</a>
+						<div class="dropdown edit-dropdown">
+							<a href="#" class='undo-board'>Undo</a>
+							<a href="#" class='redo-board'>Redo</a>
+							<div class='menu-divider'></div>
+							<a href="#" class='add-list'>Add List</a>
+						</div>
+					</li>
+					<li class="has-dropdown color-menu">
+						<a href="#">Color</a>
+						<div class="dropdown color-dropdown">
+							<a href="#" class='set-color' data-color='yellow'><span class='color-swatch' data-color='yellow'></span>Yellow</a>
+							<a href="#" class='set-color' data-color='blue'><span class='color-swatch' data-color='blue'></span>Blue</a>
+							<a href="#" class='set-color' data-color='green'><span class='color-swatch' data-color='green'></span>Green</a>
+							<a href="#" class='set-color' data-color='pink'><span class='color-swatch' data-color='pink'></span>Pink</a>
+							<a href="#" class='set-color' data-color='purple'><span class='color-swatch' data-color='purple'></span>Purple</a>
+							<a href="#" class='set-color' data-color='gray'><span class='color-swatch' data-color='gray'></span>Gray</a>
+						</div>
+					</li>
+				</ul>
+			</nav>
+			<nav class="menu right">
+				<ul>
+					<li class="menubar-clock"><span id="menubar-clock"></span></li>
+					<li><a href="#">Stickies Kanban Board</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<div class="wrap">
+	</div>
+
+	<div id="templates">
+		<!-- audio files -->
+		<audio id="soundPopr" preload="auto">
+			<source src="assets/sound-pop.wav" type="audio/wav">
+		</audio>
+
+		<!-- templates -->
+		<div class="board window window-focus">
+			<div class="window-title head">
+				<span class="title"><span class="text board-title-display"></span></span>
+				<input class="edit" spellcheck="false" placeholder='Name of the board'>
+			</div>
+			<div class="window-content">
+				<div class="lists-scroller"><div></div></div>
+				<div class="lists">
+				</div>
+			</div>
+		</div>
+
+		<div class="list">
+			<div class="inner">
+				<div class="head">
+					<div class="text"></div>
+					<input class="edit" spellcheck="false" placeholder='Name of the list'>
+					<div class="menu">
+						<a href="#" class="teaser">&equiv;</a>
+						<div class="bulk">
+							<a href="#" class='del-list warn'><u></u> List</a>
+							<a href="#" class='mov-list-l full'>&lt; Move</a>
+							<a href="#" class='mov-list-l half'>&lt; Mo</a><a href="#" class='mov-list-r half'>ve &gt;</a>
+							<a href="#" class='mov-list-r full'>Move &gt;</a>
+							<a href="#" class='add-note'>+ Note</a>
+						</div>
+					</div>
+				</div>
+				<div class="notes">
+				</div>
+			</div>
+		</div>
+
+		<div class="note">
+			<div class="titlebar"></div>
+			<a href="#" class="note-icon"></a>
+			<div class="text"> </div>
+			<textarea class="edit" spellcheck="false"></textarea>
+		</div>
+
+		<textarea class="encoder"></textarea>
+
+	</div>
+
+</body>
+
+<script src="js/01-lib.js"></script>
+
+<script src="js/02-util.js"></script>
+
+<script src="js/03-state.js"></script>
+
+<script src="js/04-model.js"></script>
+
+<script src="js/05-drag.js"></script>
+
+<script src="js/06-varadjust.js"></script>
+
+<script src="js/07-app.js"></script>
+
+</html>
