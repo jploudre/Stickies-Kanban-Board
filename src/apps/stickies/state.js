@@ -1,3 +1,4 @@
+// story: e03s01
 
 function AppConfig() {
   this.verLast = null; // last used codeVersion

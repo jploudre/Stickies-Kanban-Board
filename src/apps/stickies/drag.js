@@ -1,3 +1,4 @@
+// story: e02s03
 
 function Drag2() {
   // config
@@ -301,32 +302,7 @@ function Drag2() {
 
     // Play drag end sound only if a swap actually occurred
     if (this.swapped) {
-      const audioPopr = document.getElementById('soundPopr');
-      if (audioPopr && audioPopr.readyState >= 2) {
-        // Clean up any previous clone to prevent accumulation
-        if (Drag2.lastAudioClone) {
-          Drag2.lastAudioClone.pause();
-          Drag2.lastAudioClone = null;
-        }
-        // Create a fresh clone for this drop
-        const audioClone = audioPopr.cloneNode(true);
-        audioClone.currentTime = 0;
-        Drag2.lastAudioClone = audioClone;
-        // Clean up reference after audio finishes
-        audioClone.addEventListener('ended', () => {
-          Drag2.lastAudioClone = null;
-        }, { once: true });
-        // Also cleanup if audio duration is exceeded (safety timeout)
-        setTimeout(() => {
-          if (Drag2.lastAudioClone === audioClone) {
-            Drag2.lastAudioClone = null;
-          }
-        }, 500);
-        // Attempt to play
-        audioClone.play().catch(() => {
-          Drag2.lastAudioClone = null;
-        });
-      }
+      MF.sound.play('pop');
       // Reset the swapped flag after playing sound
       this.swapped = false;
     }
@@ -334,6 +310,3 @@ function Drag2() {
     this.item = null;
   };
 }
-
-// Static reference for audio clone management (shared across all Drag2 instances)
-Drag2.lastAudioClone = null;

@@ -1,0 +1,221 @@
+/* story: e02s04 */
+/* core/menubar/menubar.css — generic Mac menubar styles.
+   Derived from the original app.css (menu-flash keyframes, header/menu/
+   dropdown/divider/swatch rules). App-specific overrides stay in app.css. */
+	@keyframes menu-flash{
+		0%, 24% { background-color: #dadaff; }
+		25%, 49% { background-color: #fff; }
+		50%, 74% { background-color: #dadaff; }
+		75%, 99% { background-color: #fff; }
+		100% { background-color: #dadaff; }
+	}
+
+	.menu-flashing{
+		animation: menu-flash 0.4s steps(1, end);
+	}
+
+	header{
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 20px;
+		background-color: #000;
+		line-height: 19px;
+		z-index: 999;
+		position: fixed;
+		display: block;
+	}
+
+	header>.container{
+		width: 100%;
+		height: 19px;
+		line-height: 19px;
+		font-size: 10px;
+		font-family: var(--ff);
+		font-weight: bold;
+		margin: 0;
+		background-color: #fff;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	header img.icon{
+		height: 19px;
+		width: 19px;
+		display: block;
+	}
+
+	header .menu{
+		float: left;
+		margin: 0 7px;
+	}
+
+	header .menu.right{
+		float: right;
+	}
+
+	header .menu.right .icon{
+		width: 16px;
+		height: 16px;
+		vertical-align: middle;
+		margin-right: 4px;
+		margin-top: -1px;
+	}
+
+	header .menubar-clock{
+		margin-right: 12px;
+	}
+
+	header .menubar-clock span{
+		color: #000;
+		padding: 3px 7px 0;
+		display: flex;
+		align-items: center;
+		height: 100%;
+		line-height: 1;
+	}
+
+	header .menu ul{
+		padding: 0;
+		margin: 0;
+	}
+
+	header .menu li{
+		display: inline-flex;
+		align-items: center;
+		height: 19px;
+	}
+
+	header .menu li:first-child{
+		vertical-align: top;
+	}
+
+	header .menu li>a{
+		color: #000;
+		padding: 3px 7px 0;
+		/* border-box so height:100% fills the 19px menubar exactly instead of
+		   overflowing above it; keeps the selected-title highlight aligned to
+		   the menubar's top edge (text position is unchanged). */
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		height: 100%;
+		line-height: 1;
+	}
+
+	header .menu li:hover>a{
+		/* Classic Mac: the selected menu title keeps the top row of pixels
+		   white; the black highlight starts on the second pixel down. */
+		background: linear-gradient(to bottom, #fff 1px, #000 1px);
+		color: #fff;
+	}
+
+	header .menu li.disabled a{
+		color: #848484;
+	}
+
+	header .menu li.has-dropdown{
+		position: relative;
+	}
+
+	header .menu .dropdown{
+		display: none;
+		position: absolute;
+		top: 19px;
+		left: 0;
+		min-width: 200px;
+		background-color: #fff;
+		border: 1px solid #000;
+		border-top: 1px solid #000;
+		padding: 4px 0;
+		z-index: 1000;
+	}
+
+	header .menu li.has-dropdown:hover .dropdown{
+		display: block;
+	}
+
+	header .menu li.has-dropdown.disabled:hover .dropdown{
+		display: none;
+	}
+
+	header .menu .dropdown a{
+		display: block;
+		padding: 2px 20px;
+		color: #000;
+		text-decoration: none;
+		white-space: nowrap;
+		font-size: 10px;
+		font-weight: bold;
+		position: relative;
+		cursor: pointer;
+	}
+
+	header .menu .dropdown a:hover{
+		background-color: #dadaff;
+		color: #000;
+	}
+
+	header .menu .dropdown a.active::before{
+		content: '\2713 ';
+		position: absolute;
+		left: 7px;
+	}
+
+	.menu-divider{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2px 0;
+		height: 16px;
+	}
+
+	.menu-divider::after{
+		content: '';
+		display: block;
+		width: 100%;
+		height: 1px;
+		background-color: #000;
+	}
+
+	.color-swatch{
+		display: inline-block;
+		width: 19px;
+		height: 12px;
+		margin-right: 8px;
+		vertical-align: middle;
+		border: 2px solid;
+	}
+
+	.color-swatch[data-color='yellow']{
+		background-color: #ffffb4;
+		border-color: #ffda03;
+	}
+
+	.color-swatch[data-color='blue']{
+		background-color: #b2ffff;
+		border-color: #00daff;
+	}
+
+	.color-swatch[data-color='green']{
+		background-color: #daffda;
+		border-color: #87ff87;
+	}
+
+	.color-swatch[data-color='pink']{
+		background-color: #fbe0e0;
+		border-color: #ffb3b3;
+	}
+
+	.color-swatch[data-color='purple']{
+		background-color: #dadaff;
+		border-color: #b3b3fe;
+	}
+
+	.color-swatch[data-color='gray']{
+		background-color: #f3f3f3;
+		border-color: #cdcdcd;
+	}
+
+	header .menu .dropdown a.disabled{ color: #848484; }
+

@@ -1,28 +1,32 @@
 story_id: e02s03
-title: "Extract sound module (MF.sound) and rewire Drag2"
-status: todo
+title: Extract sound module (MF.sound) and rewire Drag2
+status: passing
 bcps: 4
-context: >-
-  The pop sound is hard-coded: <audio id="soundPopr"> in index.html and
-  document.getElementById('soundPopr') + a clone-and-pause-previous pattern in
-  Drag2.stopDragging() (05-drag.js). Extract the registry and the
-  clone-and-pause pattern into core/sound/sound.js (MF.sound), and rewire the
-  drop to MF.sound.play('pop'). The audio element is created by the module, not
-  hand-placed in markup.
+context: 'The pop sound is hard-coded: <audio id="soundPopr"> in index.html and document.getElementById(''soundPopr'')
+  + a clone-and-pause-previous pattern in Drag2.stopDragging() (05-drag.js). Extract
+  the registry and the clone-and-pause pattern into core/sound/sound.js (MF.sound),
+  and rewire the drop to MF.sound.play(''pop''). The audio element is created by the
+  module, not hand-placed in markup.'
 tasks:
-  - id: 1
-    description: "Add src/core/sound/sound.js: MF.sound.register('pop', url) and MF.sound.play('pop') that creates/reuses the audio element and implements the clone-and-pause-previous pattern (absorbs Drag2.lastAudioClone logic)."
-    verify: "node --check src/core/sound/sound.js && bash tools/run-tests.sh | grep -i 'sound (pass|ok)'"
-    status: todo
-  - id: 2
-    description: "Register the pop sound from app config in 07-app.js (or a core/app config) instead of hard-coding <audio id=soundPopr> in index.html."
-    verify: "grep -L 'soundPopr' src/index.html && echo 'no hard-coded audio id'"
-    status: todo
-  - id: 3
-    description: "Rewrite Drag2.stopDragging() in 05-drag.js to call MF.sound.play('pop') and drop its local clone/cleanup audio code."
-    verify: "grep -L \"getElementById('soundPopr')\" src/js/05-drag.js && echo cleaner"
-    status: todo
-  - id: 4
-    description: "Rebuild and verify identical rendering/sound behaviour (manual UAT on drop + build-diff guard)."
-    verify: "bash tools/build-diff.sh && echo 'identical (wiring-only change expected)'"
-    status: todo
+- id: 1
+  description: 'Add src/core/sound/sound.js: MF.sound.register(''pop'', url) and MF.sound.play(''pop'')
+    that creates/reuses the audio element and implements the clone-and-pause-previous
+    pattern (absorbs Drag2.lastAudioClone logic).'
+  verify: node --check src/core/sound/sound.js && bash tools/run-tests.sh | grep -i
+    'sound (pass|ok)'
+  status: passing
+- id: 2
+  description: Register the pop sound from app config in 07-app.js (or a core/app
+    config) instead of hard-coding <audio id=soundPopr> in index.html.
+  verify: grep -L 'soundPopr' src/index.html && echo 'no hard-coded audio id'
+  status: passing
+- id: 3
+  description: Rewrite Drag2.stopDragging() in 05-drag.js to call MF.sound.play('pop')
+    and drop its local clone/cleanup audio code.
+  verify: grep -L "getElementById('soundPopr')" src/js/05-drag.js && echo cleaner
+  status: passing
+- id: 4
+  description: Rebuild and verify identical rendering/sound behaviour (manual UAT
+    on drop + build-diff guard).
+  verify: bash tools/build-diff.sh && echo 'identical (wiring-only change expected)'
+  status: passing

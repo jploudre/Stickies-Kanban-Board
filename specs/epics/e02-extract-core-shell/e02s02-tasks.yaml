@@ -1,22 +1,24 @@
 story_id: e02s02
-title: "Promote theme/font layer into core/theme/"
-status: todo
+title: Promote theme/font layer into core/theme/
+status: passing
 bcps: 2
-context: >-
-  01-fonts.css + the two woff2 font assets are standalone and use the --ff var.
-  Promote them into src/core/theme/ with a tokens.css defining shared design
-  tokens (--ff plus shared sizes/spacing) that every app inherits and can
-  override locally.
+context: 01-fonts.css + the two woff2 font assets are standalone and use the --ff
+  var. Promote them into src/core/theme/ with a tokens.css defining shared design
+  tokens (--ff plus shared sizes/spacing) that every app inherits and can override
+  locally.
 tasks:
-  - id: 1
-    description: "Move src/css/01-fonts.css and font assets into src/core/theme/."
-    verify: "test -f src/core/theme/fonts.css && test -f src/core/theme/assets/font-espy-regular.woff2 && echo ok"
-    status: todo
-  - id: 2
-    description: "Add src/core/theme/tokens.css with --ff and shared size/spacing CSS vars, kept additive (no visual change)."
-    verify: "grep -q -- '--ff' src/core/theme/tokens.css && echo ok"
-    status: todo
-  - id: 3
-    description: "Keep build order so fonts.css/tokens.css load before app.css; rebuild and confirm byte-identical via build-diff guard."
-    verify: "bash tools/build-diff.sh && echo 'identical'"
-    status: todo
+- id: 1
+  description: Move src/css/01-fonts.css and font assets into src/core/theme/.
+  verify: test -f src/core/theme/fonts.css && test -f src/core/theme/assets/font-espy-regular.woff2
+    && echo ok
+  status: passing
+- id: 2
+  description: Add src/core/theme/tokens.css with --ff and shared size/spacing CSS
+    vars, kept additive (no visual change).
+  verify: grep -q -- '--ff' src/core/theme/tokens.css && echo ok
+  status: passing
+- id: 3
+  description: Keep build order so fonts.css/tokens.css load before app.css; rebuild
+    and confirm byte-identical via build-diff guard.
+  verify: bash tools/build-diff.sh && echo 'identical'
+  status: passing

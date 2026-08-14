@@ -1,27 +1,32 @@
 story_id: e03s02
-title: "Menubar config object replaces hard-coded markup"
-status: todo
+title: Menubar config object replaces hard-coded markup
+status: passing
 bcps: 4
-context: >-
-  e02s04 gave us MF.menubar.render(config). This story makes Stickies supply its
-  menus as a declarative config object (title, clock, menus with actions,
-  dividers, warn flags, and the Color menu with 6 swatches) defined in
-  07-app.js, replacing the hard-coded <header> markup and leftover app-specific
-  selector handlers.
+context: e02s04 gave us MF.menubar.render(config). This story makes Stickies supply
+  its menus as a declarative config object (title, clock, menus with actions, dividers,
+  warn flags, and the Color menu with 6 swatches) defined in 07-app.js, replacing
+  the hard-coded <header> markup and leftover app-specific selector handlers.
 tasks:
-  - id: 1
-    description: "Define the Stickies menu config object (File: new-note-first, divider, reset-board warn; Edit: undo/redo/add-list; Color: 6 swatches) in 07-app.js and render via MF.menubar.render(config)."
-    verify: "grep -q 'MF.menubar.render' src/apps/stickies/app.js && echo config-driven"
-    status: todo
-  - id: 2
-    description: "Bind actions to handlers via MF.menubar.on('action', name => commandMap[name]()) for undo/redo/new-note/reset/add-list/set-color, incl. enable/disable and checkmark updates for Color."
-    verify: "grep -q 'MF.menubar.on' src/apps/stickies/app.js && echo 'action-routed'"
-    status: todo
-  - id: 3
-    description: "Remove any residual hard-coded menu markup / selector handlers from app files; menu lives in core + app config."
-    verify: "grep -L 'add-note-first|del-board' src/apps/stickies/index.html && echo 'no hard-coded menus'"
-    status: todo
-  - id: 4
-    description: "Rebuild and UAT all menus (open, hover, click, flash, disable/enable, color swatches/checkmarks) behave identically."
-    verify: "bash tools/build-diff.sh && echo 'menu identity'"
-    status: todo
+- id: 1
+  description: 'Define the Stickies menu config object (File: new-note-first, divider,
+    reset-board warn; Edit: undo/redo/add-list; Color: 6 swatches) in 07-app.js and
+    render via MF.menubar.render(config).'
+  verify: grep -q 'MF.menubar.render' src/apps/stickies/app.js && echo config-driven
+  status: passing
+- id: 2
+  description: Bind actions to handlers via MF.menubar.on('action', name => commandMap[name]())
+    for undo/redo/new-note/reset/add-list/set-color, incl. enable/disable and checkmark
+    updates for Color.
+  verify: grep -q 'MF.menubar.on' src/apps/stickies/app.js && echo 'action-routed'
+  status: passing
+- id: 3
+  description: Remove any residual hard-coded menu markup / selector handlers from
+    app files; menu lives in core + app config.
+  verify: grep -L 'add-note-first|del-board' src/apps/stickies/index.html && echo
+    'no hard-coded menus'
+  status: passing
+- id: 4
+  description: Rebuild and UAT all menus (open, hover, click, flash, disable/enable,
+    color swatches/checkmarks) behave identically.
+  verify: bash tools/build-diff.sh && echo 'menu identity'
+  status: passing

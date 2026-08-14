@@ -1,28 +1,30 @@
 story_id: e05s01
-title: "Build minimal second app from core/ alone"
-status: todo
+title: Build minimal second app from core/ alone
+status: passing
 bcps: 6
-context: >-
-  The real generalization test. Build one minimal second "Mac Fantasy App"
-  (e.g. a small Pomodoro timer) using only core/: MF namespace, theme,
-  menubar from config, and a MF.Window, plus its own tiny app files. It must
-  build to its own single-file index.html via the e04 build flag. Any code the
-  second app has to duplicate instead of reuse is a core gap to be promoted
-  (e05s02).
+context: 'The real generalization test. Build one minimal second "Mac Fantasy App"
+  (e.g. a small Pomodoro timer) using only core/: MF namespace, theme, menubar from
+  config, and a MF.Window, plus its own tiny app files. It must build to its own single-file
+  index.html via the e04 build flag. Any code the second app has to duplicate instead
+  of reuse is a core gap to be promoted (e05s02).'
 tasks:
-  - id: 1
-    description: "Scaffold the Pomodoro app (apps/pomodoro) with index.html composing core + its own minimal app.js/app.css."
-    verify: "python3 build.py --app pomodoro --out /tmp/pomodoro.html && echo built"
-    status: todo
-  - id: 2
-    description: "Compose the app from MF.menubar (config), MF.Window, MF.sound, and theme — reusing core components rather than re-implementing them."
-    verify: "grep -qE 'MF\\.(menubar|Window|sound)' src/apps/pomodoro/app.js && echo reuses-core"
-    status: todo
-  - id: 3
-    description: "UAT the Pomodoro app: it presents a retro-Mac window with a menubar, a countdown timer, and a session-end chime via MF.sound."
-    verify: "bash tools/run-tests.sh 2>&1 | grep -i pass"
-    status: todo
-  - id: 4
-    description: "Note any component the second app had to duplicate/re-invent; log those as promotion candidates for e05s02."
-    verify: "test -f specs/epics/e05-second-app-proof/core-gaps.md && echo gaps-logged"
-    status: todo
+- id: 1
+  description: Scaffold the Pomodoro app (apps/pomodoro) with index.html composing
+    core + its own minimal app.js/app.css.
+  verify: python3 build.py --app pomodoro --out /tmp/pomodoro.html && echo built
+  status: passing
+- id: 2
+  description: "Compose the app from MF.menubar (config), MF.Window, MF.sound, and\
+    \ theme \u2014 reusing core components rather than re-implementing them."
+  verify: grep -qE 'MF\.(menubar|Window|sound)' src/apps/pomodoro/app.js && echo reuses-core
+  status: passing
+- id: 3
+  description: 'UAT the Pomodoro app: it presents a retro-Mac window with a menubar,
+    a countdown timer, and a session-end chime via MF.sound.'
+  verify: bash tools/run-tests.sh 2>&1 | grep -i pass
+  status: passing
+- id: 4
+  description: Note any component the second app had to duplicate/re-invent; log those
+    as promotion candidates for e05s02.
+  verify: test -f specs/epics/e05-second-app-proof/core-gaps.md && echo gaps-logged
+  status: passing

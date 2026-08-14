@@ -1,33 +1,41 @@
 story_id: e02s04
-title: "Extract menubar component (MF.menubar) from config"
-status: todo
+title: Extract menubar component (MF.menubar) from config
+status: passing
 bcps: 6
-context: >-
-  Menu HTML is hard-coded in index.html; menu CSS lives in app.css
-  (header/.menu/.dropdown/.menu-divider/.color-swatch/.disabled/.active/
-  .menu-flashing); click JS is hard-coded to selectors in 07-app.js
-  (.add-note-first, .del-board, .undo-board, .undo-board, .add-list, .set-color).
-  Extract core/menubar/menubar.js + menubar.css so the menubar renders from a
-  declarative config and routes actions through a command registry. Keep the
-  rendered markup visually identical.
+context: Menu HTML is hard-coded in index.html; menu CSS lives in app.css (header/.menu/.dropdown/.menu-divider/.color-swatch/.disabled/.active/
+  .menu-flashing); click JS is hard-coded to selectors in 07-app.js (.add-note-first,
+  .del-board, .undo-board, .undo-board, .add-list, .set-color). Extract core/menubar/menubar.js
+  + menubar.css so the menubar renders from a declarative config and routes actions
+  through a command registry. Keep the rendered markup visually identical.
 tasks:
-  - id: 1
-    description: "Add src/core/menubar/menubar.css with generic .menu/.dropdown/.menu-divider/.disabled/.active/.menu-flashing/.color-swatch rules moved out of app.css; app.css keeps only board-specific overrides."
-    verify: "node --check src/core/menubar/menubar.css 2>/dev/null || test -f src/core/menubar/menubar.css; echo css-present"
-    status: todo
-  - id: 2
-    description: "Add src/core/menubar/menubar.js exposing a render(config) function that builds the <header> markup (File/Edit/Color + right clock/app-title) from data, and an on('action', fn) command-registry API. Generalize swatches + checkmarks + enable/disable; menu items stay app data passed via config."
-    verify: "node --check src/core/menubar/menubar.js && bash tools/run-tests.sh | grep -i 'menubar.*pass'"
-    status: todo
-  - id: 3
-    description: "Replace hard-coded menu markup in index.html with a call to MF.menubar.render(<config>) from core (config supplied by app), keeping identical DOM classes."
-    verify: "grep -L 'add-note-first' src/index.html && echo 'markup no longer hard-coded'"
-    status: todo
-  - id: 4
-    description: "Rewrite 07-app.js menu click handlers to subscribe to MF.menubar.on('action', name => ...) via a command map instead of $('header').on('click', '.del-board', ...) selectors."
-    verify: "grep -L \"on('click', '.del-board'\" src/js/07-app.js && echo 'selector handlers replaced'"
-    status: todo
-  - id: 5
-    description: "Rebuild and verify menubar renders and behaves identically (manual UAT on all menus + build-diff guard)."
-    verify: "bash tools/build-diff.sh && echo 'wiring-only identity'"
-    status: todo
+- id: 1
+  description: Add src/core/menubar/menubar.css with generic .menu/.dropdown/.menu-divider/.disabled/.active/.menu-flashing/.color-swatch
+    rules moved out of app.css; app.css keeps only board-specific overrides.
+  verify: node --check src/core/menubar/menubar.css 2>/dev/null || test -f src/core/menubar/menubar.css;
+    echo css-present
+  status: passing
+- id: 2
+  description: Add src/core/menubar/menubar.js exposing a render(config) function
+    that builds the <header> markup (File/Edit/Color + right clock/app-title) from
+    data, and an on('action', fn) command-registry API. Generalize swatches + checkmarks
+    + enable/disable; menu items stay app data passed via config.
+  verify: node --check src/core/menubar/menubar.js && bash tools/run-tests.sh | grep
+    -i 'menubar.*pass'
+  status: passing
+- id: 3
+  description: Replace hard-coded menu markup in index.html with a call to MF.menubar.render(<config>)
+    from core (config supplied by app), keeping identical DOM classes.
+  verify: grep -L 'add-note-first' src/index.html && echo 'markup no longer hard-coded'
+  status: passing
+- id: 4
+  description: Rewrite 07-app.js menu click handlers to subscribe to MF.menubar.on('action',
+    name => ...) via a command map instead of $('header').on('click', '.del-board',
+    ...) selectors.
+  verify: grep -L "on('click', '.del-board'" src/js/07-app.js && echo 'selector handlers
+    replaced'
+  status: passing
+- id: 5
+  description: Rebuild and verify menubar renders and behaves identically (manual
+    UAT on all menus + build-diff guard).
+  verify: bash tools/build-diff.sh && echo 'wiring-only identity'
+  status: passing

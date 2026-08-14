@@ -1,3 +1,4 @@
+// story: e03s02, e03s03
 
 
 let easyMartina = false;
@@ -17,7 +18,7 @@ window.addEventListener('error', (e) => {
 	 */
 const $tNote = $('#templates .note');
 const $tList = $('#templates .list');
-const $tBoard = $('#templates .board');
+// The board is built as a MF.Window at runtime (showBoard); no board template.
 
 function addNote($list, $after, $before, color) {
   let $note = $tNote.clone();
@@ -133,6 +134,12 @@ function closeBoard(_quick) {
 
   $board.remove();
 
+  // Release the window from the manager registry (el already removed above).
+  if (SKB.boardWindow) {
+    MF.WindowManager.remove(SKB.boardWindow);
+    SKB.boardWindow = null;
+  }
+
   SKB.board = null;
   SKB.storage.setActiveBoard(null);
 
@@ -243,11 +250,22 @@ function showBoard(quick) {
 
   const $wrap = $('.wrap');
 
-  const $b = $tBoard.clone();
-  const $bLists = $b.find('.lists');
+  // The board is a MF.Window: the titlebar holds the editable board title, and
+  // the window content holds the lists.
+  const $title = $('<span class="title"><span class="text board-title-display"></span></span>');
+  const $edit = $('<input class="edit" spellcheck="false" placeholder="Name of the board">');
+  const win = new MF.Window({
+    titleEl: [$title[0], $edit[0]],
+  });
+  win.el.classList.add('board');
+  win.el.boardId = board.id;
+  SKB.boardWindow = win;
+  setText($title.find('.text'), board.title);
 
-  $b[0].boardId = board.id;
-  setText($b.find('.head .text'), board.title);
+  const $content = $(win.contentEl);
+  $content.append('<div class="lists-scroller"><div></div></div>');
+  const $bLists = $('<div class="lists"></div>');
+  $content.append($bLists);
 
   // Ensure lists array exists
   if (!board.lists) {
@@ -272,8 +290,8 @@ function showBoard(quick) {
     $bLists.append($l);
   });
 
-  if (quick) $wrap.html('').append($b);
-  else $wrap.html('').append($b).css({ opacity: 1 });
+  if (quick) $wrap.html('').append(win.el);
+  else $wrap.html('').append(win.el).css({ opacity: 1 });
 
   // Reset scroll to top when showing board
   window.scrollTo(0, 0);
@@ -317,7 +335,7 @@ function selectWelcomeBoardNote() {
     $('.board .note').removeClass('selected');
     $lastNote.addClass('selected');
     SKB.selectedNote = $lastNote[0];
-    $('.color-menu').removeClass('disabled');
+    MF.menubar.setMenuEnabled('color', true);
   }
 }
 
@@ -336,9 +354,6 @@ function updatePageTitle() {
 }
 
 function updateUndoRedo() {
-  const $undo = $('header .undo-board');
-  const $redo = $('header .redo-board');
-
   let undo = false;
   let redo = false;
 
@@ -350,8 +365,8 @@ function updateUndoRedo() {
     redo = (rev !== history[0]);
   }
 
-  if (undo) $undo.removeClass('disabled'); else $undo.addClass('disabled');
-  if (redo) $redo.removeClass('disabled'); else $redo.addClass('disabled');
+  MF.menubar.setItemEnabled('undo-board', undo);
+  MF.menubar.setItemEnabled('redo-board', redo);
 }
 
 /*
@@ -610,7 +625,7 @@ $('.wrap').on('click', '.board .text', function (ev) {
   $('.board .note').removeClass('selected');
   $note.addClass('selected');
   SKB.selectedNote = $note[0];
-  $('.color-menu').removeClass('disabled');
+  MF.menubar.setMenuEnabled('color', true);
 
   startEditing($(this), ev);
   return false;
@@ -799,69 +814,94 @@ $('.wrap').on('input propertychange', '.board .note .edit', function () {
 });
 
 //
-// Helper function to flash menu item and handle click
-function flash($el) {
-  $el.addClass('menu-flashing');
-  setTimeout(() => { $el.removeClass('menu-flashing'); }, 600);
-}
-function handleClick(fn) {
-  return function () {
-    flash($(this));
-    fn.call(this);
-    return false;
-  };
-}
-
-$('header').on('click', '.add-note-first', handleClick(() => {
-  const $fl = $('.wrap .board .lists .list').first();
-  if ($fl.length) addNote($fl);
-}));
-
-$('header').on('click', '.del-board', handleClick(deleteBoard));
-$('header').on('click', '.undo-board', handleClick(undoBoard));
-$('header').on('click', '.redo-board', handleClick(redoBoard));
-
+// Menubar — rendered by core/menubar from a config; actions route via registry.
 //
-// Color menu handler
-//
-$('header').on('click', '.set-color', handleClick(function () {
-  if ($('.color-menu').hasClass('disabled')) return;
-  const color = $(this).data('color');
-  const $note = $(SKB.selectedNote);
-  if (!$note.length) return;
-  $note.removeClass('note-yellow note-blue note-green note-pink note-purple note-gray');
-  $note.addClass(`note-${color}`);
-  const listIndex = $note.closest('.list').index();
-  const noteIndex = $note.index();
-  if (SKB.board.lists[listIndex] && SKB.board.lists[listIndex].notes[noteIndex]) {
-    SKB.board.lists[listIndex].notes[noteIndex].color = color;
-    saveBoard();
-  }
-}));
+const menuConfig = {
+  appTitle: 'Stickies Kanban Board',
+  icon: '../../core/menubar/assets/icon-apple.png',
+  clock: true,
+  menus: [
+    {
+      id: 'file',
+      label: 'File',
+      items: [
+        { label: 'New Note on first list', action: 'add-note-first' },
+        { divider: true },
+        { label: 'Reset Board…', action: 'delete-board', warn: true },
+      ],
+    },
+    {
+      id: 'edit',
+      label: 'Edit',
+      items: [
+        { label: 'Undo', action: 'undo-board' },
+        { label: 'Redo', action: 'redo-board' },
+        { divider: true },
+        { label: 'Add List', action: 'add-list' },
+      ],
+    },
+    {
+      id: 'color',
+      label: 'Color',
+      color: true,
+      items: [
+        { label: 'Yellow', action: 'set-color', value: 'yellow' },
+        { label: 'Blue', action: 'set-color', value: 'blue' },
+        { label: 'Green', action: 'set-color', value: 'green' },
+        { label: 'Pink', action: 'set-color', value: 'pink' },
+        { label: 'Purple', action: 'set-color', value: 'purple' },
+        { label: 'Gray', action: 'set-color', value: 'gray' },
+      ],
+    },
+  ],
+};
 
-// Update color menu checkmarks when hovering over Color menu
-$('header').on('mouseenter', '.color-menu', () => {
-  $('.color-dropdown a').removeClass('active');
-
-  if (SKB.selectedNote) {
-    const $note = $(SKB.selectedNote);
-    let currentColor = 'gray';
-
-    // Extract color from class
-    const classes = $note.attr('class').split(' ');
-    for (let i = 0; i < classes.length; i += 1) {
-      if (classes[i].match(/^note-/)) {
-        currentColor = classes[i].replace('note-', '');
-        break;
-      }
+function noteCurrentColor($note) {
+  let currentColor = 'gray';
+  const classes = $note.attr('class').split(' ');
+  for (let i = 0; i < classes.length; i += 1) {
+    if (classes[i].match(/^note-/)) {
+      currentColor = classes[i].replace('note-', '');
+      break;
     }
+  }
+  return currentColor;
+}
 
-    $(`.color-dropdown a[data-color="${currentColor}"]`).addClass('active');
+MF.menubar.on('action', ({ action, element }) => {
+  if (action === 'add-note-first') {
+    const $fl = $('.wrap .board .lists .list').first();
+    if ($fl.length) addNote($fl);
+    return;
+  }
+  if (action === 'delete-board') { deleteBoard(); return; }
+  if (action === 'undo-board') { undoBoard(); return; }
+  if (action === 'redo-board') { redoBoard(); return; }
+  if (action === 'add-list') { addList(); return; }
+  if (action === 'set-color') {
+    if (!SKB.selectedNote) return;
+    const color = element.dataset.color;
+    const $note = $(SKB.selectedNote);
+    if (!$note.length) return;
+    $note.removeClass('note-yellow note-blue note-green note-pink note-purple note-gray');
+    $note.addClass(`note-${color}`);
+    const listIndex = $note.closest('.list').index();
+    const noteIndex = $note.index();
+    if (SKB.board.lists[listIndex] && SKB.board.lists[listIndex].notes[noteIndex]) {
+      SKB.board.lists[listIndex].notes[noteIndex].color = color;
+      saveBoard();
+    }
   }
 });
 
-//
-$('header').on('click', '.add-list', handleClick(addList));
+// Keep the Color menu's checkmark on the selected note's color when opened.
+MF.menubar.on('color-open', () => {
+  if (SKB.selectedNote) {
+    MF.menubar.setActiveColor(noteCurrentColor($(SKB.selectedNote)));
+  } else {
+    MF.menubar.setActiveColor(null);
+  }
+});
 
 $('.wrap').on('click', '.board .del-list', function () {
   deleteList($(this).closest('.list'));
@@ -906,7 +946,7 @@ $('.wrap').on('click', '.board .note', function (ev) {
   SKB.selectedNote = this;
 
   // Enable color menu
-  $('.color-menu').removeClass('disabled');
+  MF.menubar.setMenuEnabled('color', true);
 
   return false;
 });
@@ -918,7 +958,7 @@ $('.wrap').on('click', (ev) => {
     SKB.selectedNote = null;
 
     // Disable color menu
-    $('.color-menu').addClass('disabled');
+    MF.menubar.setMenuEnabled('color', false);
   }
 });
 
@@ -972,6 +1012,12 @@ const conf = SKB.storage.getConfig();
 	 *	the ui
 	 */
 initDragAndDrop();
+
+// Register app sounds with the shared core sound module (drag-drop pop).
+MF.sound.register('pop', '../../core/sound/assets/sound-pop.wav');
+
+// Render the menubar from the declarative config (core/menubar).
+MF.menubar.render(menuConfig);
 
 SKB.varAdjust = new VarAdjust();
 
@@ -1042,11 +1088,11 @@ if (SKB.board) {
     selectWelcomeBoardNote();
   } else {
     // Initialize color menu as disabled (will enable when note is selected)
-    $('.color-menu').addClass('disabled');
+    MF.menubar.setMenuEnabled('color', false);
   }
 } else {
   // Initialize color menu as disabled (will enable when note is selected)
-  $('.color-menu').addClass('disabled');
+  MF.menubar.setMenuEnabled('color', false);
 }
 
 //
@@ -1054,19 +1100,4 @@ setInterval(adjustListScroller, 100);
 
 setupListScrolling();
 
-// Menubar clock
-function updateMenubarClock() {
-  const now = new Date();
-  let hours = now.getHours();
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12 || 12;
-
-  const clockEl = document.getElementById('menubar-clock');
-  if (clockEl) {
-    clockEl.textContent = `${hours}:${minutes}${ampm}`;
-  }
-}
-
-updateMenubarClock();
-setInterval(updateMenubarClock, 1000);
+// Menubar clock is owned by core/menubar (startClock); nothing to do here.

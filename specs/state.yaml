@@ -6,13 +6,13 @@ active_story_id: null
 
 session:
   project: Stickies Kanban Board
-  phase: plan
+  phase: verify
   handoff:
-    next_skill: kickoff-branch
+    next_skill: release-branch
 
 git:
-  branch: main
-  head: e0bc6bf
+  branch: feat/e01-verification-baseline
+  head: a66ce95
 
 release:
   last_tag: null

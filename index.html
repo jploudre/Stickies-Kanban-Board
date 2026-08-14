@@ -9,7 +9,15 @@
   <link rel="manifest" id="pwa-manifest">
   
 
-<style>
+  
+
+  
+
+  
+
+  
+
+  <style>
 
     @font-face {
     font-family: 'Espy Sans Revived Ten';
@@ -27,69 +35,46 @@
 ) format('woff2');
   }
   
+/* core/theme/tokens.css — shared Mac Fantasy design tokens.
+   Every app inherits this scale and may override locally in its own scope.
+   Kept additive: loading these must not change existing rendering. */
 
-	/**  */
-	html {
-		--ff: 'Espy Sans Revived Ten', sans-serif;
+:root {
+  /* Font stack — the single source of truth for --ff across apps. */
+  --ff: 'Espy Sans Revived Ten', sans-serif;
 
-		scrollbar-gutter: stable;
-	}
+  /* Shared type scale (retro 10px-based). */
+  --mf-font-size: 10px;
+  --mf-line-height: 13px;
 
-	html, body, input, textarea {
-		font-family: var(--ff);
-		font-size: 10px;
-		line-height: 13px;
-	}
+  /* Shared spacing rhythm. */
+  --mf-space-1: 4px;
+  --mf-space-2: 8px;
+  --mf-space-3: 12px;
 
-	/**  */
-	html, body, h1, textarea, input {
-		padding: 0;
-		margin: 0;
-	}
+  /* Menubar + window metrics (retro chrome). */
+  --mf-menubar-height: 20px;
+  --mf-window-title-height: 17px;
+}
 
-	body {
-    background-image: url("data:image/gif;base64,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");
-    background-repeat: repeat;
-    /* Keep the retro desktop background crisp when zoomed in:
-       nearest-neighbor scaling instead of blurry smoothing, so at 200%
-       each pixel is an exact 2x2 block rather than an interpolated one. */
-    image-rendering: pixelated;
-	}
+/* core/theme/desktop.css — shared retro desktop backdrop.
+   Promoted from the Stickies app (e05s02) so every Mac Fantasy app gets the
+   same desktop without duplicating the rule or asset. Apps may override by
+   setting their own body background later in their own CSS. */
 
-	/**  */
+body {
+	background-image: url('data:image/gif;base64,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');
+	background-repeat: repeat;
+	/* Keep the retro desktop background crisp when zoomed in:
+	   nearest-neighbor scaling instead of blurry smoothing, so at 200%
+	   each pixel is an exact 2x2 block rather than an interpolated one. */
+	image-rendering: pixelated;
+}
 
-	/* CSS transitions to replace jQuery .animate() */
-	.drag-swap-transition {
-		position: relative;
-		transition: top 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
-	}
-
-	.slide-transition {
-		overflow: hidden;
-		transition: height 200ms ease-out, opacity 200ms ease-out, margin-top 200ms ease-out;
-	}
-
-	.slide-down {
-		height: 0;
-		opacity: 0;
-		margin-top: 0;
-	}
-
-	.slide-up {
-		opacity: 0;
-	}
-
-	a {
-		text-decoration: none;
-		transition: color 200ms;
-	}
-
-	a, a:active, a:focus, textarea, input {
-		outline: none;
-	}
-
-	/* Menu item flash animation on select */
-	@keyframes menu-flash {
+/* core/menubar/menubar.css — generic Mac menubar styles.
+   Derived from the original app.css (menu-flash keyframes, header/menu/
+   dropdown/divider/swatch rules). App-specific overrides stay in app.css. */
+	@keyframes menu-flash{
 		0%, 24% { background-color: #dadaff; }
 		25%, 49% { background-color: #fff; }
 		50%, 74% { background-color: #dadaff; }
@@ -97,40 +82,10 @@
 		100% { background-color: #dadaff; }
 	}
 
-	.menu-flashing {
+	.menu-flashing{
 		animation: menu-flash 0.4s steps(1, end);
 	}
 
-	#templates {
-		display: none;
-	}
-
-	/**  */
-	.no-user-select {
-		-webkit-touch-callout: none;
-		user-select: none;
-	}
-
-	/**  */
-	.clearfix::after,
-	.board::after,
-	.lists::after,
-	.notes::after,
-	.head::after,
-	.board .menu::after,
-	.list .menu::after {
-		content: "";
-		display: table;
-		clear: both;
-	}
-
-	/**  */
-	body.dragging {
-		-webkit-touch-callout: none;
-		user-select: none;
-	}
-
-	/**  */
 	header{
 		top: 0;
 		left: 0;
@@ -171,7 +126,7 @@
 		float: right;
 	}
 
-	header .menu.right .icon {
+	header .menu.right .icon{
 		width: 16px;
 		height: 16px;
 		vertical-align: middle;
@@ -179,11 +134,11 @@
 		margin-top: -1px;
 	}
 
-	header .menubar-clock {
+	header .menubar-clock{
 		margin-right: 12px;
 	}
 
-	header .menubar-clock span {
+	header .menubar-clock span{
 		color: #000;
 		padding: 3px 7px 0;
 		display: flex;
@@ -207,7 +162,6 @@
 		vertical-align: top;
 	}
 
-	/* Center text for all menu items */
 	header .menu li>a{
 		color: #000;
 		padding: 3px 7px 0;
@@ -221,7 +175,7 @@
 		line-height: 1;
 	}
 
-	header .menu li:hover>a {
+	header .menu li:hover>a{
 		/* Classic Mac: the selected menu title keeps the top row of pixels
 		   white; the black highlight starts on the second pixel down. */
 		background: linear-gradient(to bottom, #fff 1px, #000 1px);
@@ -232,12 +186,11 @@
 		color: #848484;
 	}
 
-	/* Consolidated dropdown menu styles */
-	header .menu li.has-dropdown {
+	header .menu li.has-dropdown{
 		position: relative;
 	}
 
-	header .menu .dropdown {
+	header .menu .dropdown{
 		display: none;
 		position: absolute;
 		top: 19px;
@@ -250,17 +203,15 @@
 		z-index: 1000;
 	}
 
-	header .menu li.has-dropdown:hover .dropdown {
+	header .menu li.has-dropdown:hover .dropdown{
 		display: block;
 	}
 
-	/* Don't show dropdown when disabled */
-	header .menu li.has-dropdown.disabled:hover .dropdown {
+	header .menu li.has-dropdown.disabled:hover .dropdown{
 		display: none;
 	}
 
-	/* Unified link styling */
-	header .menu .dropdown a {
+	header .menu .dropdown a{
 		display: block;
 		padding: 2px 20px;
 		color: #000;
@@ -272,20 +223,18 @@
 		cursor: pointer;
 	}
 
-	header .menu .dropdown a:hover {
+	header .menu .dropdown a:hover{
 		background-color: #dadaff;
 		color: #000;
 	}
 
-	/* Active item indicator for boards and color dropdowns */
-	header .menu .dropdown a.active::before {
+	header .menu .dropdown a.active::before{
 		content: '\2713 ';
 		position: absolute;
 		left: 7px;
 	}
 
-	/* Menu dividers */
-	.menu-divider {
+	.menu-divider{
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -293,7 +242,7 @@
 		height: 16px;
 	}
 
-	.menu-divider::after {
+	.menu-divider::after{
 		content: '';
 		display: block;
 		width: 100%;
@@ -301,9 +250,7 @@
 		background-color: #000;
 	}
 
-	
-	/* Color swatches in menu */
-	.color-swatch {
+	.color-swatch{
 		display: inline-block;
 		width: 19px;
 		height: 12px;
@@ -312,37 +259,43 @@
 		border: 2px solid;
 	}
 
-	.color-swatch[data-color='yellow'] {
+	.color-swatch[data-color='yellow']{
 		background-color: #ffffb4;
 		border-color: #ffda03;
 	}
 
-	.color-swatch[data-color='blue'] {
+	.color-swatch[data-color='blue']{
 		background-color: #b2ffff;
 		border-color: #00daff;
 	}
 
-	.color-swatch[data-color='green'] {
+	.color-swatch[data-color='green']{
 		background-color: #daffda;
 		border-color: #87ff87;
 	}
 
-	.color-swatch[data-color='pink'] {
+	.color-swatch[data-color='pink']{
 		background-color: #fbe0e0;
 		border-color: #ffb3b3;
 	}
 
-	.color-swatch[data-color='purple'] {
+	.color-swatch[data-color='purple']{
 		background-color: #dadaff;
 		border-color: #b3b3fe;
 	}
 
-	.color-swatch[data-color='gray'] {
+	.color-swatch[data-color='gray']{
 		background-color: #f3f3f3;
 		border-color: #cdcdcd;
 	}
 
-	/**  */
+	header .menu .dropdown a.disabled{ color: #848484; }
+
+
+/* core/window/window.css — generic Mac window chrome.
+   Derived from the original app.css (window, window-focus strip pattern,
+   title, buttons, content). Board-specific .board.window overrides stay in
+   app.css. */
 	.window{
 		position: relative;
 		border: 1px solid #525252;
@@ -421,18 +374,110 @@
 		display: block;
 	}
 
-	.board.window > .window-content {
+
+/* desktop background lives in core/theme/desktop.css */
+
+/**  */
+	html{
+		--ff: 'Espy Sans Revived Ten', sans-serif;
+
+		scrollbar-gutter: stable;
+	}
+
+	html, body, input, textarea{
+		font-family: var(--ff);
+		font-size: 10px;
+		line-height: 13px;
+	}
+
+/**  */
+	html, body, h1, textarea, input{
+		padding: 0;
+		margin: 0;
+	}
+
+/**  */
+/* CSS transitions to replace jQuery .animate() */
+	.drag-swap-transition{
+		position: relative;
+		transition: top 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+	}
+
+	.slide-transition{
+		overflow: hidden;
+		transition: height 200ms ease-out, opacity 200ms ease-out, margin-top 200ms ease-out;
+	}
+
+	.slide-down{
+		height: 0;
+		opacity: 0;
+		margin-top: 0;
+	}
+
+	.slide-up{
+		opacity: 0;
+	}
+
+	a{
+		text-decoration: none;
+		transition: color 200ms;
+	}
+
+	a, a:active, a:focus, textarea, input{
+		outline: none;
+	}
+
+/* Menu item flash animation on select */
+	#templates{
+		display: none;
+	}
+
+/**  */
+	.no-user-select{
+		-webkit-touch-callout: none;
+		user-select: none;
+	}
+
+/**  */
+	.clearfix::after,
+	.board::after,
+	.lists::after,
+	.notes::after,
+	.head::after,
+	.board .menu::after,
+	.list .menu::after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+/**  */
+	body.dragging{
+		-webkit-touch-callout: none;
+		user-select: none;
+	}
+
+/**  */
+/* Center text for all menu items */
+/* Consolidated dropdown menu styles */
+/* Don't show dropdown when disabled */
+/* Unified link styling */
+/* Active item indicator for boards and color dropdowns */
+/* Menu dividers */
+/* Color swatches in menu */
+/**  */
+	.board.window > .window-content{
 		padding: 20px;
 	}
 
-	/* Board-specific window titlebar overrides */
-	.board.window.window-focus > .window-title.head > span.title {
+/* Board-specific window titlebar overrides */
+	.board.window.window-focus > .window-title.head > span.title{
 		position: relative;
 		z-index: 1;
 		cursor: pointer;
 	}
 
-	.board.window.window-focus > .window-title.head > span.title > .text {
+	.board.window.window-focus > .window-title.head > span.title > .text{
 		font-weight: bold;
 		font-family: var(--ff);
 		font-size: 10px;
@@ -448,7 +493,7 @@
 		pointer-events: auto;
 	}
 
-	.board.window.window-focus > .window-title.head > .edit {
+	.board.window.window-focus > .window-title.head > .edit{
 		display: none;
 		position: absolute;
 		left: 50%;
@@ -468,23 +513,23 @@
 		z-index: 10;
 	}
 
-	.board.window.window-focus > .window-title.head.editing > span.title {
+	.board.window.window-focus > .window-title.head.editing > span.title{
 		visibility: hidden;
 	}
 
-	.board.window.window-focus > .window-title.head.editing > .edit {
+	.board.window.window-focus > .window-title.head.editing > .edit{
 		display: block;
 	}
 
-	.board.window.window-focus > .window-title.head > .edit::placeholder {
+	.board.window.window-focus > .window-title.head > .edit::placeholder{
 		font-weight: 400;
 		text-transform: uppercase;
 		color: #1489db;
 		opacity: 0.8;
 	}
 
-	/* Override default .board .head styles for window titlebar */
-	.board.window > .window-title.head {
+/* Override default .board .head styles for window titlebar */
+	.board.window > .window-title.head{
 		background: none !important;
 		padding: 0 6px;
 		margin: 0;
@@ -492,9 +537,9 @@
 		position: relative;
 	}
 
-	/* Window buttons */
+/* Window buttons */
 	.board.window.window-focus > .window-title.head > .btn-close,
-	.board.window.window-focus > .window-title.head > .btn-maximize {
+	.board.window.window-focus > .window-title.head > .btn-maximize{
 		pointer-events: none;
 		display: inline-block;
 		position: relative;
@@ -502,12 +547,12 @@
 	}
 
 	.board.window.window-focus > .window-title.head.editing > .btn-close,
-	.board.window.window-focus > .window-title.head.editing > .btn-maximize {
+	.board.window.window-focus > .window-title.head.editing > .btn-maximize{
 		display: none;
 	}
 
-	/**  */
-	.board {
+/**  */
+	.board{
 		min-width: 320px;
 		min-height: 600px;
 		width: max-content;
@@ -517,73 +562,73 @@
 		user-select: none;
 	}
 
-	/* Ensure board.window keeps window background */
-	.board.window.window-focus {
+/* Ensure board.window keeps window background */
+	.board.window.window-focus{
 		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAARCAMAAAArHTYgAAAAkFBMVEUAAABzc3OEhIS9vb3///8QEBAhISGtra1CQkLGxsbOzs7Ozv/e3t5SUlKlpaWMjIzeAAAAvQDv7+8xY2MxAJycY5ycnP+c//8xMWP//wBjY87/zpwAAN5j/wD/YzExnGPOnGPOzgAA/wCcAGMxMTGlpdb//84x/5wAAO//YwAQAAAAUgD/Y87O////AJzvAADKXxTxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIVFi03sofQtQAAABNJREFUCNdj4GYQAkJGHFiIQRUADNoA2WlHzfwAAAAASUVORK5CYII=') repeat-x top left #fff;
 		background-size: 1px 17px;
 		padding: 0;
 	}
 
-	.crowded .board {
+	.crowded .board{
 		margin-top: 28px;
 	}
 
-	.board u {
+	.board u{
 		text-decoration: none;
 	}
 
-	.board u::before {
+	.board u::before{
 		content: '\00D7';
 		position: relative;
 		top: 2px;
 		font-weight: 400;
 	}
 
-	/**  */
-	.board .head {
+/**  */
+	.board .head{
 		padding: 5px 0;
 		margin: 1px 5px 0;
 		position: relative;
 	}
 
 	.board .head .text,
-	.board .head .edit {
+	.board .head .edit{
 		font-weight: bold;
 		font-size: 10px;
 		padding: 0 5px 2px;
 		border: none;
 	}
 
-	.board .head .text {
+	.board .head .text{
 		min-height: 20px;
 		white-space: pre;
 		overflow: hidden;
 		text-align: center;
 	}
 
-	.board .head .edit {
+	.board .head .edit{
 		display: none;
 	}
 
-	.board .head .edit::placeholder {
+	.board .head .edit::placeholder{
 		font-weight: 400;
 		text-transform: uppercase;
 		color: #1489db;
 		opacity: 0.8;
 	}
 
-	.board .head.editing .text {
+	.board .head.editing .text{
 		display: none;
 	}
 
-	.board .head.editing .edit {
+	.board .head.editing .edit{
 		display: block;
 		outline: 1px solid #8eaedd;
 	}
 
-	/* List-specific title editing styles - keep same dimensions, just change background */
+/* List-specific title editing styles - keep same dimensions, just change background */
 	.board .list .head .text,
-	.board .list .head .edit {
+	.board .list .head .edit{
 		font-weight: bold;
 		font-size: 10px;
 		padding: 0 5px 2px;
@@ -594,27 +639,21 @@
 		overflow: hidden;
 	}
 
-	.board .list .head .edit {
+	.board .list .head .edit{
 		display: none;
 		background-color: #dadaff;
 		outline: none;
 	}
 
-	.board .list .head.editing .text {
+	.board .list .head.editing .text{
 		display: none;
 	}
 
-	.board .list .head.editing .edit {
+	.board .list .head.editing .edit{
 		display: block;
 	}
 
-
-	header .edit-dropdown .undo-board.disabled,
-	header .edit-dropdown .redo-board.disabled {
-		color: #848484;
-	}
-
-	.board > .head {
+	.board > .head{
 		background: #EAEDF0;
 		padding: 5px;
 		margin: 0 0 10px;
@@ -622,25 +661,25 @@
 		position: relative;
 	}
 
-	/**  */
-	.board .lists-scroller {
+/**  */
+	.board .lists-scroller{
 		height: auto;
 		margin: -1px 0 10px;
 		overflow: auto hidden;
 		display: none;
 	}
 
-	.lists-scroller div {
+	.lists-scroller div{
 		height: 1px;
 	}
 
-	.board .lists {
+	.board .lists{
 		white-space: nowrap;
 		overflow: auto;
 		scrollbar-width: none;
 	}
 
-	.board .list {
+	.board .list{
 		display: inline-block;
 		vertical-align: top;
 		width: 200px;
@@ -653,7 +692,7 @@
 		position: relative;
 	}
 
-	.board .list::after {
+	.board .list::after{
 		content: '';
 		position: absolute;
 		inset: 0;
@@ -662,7 +701,7 @@
 		pointer-events: none;
 	}
 
-	.board .list .inner {
+	.board .list .inner{
 		margin: 3px;
 		background-color: #f8f8f8;
 		border: 1px solid #000;
@@ -676,28 +715,27 @@
 			1px -1px 0 0 #8787b0;
 	}
 
-	.board .list::-webkit-scrollbar {
+	.board .list::-webkit-scrollbar{
 		display: none;
 	}
 
-	.board .list:first-child {
+	.board .list:first-child{
 		margin-left: 0;
 	}
 
-	.board .list:last-child {
+	.board .list:last-child{
 		margin-right: 0;
 	}
 
-	.board .list .notes {
+	.board .list .notes{
 		padding: 0 5px;
 		min-height: 42px;
 		box-sizing: border-box;
 	}
 
-	/**  */
-
-	/* List head menu */
-	.board .list .head .menu {
+/**  */
+/* List head menu */
+	.board .list .head .menu{
 		display: none;
 		position: absolute;
 		top: 0;
@@ -708,96 +746,95 @@
 		font-size: 10px;
 	}
 
-	.board .list .head .menu .teaser {
+	.board .list .head .menu .teaser{
 		position: absolute;
 		right: 3px;
 		top: 5px;
 		padding: 0 3px;
 	}
 
-	.board .list .head .menu .bulk {
+	.board .list .head .menu .bulk{
 		display: none;
 		opacity: 0;
 		z-index: 1;
 	}
 
-	.board .list .head .menu:hover .bulk {
+	.board .list .head .menu:hover .bulk{
 		display: block;
 		opacity: 1;
 	}
 
-	.board .list .head .menu:hover .teaser {
+	.board .list .head .menu:hover .teaser{
 		display: none;
 	}
 
-	.board .list .head.editing .menu {
+	.board .list .head.editing .menu{
 		display: none;
 	}
 
-	/**  */
-	.board .list .menu .mov-list-r.half {
+/**  */
+	.board .list .menu .mov-list-r.half{
 		padding-left: 0;
 	}
 
-	.board .list .menu .full {
+	.board .list .menu .full{
 		display: none;
 	}
 
 	.board .list:first-child .menu .half,
-	.board .list:last-child  .menu .half {
+	.board .list:last-child  .menu .half{
 		display: none;
 	}
 
 	.board .list:first-child .menu .mov-list-r.full,
-	.board .list:last-child  .menu .mov-list-l.full {
+	.board .list:last-child  .menu .mov-list-l.full{
 		display: inline-block;
 	}
 
 	.board .list:first-child:last-child .menu .half,
-	.board .list:first-child:last-child .menu .full {
+	.board .list:first-child:last-child .menu .full{
 		display: none;
 	}
 
-	/**  */
-
-	/* Sticky note color variables - shared by notes and dragster */
+/**  */
+/* Sticky note color variables - shared by notes and dragster */
 	.board .note-yellow,
-	.note-dragster.note-yellow {
+	.note-dragster.note-yellow{
 		--pale-color: #ffffb4;
 		--dark-color: #ffda03;
 	}
 
 	.board .note-blue,
-	.note-dragster.note-blue {
+	.note-dragster.note-blue{
 		--pale-color: #b2ffff;
 		--dark-color: #00daff;
 	}
 
 	.board .note-green,
-	.note-dragster.note-green {
+	.note-dragster.note-green{
 		--pale-color: #daffda;
 		--dark-color: #87ff87;
 	}
 
 	.board .note-pink,
-	.note-dragster.note-pink {
+	.note-dragster.note-pink{
 		--pale-color: #fbe0e0;
 		--dark-color: #ffb3b3;
 	}
 
 	.board .note-purple,
-	.note-dragster.note-purple {
+	.note-dragster.note-purple{
 		--pale-color: #dadaff;
 		--dark-color: #b3b3fe;
 	}
 
 	.board .note-gray,
-	.note-dragster.note-gray {
+	.note-dragster.note-gray{
 		--pale-color: #f3f3f3;
 		--dark-color: #cdcdcd;
 	}
 
-	.board .note {
+	.board .note{
 		background: var(--pale-color, #fff);
 		margin-top: 5px;
 		box-shadow: none;
@@ -809,8 +846,8 @@
 		padding-bottom: 6px;
 	}
 
-	/* Sticky note icon */
-	.board .note .note-icon {
+/* Sticky note icon */
+	.board .note .note-icon{
 		position: absolute;
 		left: 4px;
 		top: 1px;
@@ -838,12 +875,12 @@
 	.board .note:hover .note-icon,
 	.board .note.selected .note-icon,
 	.board .note.editing .note-icon,
-	.board .note.dragging .note-icon {
+	.board .note.dragging .note-icon{
 		opacity: 1;
 	}
 
-	/* Titlebar styling */
-	.board .note .titlebar {
+/* Titlebar styling */
+	.board .note .titlebar{
 		display: none;
 		position: absolute;
 		top: 0;
@@ -855,27 +892,27 @@
 	}
 
 	.board .note.selected .titlebar,
-	.board .note.editing .titlebar {
+	.board .note.editing .titlebar{
 		display: block;
 	}
 
-	/* Checkerboard pattern for titlebar - shared by selected/editing notes and dragster */
+/* Checkerboard pattern for titlebar - shared by selected/editing notes and dragster */
 	.board .note.selected .titlebar,
 	.board .note.editing .titlebar,
-	.note-dragster .titlebar {
+	.note-dragster .titlebar{
 		background-image: conic-gradient(var(--dark-color) 25%, transparent 0 50%, var(--dark-color) 0 75%, transparent 0);
 		background-size: 2px 2px;
 		background-color: var(--pale-color);
 	}
 
-	/* Selected/Editing state - dark borders all around */
+/* Selected/Editing state - dark borders all around */
 	.board .note.selected,
-	.board .note.editing {
+	.board .note.editing{
 		border: 1px solid var(--dark-color, #757575);
 	}
 
 	.board .note.dragging,
-	.board .note.dragging.raw {
+	.board .note.dragging.raw{
 		background: var(--pale-color, #CED4DA);
 		box-shadow: 0 +1px 0 #0001 inset,
 		            0 -1px 0 #0001 inset,
@@ -883,17 +920,17 @@
 		            -1px 0 0 #0001 inset;
 	}
 
-	.board .note.dragging * {
+	.board .note.dragging *{
 		opacity: 0 !important;
 	}
 
-	/**  */
-	.board .note:last-child {
+/**  */
+	.board .note:last-child{
 		margin-bottom: 5px;
 	}
 
 	.board .note .text,
-	.board .note .edit {
+	.board .note .edit{
 		padding: 10px 8px 0;  /* Adjusted spacing to match target */
 		margin-right: 12px;
 		min-height: 100%;
@@ -901,45 +938,41 @@
 		font-family: 'Espy Sans Revived Ten', sans-serif;
 	}
 
-	.board .note .text {
+	.board .note .text{
 		white-space: pre-wrap;
 		overflow-wrap: anywhere;
 		min-height: 13px;
 	}
 
-	/**  */
+/**  */
 	.board .head .text a,
-	.board .note .text a {
+	.board .note .text a{
 		color: inherit;
 		cursor: default;
 		transition: none;
 	}
 
-	/**  */
-	.board .note .edit {
+/**  */
+	.board .note .edit{
 		display: none;
 		border: none;
 	}
 
-	.board .note.editing .text {
+	.board .note.editing .text{
 		display: none;
 	}
 
-	.board .note.editing .edit {
+	.board .note.editing .edit{
 		display: block;
 		resize: none;
 		background-color: var(--pale-color, #fff);
 	}
 
-
-	/**  */
-
-	/* Raw mode removed */
-
-	/* Collapse mode removed */
-
-	/**  */
-	.note-dragster {
+/**  */
+/* Raw mode removed */
+/* Collapse mode removed */
+/**  */
+	.note-dragster{
 		z-index: 2;
 		position: fixed;
 		opacity: 0;
@@ -954,8 +987,8 @@
 		box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
 	}
 
-	/* Sticky note icon on dragster */
-	.note-dragster .note-icon {
+/* Sticky note icon on dragster */
+	.note-dragster .note-icon{
 		position: absolute;
 		left: 4px;
 		top: 1px;
@@ -977,7 +1010,7 @@
 		background-repeat: no-repeat;
 	}
 
-	.note-dragster .titlebar {
+	.note-dragster .titlebar{
 		display: block;
 		position: absolute;
 		top: 0;
@@ -987,24 +1020,22 @@
 		z-index: 1;
 	}
 
-	.note-dragster .text {
+	.note-dragster .text{
 		padding: 10px 8px 0;
 		margin-right: 12px;
 	}
 
-	.note-dragster a {
+	.note-dragster a{
 		color: #000;
 	}
 
-
-	/**  */
-	.adjusting * {
+/**  */
+	.adjusting *{
 		cursor: row-resize !important;
 	}
 
-	/**  */
-
-	@media print {
+/**  */
+	@media print{
 		.board .head .teaser,
 		.list .head .teaser {
 			visibility: hidden;
@@ -1035,7 +1066,7 @@
 		}
 	}
 
-@media (resolution >= 2dppx), (resolution >= 192dpi) {
+	@media (resolution >= 2dppx), (resolution >= 192dpi){
       body {
         background-size: 256px 256px;
       }
@@ -1046,72 +1077,16 @@
 
 </head>
 <body>
-	<header>
-		<div class="container">
-			<nav class="menu">
-				<ul>
-					<li><a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIQEiomp6E+bgAAAHdJREFUOMvtkssRgCAMRF8cK6EVS5GybIVWaCVe9CDgJP5GD+6NTHhk2cBrSigJ/RBohRkS1+Vh6WvVTJjXTgGsYKoOO9Ieorsz7L6qxPOwU5Pp2P6KynvGv0sBIwAAZXIBhSiPBbC/tGRjuiAH38q6hZbnX1c1Ax//IvZpwr+QAAAAAElFTkSuQmCC" class="icon" alt=""/></a></li>
-					<li class="has-dropdown file-menu">
-						<a href="#">File</a>
-						<div class="dropdown file-dropdown">
-							<a href="#" class='add-note-first'>New Note on first list</a>
-							<div class='menu-divider'></div>
-							<a href="#" class='del-board warn'>Reset Board...</a>
-						</div>
-					</li>
-					<li class="has-dropdown edit-menu">
-						<a href="#">Edit</a>
-						<div class="dropdown edit-dropdown">
-							<a href="#" class='undo-board'>Undo</a>
-							<a href="#" class='redo-board'>Redo</a>
-							<div class='menu-divider'></div>
-							<a href="#" class='add-list'>Add List</a>
-						</div>
-					</li>
-					<li class="has-dropdown color-menu">
-						<a href="#">Color</a>
-						<div class="dropdown color-dropdown">
-							<a href="#" class='set-color' data-color='yellow'><span class='color-swatch' data-color='yellow'></span>Yellow</a>
-							<a href="#" class='set-color' data-color='blue'><span class='color-swatch' data-color='blue'></span>Blue</a>
-							<a href="#" class='set-color' data-color='green'><span class='color-swatch' data-color='green'></span>Green</a>
-							<a href="#" class='set-color' data-color='pink'><span class='color-swatch' data-color='pink'></span>Pink</a>
-							<a href="#" class='set-color' data-color='purple'><span class='color-swatch' data-color='purple'></span>Purple</a>
-							<a href="#" class='set-color' data-color='gray'><span class='color-swatch' data-color='gray'></span>Gray</a>
-						</div>
-					</li>
-				</ul>
-			</nav>
-			<nav class="menu right">
-				<ul>
-					<li class="menubar-clock"><span id="menubar-clock"></span></li>
-					<li><a href="#">Stickies Kanban Board</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+	<!-- menubar is rendered from config by core/menubar (MF.menubar.render) -->
 
 	<div class="wrap">
 	</div>
 
 	<div id="templates">
 		<!-- audio files -->
-		<audio id="soundPopr" preload="auto">
-			<source src="data:audio/x-wav;base64,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" type="audio/wav">
-		</audio>
+		<!-- sound is now provided by core/sound via MF.sound (no hard-coded <audio id=soundPopr>) -->
 
 		<!-- templates -->
-		<div class="board window window-focus">
-			<div class="window-title head">
-				<span class="title"><span class="text board-title-display"></span></span>
-				<input class="edit" spellcheck="false" placeholder='Name of the board'>
-			</div>
-			<div class="window-content">
-				<div class="lists-scroller"><div></div></div>
-				<div class="lists">
-				</div>
-			</div>
-		</div>
-
 		<div class="list">
 			<div class="inner">
 				<div class="head">
@@ -1147,6 +1122,35 @@
 </body>
 
 <script>
+// core/shell.js — MF namespace + app-registration API.
+// Every Mac Fantasy App module publishes under the single `window.MF` namespace
+// so shared core (theme, sound, menubar, window) can be composed without globals
+// colliding across apps. Load this file before any other core module.
+(function (root) {
+  'use strict';
+
+  var MF = root.MF || {};
+
+  // Apps registered by name (a later desktop/icon layer may consume this).
+  MF.apps = MF.apps || {};
+
+  // register(meta) -> stored metadata. Each app calls this once at startup.
+  // meta: { name, title, defaultWidth, defaultHeight }
+  MF.register = function (meta) {
+    if (!meta || !meta.name) {
+      throw new Error('MF.register requires a meta object with a name');
+    }
+    MF.apps[meta.name] = Object.assign({}, meta);
+    return MF.apps[meta.name];
+  };
+
+  root.MF = MF;
+  if (typeof module !== 'undefined' && module.exports) module.exports = MF;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+
+<script>
 
 (function(){"use strict";var C=document,D=window,st=C.documentElement,L=C.createElement.bind(C),ft=L("div"),q=L("table"),Mt=L("tbody"),ot=L("tr"),H=Array.isArray,S=Array.prototype,Dt=S.concat,U=S.filter,at=S.indexOf,ct=S.map,Bt=S.push,ht=S.slice,z=S.some,_t=S.splice,Pt=/^#(?:[\w-]|\\.|[^\x00-\xa0])*$/,Ht=/^\.(?:[\w-]|\\.|[^\x00-\xa0])*$/,$t=/<.+>/,jt=/^\w+$/;function J(t,n){var r=It(n);return!t||!r&&!A(n)&&!c(n)?[]:!r&&Ht.test(t)?n.getElementsByClassName(t.slice(1).replace(/\\/g,"")):!r&&jt.test(t)?n.getElementsByTagName(t):n.querySelectorAll(t)}var dt=function(){function t(n,r){if(n){if(Y(n))return n;var i=n;if(g(n)){var e=r||C;if(i=Pt.test(n)&&A(e)?e.getElementById(n.slice(1).replace(/\\/g,"")):$t.test(n)?yt(n):Y(e)?e.find(n):g(e)?o(e).find(n):J(n,e),!i)return}else if(O(n))return this.ready(n);(i.nodeType||i===D)&&(i=[i]),this.length=i.length;for(var s=0,f=this.length;s<f;s++)this[s]=i[s]}}return t.prototype.init=function(n,r){return new t(n,r)},t}(),u=dt.prototype,o=u.init;o.fn=o.prototype=u,u.length=0,u.splice=_t,typeof Symbol=="function"&&(u[Symbol.iterator]=S[Symbol.iterator]);function Y(t){return t instanceof dt}function B(t){return!!t&&t===t.window}function A(t){return!!t&&t.nodeType===9}function It(t){return!!t&&t.nodeType===11}function c(t){return!!t&&t.nodeType===1}function Ft(t){return!!t&&t.nodeType===3}function Wt(t){return typeof t=="boolean"}function O(t){return typeof t=="function"}function g(t){return typeof t=="string"}function v(t){return t===void 0}function P(t){return t===null}function lt(t){return!isNaN(parseFloat(t))&&isFinite(t)}function G(t){if(typeof t!="object"||t===null)return!1;var n=Object.getPrototypeOf(t);return n===null||n===Object.prototype}o.isWindow=B,o.isFunction=O,o.isArray=H,o.isNumeric=lt,o.isPlainObject=G;function d(t,n,r){if(r){for(var i=t.length;i--;)if(n.call(t[i],i,t[i])===!1)return t}else if(G(t))for(var e=Object.keys(t),i=0,s=e.length;i<s;i++){var f=e[i];if(n.call(t[f],f,t[f])===!1)return t}else for(var i=0,s=t.length;i<s;i++)if(n.call(t[i],i,t[i])===!1)return t;return t}o.each=d,u.each=function(t){return d(this,t)},u.empty=function(){return this.each(function(t,n){for(;n.firstChild;)n.removeChild(n.firstChild)})};function $(){for(var t=[],n=0;n<arguments.length;n++)t[n]=arguments[n];var r=Wt(t[0])?t.shift():!1,i=t.shift(),e=t.length;if(!i)return{};if(!e)return $(r,o,i);for(var s=0;s<e;s++){var f=t[s];for(var a in f)r&&(H(f[a])||G(f[a]))?((!i[a]||i[a].constructor!==f[a].constructor)&&(i[a]=new f[a].constructor),$(r,i[a],f[a])):i[a]=f[a]}return i}o.extend=$,u.extend=function(t){return $(u,t)};var qt=/\S+/g;function j(t){return g(t)?t.match(qt)||[]:[]}u.toggleClass=function(t,n){var r=j(t),i=!v(n);return this.each(function(e,s){c(s)&&d(r,function(f,a){i?n?s.classList.add(a):s.classList.remove(a):s.classList.toggle(a)})})},u.addClass=function(t){return this.toggleClass(t,!0)},u.removeAttr=function(t){var n=j(t);return this.each(function(r,i){c(i)&&d(n,function(e,s){i.removeAttribute(s)})})};function Ut(t,n){if(t){if(g(t)){if(arguments.length<2){if(!this[0]||!c(this[0]))return;var r=this[0].getAttribute(t);return P(r)?void 0:r}return v(n)?this:P(n)?this.removeAttr(t):this.each(function(e,s){c(s)&&s.setAttribute(t,n)})}for(var i in t)this.attr(i,t[i]);return this}}u.attr=Ut,u.removeClass=function(t){return arguments.length?this.toggleClass(t,!1):this.attr("class","")},u.hasClass=function(t){return!!t&&z.call(this,function(n){return c(n)&&n.classList.contains(t)})},u.get=function(t){return v(t)?ht.call(this):(t=Number(t),this[t<0?t+this.length:t])},u.eq=function(t){return o(this.get(t))},u.first=function(){return this.eq(0)},u.last=function(){return this.eq(-1)};function zt(t){return v(t)?this.get().map(function(n){return c(n)||Ft(n)?n.textContent:""}).join(""):this.each(function(n,r){c(r)&&(r.textContent=t)})}u.text=zt;function T(t,n,r){if(c(t)){var i=D.getComputedStyle(t,null);return r?i.getPropertyValue(n)||void 0:i[n]||t.style[n]}}function E(t,n){return parseInt(T(t,n),10)||0}function gt(t,n){return E(t,"border".concat(n?"Left":"Top","Width"))+E(t,"padding".concat(n?"Left":"Top"))+E(t,"padding".concat(n?"Right":"Bottom"))+E(t,"border".concat(n?"Right":"Bottom","Width"))}var X={};function Jt(t){if(X[t])return X[t];var n=L(t);C.body.insertBefore(n,null);var r=T(n,"display");return C.body.removeChild(n),X[t]=r!=="none"?r:"block"}function vt(t){return T(t,"display")==="none"}function pt(t,n){var r=t&&(t.matches||t.webkitMatchesSelector||t.msMatchesSelector);return!!r&&!!n&&r.call(t,n)}function I(t){return g(t)?function(n,r){return pt(r,t)}:O(t)?t:Y(t)?function(n,r){return t.is(r)}:t?function(n,r){return r===t}:function(){return!1}}u.filter=function(t){var n=I(t);return o(U.call(this,function(r,i){return n.call(r,i,r)}))};function x(t,n){return n?t.filter(n):t}u.detach=function(t){return x(this,t).each(function(n,r){r.parentNode&&r.parentNode.removeChild(r)}),this};var Yt=/^\s*<(\w+)[^>]*>/,Gt=/^<(\w+)\s*\/?>(?:<\/\1>)?$/,mt={"*":ft,tr:Mt,td:ot,th:ot,thead:q,tbody:q,tfoot:q};function yt(t){if(!g(t))return[];if(Gt.test(t))return[L(RegExp.$1)];var n=Yt.test(t)&&RegExp.$1,r=mt[n]||mt["*"];return r.innerHTML=t,o(r.childNodes).detach().get()}o.parseHTML=yt,u.has=function(t){var n=g(t)?function(r,i){return J(t,i).length}:function(r,i){return i.contains(t)};return this.filter(n)},u.not=function(t){var n=I(t);return this.filter(function(r,i){return(!g(t)||c(i))&&!n.call(i,r,i)})};function R(t,n,r,i){for(var e=[],s=O(n),f=i&&I(i),a=0,y=t.length;a<y;a++)if(s){var h=n(t[a]);h.length&&Bt.apply(e,h)}else for(var p=t[a][n];p!=null&&!(i&&f(-1,p));)e.push(p),p=r?p[n]:null;return e}function bt(t){return t.multiple&&t.options?R(U.call(t.options,function(n){return n.selected&&!n.disabled&&!n.parentNode.disabled}),"value"):t.value||""}function Xt(t){return arguments.length?this.each(function(n,r){var i=r.multiple&&r.options;if(i||Ot.test(r.type)){var e=H(t)?ct.call(t,String):P(t)?[]:[String(t)];i?d(r.options,function(s,f){f.selected=e.indexOf(f.value)>=0},!0):r.checked=e.indexOf(r.value)>=0}else r.value=v(t)||P(t)?"":t}):this[0]&&bt(this[0])}u.val=Xt,u.is=function(t){var n=I(t);return z.call(this,function(r,i){return n.call(r,i,r)})},o.guid=1;function w(t){return t.length>1?U.call(t,function(n,r,i){return at.call(i,n)===r}):t}o.unique=w,u.add=function(t,n){return o(w(this.get().concat(o(t,n).get())))},u.children=function(t){return x(o(w(R(this,function(n){return n.children}))),t)},u.parent=function(t){return x(o(w(R(this,"parentNode"))),t)},u.index=function(t){var n=t?o(t)[0]:this[0],r=t?this:o(n).parent().children();return at.call(r,n)},u.closest=function(t){var n=this.filter(t);if(n.length)return n;var r=this.parent();return r.length?r.closest(t):n},u.siblings=function(t){return x(o(w(R(this,function(n){return o(n).parent().children().not(n)}))),t)},u.find=function(t){return o(w(R(this,function(n){return J(t,n)})))};var Kt=/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g,Qt=/^$|^module$|\/(java|ecma)script/i,Vt=["type","src","nonce","noModule"];function Zt(t,n){var r=o(t);r.filter("script").add(r.find("script")).each(function(i,e){if(Qt.test(e.type)&&st.contains(e)){var s=L("script");s.text=e.textContent.replace(Kt,""),d(Vt,function(f,a){e[a]&&(s[a]=e[a])}),n.head.insertBefore(s,null),n.head.removeChild(s)}})}function kt(t,n,r,i,e){i?t.insertBefore(n,r?t.firstChild:null):t.nodeName==="HTML"?t.parentNode.replaceChild(n,t):t.parentNode.insertBefore(n,r?t:t.nextSibling),e&&Zt(n,t.ownerDocument)}function N(t,n,r,i,e,s,f,a){return d(t,function(y,h){d(o(h),function(p,M){d(o(n),function(b,W){var rt=r?M:W,it=r?W:M,m=r?p:b;kt(rt,m?it.cloneNode(!0):it,i,e,!m)},a)},f)},s),n}u.after=function(){return N(arguments,this,!1,!1,!1,!0,!0)},u.append=function(){return N(arguments,this,!1,!1,!0)};function tn(t){if(!arguments.length)return this[0]&&this[0].innerHTML;if(v(t))return this;var n=/<script[\s>]/.test(t);return this.each(function(r,i){c(i)&&(n?o(i).empty().append(t):i.innerHTML=t)})}u.html=tn,u.appendTo=function(t){return N(arguments,this,!0,!1,!0)},u.wrapInner=function(t){return this.each(function(n,r){var i=o(r),e=i.contents();e.length?e.wrapAll(t):i.append(t)})},u.before=function(){return N(arguments,this,!1,!0)},u.wrapAll=function(t){for(var n=o(t),r=n[0];r.children.length;)r=r.firstElementChild;return this.first().before(n),this.appendTo(r)},u.wrap=function(t){return this.each(function(n,r){var i=o(t)[0];o(r).wrapAll(n?i.cloneNode(!0):i)})},u.insertAfter=function(t){return N(arguments,this,!0,!1,!1,!1,!1,!0)},u.insertBefore=function(t){return N(arguments,this,!0,!0)},u.prepend=function(){return N(arguments,this,!1,!0,!0,!0,!0)},u.prependTo=function(t){return N(arguments,this,!0,!0,!0,!1,!1,!0)},u.contents=function(){return o(w(R(this,function(t){return t.tagName==="IFRAME"?[t.contentDocument]:t.tagName==="TEMPLATE"?t.content.childNodes:t.childNodes})))},u.next=function(t,n,r){return x(o(w(R(this,"nextElementSibling",n,r))),t)},u.nextAll=function(t){return this.next(t,!0)},u.nextUntil=function(t,n){return this.next(n,!0,t)},u.parents=function(t,n){return x(o(w(R(this,"parentElement",!0,n))),t)},u.parentsUntil=function(t,n){return this.parents(n,t)},u.prev=function(t,n,r){return x(o(w(R(this,"previousElementSibling",n,r))),t)},u.prevAll=function(t){return this.prev(t,!0)},u.prevUntil=function(t,n){return this.prev(n,!0,t)},u.map=function(t){return o(Dt.apply([],ct.call(this,function(n,r){return t.call(n,r,n)})))},u.clone=function(){return this.map(function(t,n){return n.cloneNode(!0)})},u.offsetParent=function(){return this.map(function(t,n){for(var r=n.offsetParent;r&&T(r,"position")==="static";)r=r.offsetParent;return r||st})},u.slice=function(t,n){return o(ht.call(this,t,n))};var nn=/-([a-z])/g;function K(t){return t.replace(nn,function(n,r){return r.toUpperCase()})}u.ready=function(t){var n=function(){return setTimeout(t,0,o)};return C.readyState!=="loading"?n():C.addEventListener("DOMContentLoaded",n),this},u.unwrap=function(){return this.parent().each(function(t,n){if(n.tagName!=="BODY"){var r=o(n);r.replaceWith(r.children())}}),this},u.offset=function(){var t=this[0];if(t){var n=t.getBoundingClientRect();return{top:n.top+D.pageYOffset,left:n.left+D.pageXOffset}}},u.position=function(){var t=this[0];if(t){var n=T(t,"position")==="fixed",r=n?t.getBoundingClientRect():this.offset();if(!n){for(var i=t.ownerDocument,e=t.offsetParent||i.documentElement;(e===i.body||e===i.documentElement)&&T(e,"position")==="static";)e=e.parentNode;if(e!==t&&c(e)){var s=o(e).offset();r.top-=s.top+E(e,"borderTopWidth"),r.left-=s.left+E(e,"borderLeftWidth")}}return{top:r.top-E(t,"marginTop"),left:r.left-E(t,"marginLeft")}}};var Et={class:"className",contenteditable:"contentEditable",for:"htmlFor",readonly:"readOnly",maxlength:"maxLength",tabindex:"tabIndex",colspan:"colSpan",rowspan:"rowSpan",usemap:"useMap"};u.prop=function(t,n){if(t){if(g(t))return t=Et[t]||t,arguments.length<2?this[0]&&this[0][t]:this.each(function(i,e){e[t]=n});for(var r in t)this.prop(r,t[r]);return this}},u.removeProp=function(t){return this.each(function(n,r){delete r[Et[t]||t]})};var rn=/^--/;function Q(t){return rn.test(t)}var V={},en=ft.style,un=["webkit","moz","ms"];function sn(t,n){if(n===void 0&&(n=Q(t)),n)return t;if(!V[t]){var r=K(t),i="".concat(r[0].toUpperCase()).concat(r.slice(1)),e="".concat(r," ").concat(un.join("".concat(i," "))).concat(i).split(" ");d(e,function(s,f){if(f in en)return V[t]=f,!1})}return V[t]}var fn={animationIterationCount:!0,columnCount:!0,flexGrow:!0,flexShrink:!0,fontWeight:!0,gridArea:!0,gridColumn:!0,gridColumnEnd:!0,gridColumnStart:!0,gridRow:!0,gridRowEnd:!0,gridRowStart:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,widows:!0,zIndex:!0};function wt(t,n,r){return r===void 0&&(r=Q(t)),!r&&!fn[t]&&lt(n)?"".concat(n,"px"):n}function on(t,n){if(g(t)){var r=Q(t);return t=sn(t,r),arguments.length<2?this[0]&&T(this[0],t,r):t?(n=wt(t,n,r),this.each(function(e,s){c(s)&&(r?s.style.setProperty(t,n):s.style[t]=n)})):this}for(var i in t)this.css(i,t[i]);return this}u.css=on;function Ct(t,n){try{return t(n)}catch{return n}}var an=/^\s+|\s+$/;function St(t,n){var r=t.dataset[n]||t.dataset[K(n)];return an.test(r)?r:Ct(JSON.parse,r)}function cn(t,n,r){r=Ct(JSON.stringify,r),t.dataset[K(n)]=r}function hn(t,n){if(!t){if(!this[0])return;var r={};for(var i in this[0].dataset)r[i]=St(this[0],i);return r}if(g(t))return arguments.length<2?this[0]&&St(this[0],t):v(n)?this:this.each(function(e,s){cn(s,t,n)});for(var i in t)this.data(i,t[i]);return this}u.data=hn;function Tt(t,n){var r=t.documentElement;return Math.max(t.body["scroll".concat(n)],r["scroll".concat(n)],t.body["offset".concat(n)],r["offset".concat(n)],r["client".concat(n)])}d([!0,!1],function(t,n){d(["Width","Height"],function(r,i){var e="".concat(n?"outer":"inner").concat(i);u[e]=function(s){if(this[0])return B(this[0])?n?this[0]["inner".concat(i)]:this[0].document.documentElement["client".concat(i)]:A(this[0])?Tt(this[0],i):this[0]["".concat(n?"offset":"client").concat(i)]+(s&&n?E(this[0],"margin".concat(r?"Top":"Left"))+E(this[0],"margin".concat(r?"Bottom":"Right")):0)}})}),d(["Width","Height"],function(t,n){var r=n.toLowerCase();u[r]=function(i){if(!this[0])return v(i)?void 0:this;if(!arguments.length)return B(this[0])?this[0].document.documentElement["client".concat(n)]:A(this[0])?Tt(this[0],n):this[0].getBoundingClientRect()[r]-gt(this[0],!t);var e=parseInt(i,10);return this.each(function(s,f){if(c(f)){var a=T(f,"boxSizing");f.style[r]=wt(r,e+(a==="border-box"?gt(f,!t):0))}})}});var Rt="___cd";u.toggle=function(t){return this.each(function(n,r){if(c(r)){var i=vt(r),e=v(t)?i:t;e?(r.style.display=r[Rt]||"",vt(r)&&(r.style.display=Jt(r.tagName))):i||(r[Rt]=T(r,"display"),r.style.display="none")}})},u.hide=function(){return this.toggle(!1)},u.show=function(){return this.toggle(!0)};var xt="___ce",Z=".",k={focus:"focusin",blur:"focusout"},Nt={mouseenter:"mouseover",mouseleave:"mouseout"},dn=/^(mouse|pointer|contextmenu|drag|drop|click|dblclick)/i;function tt(t){return Nt[t]||k[t]||t}function nt(t){var n=t.split(Z);return[n[0],n.slice(1).sort()]}u.trigger=function(t,n){if(g(t)){var r=nt(t),i=r[0],e=r[1],s=tt(i);if(!s)return this;var f=dn.test(s)?"MouseEvents":"HTMLEvents";t=C.createEvent(f),t.initEvent(s,!0,!0),t.namespace=e.join(Z),t.___ot=i}t.___td=n;var a=t.___ot in k;return this.each(function(y,h){a&&O(h[t.___ot])&&(h["___i".concat(t.type)]=!0,h[t.___ot](),h["___i".concat(t.type)]=!1),h.dispatchEvent(t)})};function Lt(t){return t[xt]=t[xt]||{}}function ln(t,n,r,i,e){var s=Lt(t);s[n]=s[n]||[],s[n].push([r,i,e]),t.addEventListener(n,e)}function At(t,n){return!n||!z.call(n,function(r){return t.indexOf(r)<0})}function F(t,n,r,i,e){var s=Lt(t);if(n)s[n]&&(s[n]=s[n].filter(function(f){var a=f[0],y=f[1],h=f[2];if(e&&h.guid!==e.guid||!At(a,r)||i&&i!==y)return!0;t.removeEventListener(n,h)}));else for(n in s)F(t,n,r,i,e)}u.off=function(t,n,r){var i=this;if(v(t))this.each(function(s,f){!c(f)&&!A(f)&&!B(f)||F(f)});else if(g(t))O(n)&&(r=n,n=""),d(j(t),function(s,f){var a=nt(f),y=a[0],h=a[1],p=tt(y);i.each(function(M,b){!c(b)&&!A(b)&&!B(b)||F(b,p,h,n,r)})});else for(var e in t)this.off(e,t[e]);return this},u.remove=function(t){return x(this,t).detach().off(),this},u.replaceWith=function(t){return this.before(t).remove()},u.replaceAll=function(t){return o(t).replaceWith(this),this};function gn(t,n,r,i,e){var s=this;if(!g(t)){for(var f in t)this.on(f,n,r,t[f],e);return this}return g(n)||(v(n)||P(n)?n="":v(r)?(r=n,n=""):(i=r,r=n,n="")),O(i)||(i=r,r=void 0),i?(d(j(t),function(a,y){var h=nt(y),p=h[0],M=h[1],b=tt(p),W=p in Nt,rt=p in k;b&&s.each(function(it,m){if(!(!c(m)&&!A(m)&&!B(m))){var et=function(l){if(l.target["___i".concat(l.type)])return l.stopImmediatePropagation();if(!(l.namespace&&!At(M,l.namespace.split(Z)))&&!(!n&&(rt&&(l.target!==m||l.___ot===b)||W&&l.relatedTarget&&m.contains(l.relatedTarget)))){var ut=m;if(n){for(var _=l.target;!pt(_,n);)if(_===m||(_=_.parentNode,!_))return;ut=_}Object.defineProperty(l,"currentTarget",{configurable:!0,get:function(){return ut}}),Object.defineProperty(l,"delegateTarget",{configurable:!0,get:function(){return m}}),Object.defineProperty(l,"data",{configurable:!0,get:function(){return r}});var bn=i.call(ut,l,l.___td);e&&F(m,b,M,n,et),bn===!1&&(l.preventDefault(),l.stopPropagation())}};et.guid=i.guid=i.guid||o.guid++,ln(m,b,M,n,et)}})}),this):this}u.on=gn;function vn(t,n,r,i){return this.on(t,n,r,i,!0)}u.one=vn;var pn=/\r?\n/g;function mn(t,n){return"&".concat(encodeURIComponent(t),"=").concat(encodeURIComponent(n.replace(pn,`\r
 `)))}var yn=/file|reset|submit|button|image/i,Ot=/radio|checkbox/i;u.serialize=function(){var t="";return this.each(function(n,r){d(r.elements||[r],function(i,e){if(!(e.disabled||!e.name||e.tagName==="FIELDSET"||yn.test(e.type)||Ot.test(e.type)&&!e.checked)){var s=bt(e);if(!v(s)){var f=H(s)?s:[s];d(f,function(a,y){t+=mn(e.name,y)})}}})}),t.slice(1)},typeof exports<"u"?module.exports=o:D.cash=D.$=o})();
@@ -1154,7 +1158,6 @@
 </script>
 
 <script>
-
 
 	Number.prototype.clamp = function(min, max)
 	{
@@ -1165,11 +1168,430 @@
 	 *	add a blank line to push 'Prevent this page from opening ...'
 	 *	tack-on from the actual message we are trying to display
 	 */
-	var confirm_org = window.confirm;
-	var alert_org   = window.alert;
-	window.confirm = function(msg) { return confirm_org(msg + "\n "); }
-	window.alert   = function(msg) { return alert_org  (msg + "\n "); }
+	if (typeof window !== 'undefined') {
+		var confirm_org = window.confirm;
+		var alert_org   = window.alert;
+		window.confirm = function(msg) { return confirm_org(msg + "\n "); }
+		window.alert   = function(msg) { return alert_org  (msg + "\n "); }
+	}
 
+	/*
+	 *	shared pure helpers (MF namespace; node-safe so tests can require this)
+	 */
+	(function (root) {
+		var MF = root.MF || (root.MF = {});
+
+		// formatClock(totalSeconds) -> "MM:SS" (leading zeros). Used by any app
+		// with a countdown (the Pomodoro timer); was duplicated in tests before
+		// being promoted here (e05s02).
+		MF.formatClock = function (totalSeconds) {
+			var m = Math.floor(totalSeconds / 60);
+			var s = totalSeconds % 60;
+			return (m < 10 ? '0' + m : '' + m) + ':' + (s < 10 ? '0' + s : '' + s);
+		};
+
+		if (typeof module !== 'undefined' && module.exports) module.exports = MF;
+	})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+
+<script>
+// core/sound/sound.js — shared sound registry for Mac Fantasy apps.
+// Apps register named sounds and play them via MF.sound.play('name'). The audio
+// element is created by this module (not hand-placed in markup) and playback
+// uses a clone-and-pause-previous pattern so rapid replays never stack.
+// No-ops cleanly where Audio/document are unavailable (e.g. a node test env).
+(function (root) {
+  'use strict';
+
+  var MF = root.MF || {};
+
+  // name -> { url }  (populated via register; app data, not hard-coded here)
+  var sounds = MF.sounds = MF.sounds || {};
+
+  // Lazily-created shared source element (browser only).
+  var element = null;
+  // The currently-playing clone, paused before the next play.
+  var lastClone = null;
+
+  MF.sound = MF.sound || {};
+
+  MF.sound.register = function (name, url) {
+    if (!name || !url) {
+      throw new Error('MF.sound.register requires a name and a url');
+    }
+    sounds[name] = { url: url };
+    return sounds[name];
+  };
+
+  MF.sound.get = function (name) {
+    if (!sounds[name]) return null;
+    return sounds[name].url;
+  };
+
+  // play(name) -> bool. Plays the named sound if it can; returns false if the
+  // sound is unknown or playback is unavailable (no Audio / not ready yet).
+  MF.sound.play = function (name) {
+    var s = sounds[name];
+    if (!s) return false;
+    if (typeof Audio === 'undefined' || typeof document === 'undefined') return false;
+
+    if (!element) {
+      element = new Audio();
+      element.src = s.url;
+      element.preload = 'auto';
+    }
+
+    if (lastClone) { lastClone.pause(); lastClone = null; }
+
+    if (element.readyState < 2) return false; // not ready to play yet
+
+    lastClone = element.cloneNode(true);
+    lastClone.currentTime = 0;
+    lastClone.play().catch(function () { lastClone = null; });
+    return true;
+  };
+
+  root.MF = MF;
+  if (typeof module !== 'undefined' && module.exports) module.exports = MF;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+
+<script>
+// core/menubar/menubar.js — generic Mac menubar component.
+// Renders the <header> from a declarative config and routes item clicks through
+// a command registry. Owns the generic mechanics (dropdowns, dividers, warn
+// flags, flash, enable/disable, color swatches + checkmarks, clock); menu
+// *items* stay app data passed in via config.
+//
+//   MF.menubar.render({ appTitle, clock, menus:[{id,label,items:[…]}] })
+//   MF.menubar.on('action', ({action, element}) => …)
+//   MF.menubar.on('color-open', () => …)          // user hovered a color menu
+//   MF.menubar.setMenuEnabled(id, bool) / setItemEnabled(action, bool)
+//   MF.menubar.setActiveColor(color)
+//
+// Node-safe: render() is a no-op where document is unavailable (tests).
+(function (root) {
+  'use strict';
+
+  var MF = root.MF || {};
+  MF.menubar = MF.menubar || {};
+
+  var handlers = { action: [], 'color-open': [] };
+  var clockTimer = null;
+
+  function emit(event, payload) {
+    (handlers[event] || []).forEach(function (fn) { fn(payload); });
+  }
+
+  function flash(el) {
+    el.classList.add('menu-flashing');
+    setTimeout(function () { el.classList.remove('menu-flashing'); }, 600);
+  }
+
+  // The first class token on an item IS its action name (e.g. 'add-note-first',
+  // 'del-board warn' -> 'del-board'). This keeps the DOM classes that CSS and
+  // existing UAT depend on, while routing goes through the registry.
+  function actionOf(el) {
+    return (el.className || '').trim().split(/\s+/)[0];
+  }
+
+  function onItemClick(el) {
+    if (el.classList.contains('disabled')) return false;
+    var li = el.closest('.has-dropdown');
+    if (li && li.classList.contains('disabled')) return false;
+    flash(el);
+    emit('action', { action: actionOf(el), element: el });
+    return false;
+  }
+
+  function onMenuHover(li) {
+    if (li.getAttribute('data-menu') === 'color') {
+      emit('color-open', { menu: 'color' });
+    }
+  }
+
+  function mkItem(item, isColorMenu) {
+    var a = document.createElement('a');
+    a.href = '#';
+    a.className = item.action + (item.warn ? ' warn' : '');
+    if (item.value !== undefined) a.setAttribute('data-color', item.value);
+
+    if (isColorMenu && item.value !== undefined) {
+      var sw = document.createElement('span');
+      sw.className = 'color-swatch';
+      sw.setAttribute('data-color', item.value);
+      a.appendChild(sw);
+      a.appendChild(document.createTextNode(item.label));
+    } else {
+      a.textContent = item.label;
+    }
+    return a;
+  }
+
+  function mkMenu(menu) {
+    var li = document.createElement('li');
+    li.className = 'has-dropdown ' + menu.id + '-menu';
+    li.setAttribute('data-menu', menu.id);
+
+    var a = document.createElement('a');
+    a.href = '#';
+    a.textContent = menu.label;
+    li.appendChild(a);
+
+    var dd = document.createElement('div');
+    dd.className = 'dropdown ' + menu.id + '-dropdown';
+    menu.items.forEach(function (item) {
+      if (item.divider) {
+        var div = document.createElement('div');
+        div.className = 'menu-divider';
+        dd.appendChild(div);
+      } else {
+        dd.appendChild(mkItem(item, !!menu.color));
+      }
+    });
+    li.appendChild(dd);
+    return li;
+  }
+
+  function startClock() {
+    var tick = function () {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes().toString().padStart(2, '0');
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12 || 12;
+      var el = document.getElementById('menubar-clock');
+      if (el) el.textContent = hours + ':' + minutes + ampm;
+    };
+    tick();
+    if (clockTimer) clearInterval(clockTimer);
+    clockTimer = setInterval(tick, 1000);
+  }
+
+  MF.menubar.render = function (config) {
+    if (typeof document === 'undefined') return null; // node-safe
+
+    var header = document.createElement('header');
+    var container = document.createElement('div');
+    container.className = 'container';
+
+    // left: apple icon + menus
+    var left = document.createElement('nav');
+    left.className = 'menu';
+    var ul = document.createElement('ul');
+
+    var liIcon = document.createElement('li');
+    var iconUrl = config.icon || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIQEiomp6E+bgAAAHdJREFUOMvtkssRgCAMRF8cK6EVS5GybIVWaCVe9CDgJP5GD+6NTHhk2cBrSigJ/RBohRkS1+Vh6WvVTJjXTgGsYKoOO9Ieorsz7L6qxPOwU5Pp2P6KynvGv0sBIwAAZXIBhSiPBbC/tGRjuiAH38q6hZbnX1c1Ax//IvZpwr+QAAAAAElFTkSuQmCC';
+    liIcon.innerHTML = '<a href="#"><img src="' + iconUrl + '" class="icon" alt=""/></a>';
+    ul.appendChild(liIcon);
+
+    (config.menus || []).forEach(function (menu) { ul.appendChild(mkMenu(menu)); });
+    left.appendChild(ul);
+    container.appendChild(left);
+
+    // right: clock + app title
+    var right = document.createElement('nav');
+    right.className = 'menu right';
+    var rUl = document.createElement('ul');
+    if (config.clock) {
+      var liClock = document.createElement('li');
+      liClock.className = 'menubar-clock';
+      liClock.innerHTML = '<span id="menubar-clock"></span>';
+      rUl.appendChild(liClock);
+    }
+    var liTitle = document.createElement('li');
+    var titleA = document.createElement('a');
+    titleA.href = '#';
+    titleA.textContent = config.appTitle || '';
+    liTitle.appendChild(titleA);
+    rUl.appendChild(liTitle);
+    right.appendChild(rUl);
+    container.appendChild(right);
+
+    header.appendChild(container);
+
+    var old = document.querySelector('header');
+    if (old) old.parentNode.replaceChild(header, old);
+    else document.body.insertBefore(header, document.body.firstChild);
+
+    header.addEventListener('click', function (ev) {
+      var a = ev.target.closest('.dropdown a');
+      if (a) { ev.preventDefault(); return onItemClick(a); }
+    });
+    header.addEventListener('mouseenter', function (ev) {
+      var li = ev.target.closest && ev.target.closest('.has-dropdown');
+      if (li) onMenuHover(li);
+    }, true);
+
+    if (config.clock) startClock();
+    return header;
+  };
+
+  MF.menubar.on = function (event, fn) {
+    (handlers[event] = handlers[event] || []).push(fn);
+    return MF.menubar;
+  };
+
+  MF.menubar.setMenuEnabled = function (menuId, enabled) {
+    if (typeof document === 'undefined') return;
+    var li = document.querySelector('header .' + menuId + '-menu');
+    if (li) li.classList.toggle('disabled', !enabled);
+  };
+
+  MF.menubar.setItemEnabled = function (action, enabled) {
+    if (typeof document === 'undefined') return;
+    var el = document.querySelector('header .dropdown a.' + action);
+    if (el) el.classList.toggle('disabled', !enabled);
+  };
+
+  MF.menubar.setActiveColor = function (color) {
+    if (typeof document === 'undefined') return;
+    document.querySelectorAll('header .color-dropdown a').forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-color') === color);
+    });
+  };
+
+  root.MF = MF;
+  if (typeof module !== 'undefined' && module.exports) module.exports = MF;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+
+<script>
+// core/window/window.js — generic Mac window component + manager.
+// MF.Window owns the strip-pattern titlebar, centered title, and the
+// close/maximize buttons (presentational this phase). MF.WindowManager places
+// windows on the desktop and manages z-order/focus.
+//
+//   var w = new MF.Window({ title, content, width, height, x, y, onClose })
+//   MF.WindowManager.add(w) / remove(w)   (auto-added by the constructor)
+//
+// Node-safe: without a document the element is not built, but the manager
+// registry and window metadata still work (tests).
+(function (root) {
+  'use strict';
+
+  var MF = root.MF || {};
+
+  var seq = 0;         // per-session window id counter
+  var zBase = 100;     // below the menubar (z-index 999), above page content
+
+  function Window(opts) {
+    opts = opts || {};
+    this.id = 'mf-window-' + (++seq);
+    this.title = opts.title || '';
+    this.width = opts.width !== undefined ? opts.width : 480;
+    this.height = opts.height !== undefined ? opts.height : 360;
+    this._hasW = opts.width !== undefined;
+    this._hasH = opts.height !== undefined;
+    this.x = (opts.x !== undefined) ? opts.x : null;
+    this.y = (opts.y !== undefined) ? opts.y : null;
+    this.onClose = opts.onClose || null;
+    this.content = opts.content || null;
+    // Optional custom titlebar content: an element (or array of elements) that
+    // replaces the default span.title — lets an app embed an editable title.
+    this.titleEl = opts.titleEl || null;
+    this.el = null;    // DOM element, built lazily in build() (browser only)
+    this.contentEl = null;
+
+    if (typeof document !== 'undefined') this.build();
+
+    MF.WindowManager.add(this);
+  }
+
+  Window.prototype.build = function () {
+    var w = document.createElement('div');
+    w.className = 'window window-focus';
+    w.id = this.id;
+    // Only constrain when the app asked for a size (a flow-layout window like
+    // the kanban board keeps its CSS max-content sizing).
+    if (this._hasW) w.style.width = this.width + 'px';
+    if (this._hasH) w.style.height = this.height + 'px';
+
+    var head = document.createElement('div');
+    head.className = 'window-title head';
+
+    var close = document.createElement('a');
+    close.className = 'btn-close';
+    close.href = '#';
+
+    var maxi = document.createElement('a');
+    maxi.className = 'btn-maximize';
+    maxi.href = '#';
+
+    head.appendChild(close);
+    if (this.titleEl) {
+      (Array.isArray(this.titleEl) ? this.titleEl : [this.titleEl]).forEach(function (el) {
+        head.appendChild(el);
+      });
+    } else {
+      var title = document.createElement('span');
+      title.className = 'title';
+      var text = document.createElement('span');
+      text.className = 'text';
+      text.textContent = this.title;
+      title.appendChild(text);
+      head.appendChild(title);
+    }
+    head.appendChild(maxi);
+
+    var content = document.createElement('div');
+    content.className = 'window-content';
+    if (this.content) {
+      if (typeof this.content === 'string') content.innerHTML = this.content;
+      else content.appendChild(this.content);
+    }
+
+    w.appendChild(head);
+    w.appendChild(content);
+    this.el = w;
+    this.contentEl = content;
+  };
+
+  MF.Window = Window;
+
+  MF.WindowManager = {
+    windows: [],
+
+    add: function (w) {
+      if (this.windows.indexOf(w) !== -1) return this;
+      this.windows.push(w);
+      if (typeof document !== 'undefined' && w.el) {
+        // Windows with an explicit position are placed on the desktop; others
+        // (e.g. a centered flow-layout board) keep their CSS layout.
+        if (w.x !== null || w.y !== null) {
+          w.el.style.position = 'absolute';
+          if (w.x !== null) w.el.style.left = w.x + 'px';
+          if (w.y !== null) w.el.style.top = w.y + 'px';
+        }
+        w.el.style.zIndex = String(zBase + this.windows.length);
+        document.body.appendChild(w.el);
+      }
+      return this;
+    },
+
+    remove: function (w) {
+      var i = this.windows.indexOf(w);
+      if (i === -1) return this;
+      this.windows.splice(i, 1);
+      if (typeof document !== 'undefined' && w.el && w.el.parentNode) {
+        w.el.parentNode.removeChild(w.el);
+      }
+      return this;
+    },
+
+    count: function () { return this.windows.length; },
+
+    top: function () {
+      return this.windows.length ? this.windows[this.windows.length - 1] : null;
+    },
+  };
+
+  root.MF = MF;
+  if (typeof module !== 'undefined' && module.exports) module.exports = MF;
+})(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
 
@@ -1924,32 +2346,7 @@ function Drag2() {
 
     // Play drag end sound only if a swap actually occurred
     if (this.swapped) {
-      const audioPopr = document.getElementById('soundPopr');
-      if (audioPopr && audioPopr.readyState >= 2) {
-        // Clean up any previous clone to prevent accumulation
-        if (Drag2.lastAudioClone) {
-          Drag2.lastAudioClone.pause();
-          Drag2.lastAudioClone = null;
-        }
-        // Create a fresh clone for this drop
-        const audioClone = audioPopr.cloneNode(true);
-        audioClone.currentTime = 0;
-        Drag2.lastAudioClone = audioClone;
-        // Clean up reference after audio finishes
-        audioClone.addEventListener('ended', () => {
-          Drag2.lastAudioClone = null;
-        }, { once: true });
-        // Also cleanup if audio duration is exceeded (safety timeout)
-        setTimeout(() => {
-          if (Drag2.lastAudioClone === audioClone) {
-            Drag2.lastAudioClone = null;
-          }
-        }, 500);
-        // Attempt to play
-        audioClone.play().catch(() => {
-          Drag2.lastAudioClone = null;
-        });
-      }
+      MF.sound.play('pop');
       // Reset the swapped flag after playing sound
       this.swapped = false;
     }
@@ -1957,9 +2354,6 @@ function Drag2() {
     this.item = null;
   };
 }
-
-// Static reference for audio clone management (shared across all Drag2 instances)
-Drag2.lastAudioClone = null;
 
 </script>
 
@@ -2039,7 +2433,7 @@ window.addEventListener('error', (e) => {
 	 */
 const $tNote = $('#templates .note');
 const $tList = $('#templates .list');
-const $tBoard = $('#templates .board');
+// The board is built as a MF.Window at runtime (showBoard); no board template.
 
 function addNote($list, $after, $before, color) {
   let $note = $tNote.clone();
@@ -2155,6 +2549,12 @@ function closeBoard(_quick) {
 
   $board.remove();
 
+  // Release the window from the manager registry (el already removed above).
+  if (SKB.boardWindow) {
+    MF.WindowManager.remove(SKB.boardWindow);
+    SKB.boardWindow = null;
+  }
+
   SKB.board = null;
   SKB.storage.setActiveBoard(null);
 
@@ -2265,11 +2665,22 @@ function showBoard(quick) {
 
   const $wrap = $('.wrap');
 
-  const $b = $tBoard.clone();
-  const $bLists = $b.find('.lists');
+  // The board is a MF.Window: the titlebar holds the editable board title, and
+  // the window content holds the lists.
+  const $title = $('<span class="title"><span class="text board-title-display"></span></span>');
+  const $edit = $('<input class="edit" spellcheck="false" placeholder="Name of the board">');
+  const win = new MF.Window({
+    titleEl: [$title[0], $edit[0]],
+  });
+  win.el.classList.add('board');
+  win.el.boardId = board.id;
+  SKB.boardWindow = win;
+  setText($title.find('.text'), board.title);
 
-  $b[0].boardId = board.id;
-  setText($b.find('.head .text'), board.title);
+  const $content = $(win.contentEl);
+  $content.append('<div class="lists-scroller"><div></div></div>');
+  const $bLists = $('<div class="lists"></div>');
+  $content.append($bLists);
 
   // Ensure lists array exists
   if (!board.lists) {
@@ -2294,8 +2705,8 @@ function showBoard(quick) {
     $bLists.append($l);
   });
 
-  if (quick) $wrap.html('').append($b);
-  else $wrap.html('').append($b).css({ opacity: 1 });
+  if (quick) $wrap.html('').append(win.el);
+  else $wrap.html('').append(win.el).css({ opacity: 1 });
 
   // Reset scroll to top when showing board
   window.scrollTo(0, 0);
@@ -2339,7 +2750,7 @@ function selectWelcomeBoardNote() {
     $('.board .note').removeClass('selected');
     $lastNote.addClass('selected');
     SKB.selectedNote = $lastNote[0];
-    $('.color-menu').removeClass('disabled');
+    MF.menubar.setMenuEnabled('color', true);
   }
 }
 
@@ -2358,9 +2769,6 @@ function updatePageTitle() {
 }
 
 function updateUndoRedo() {
-  const $undo = $('header .undo-board');
-  const $redo = $('header .redo-board');
-
   let undo = false;
   let redo = false;
 
@@ -2372,8 +2780,8 @@ function updateUndoRedo() {
     redo = (rev !== history[0]);
   }
 
-  if (undo) $undo.removeClass('disabled'); else $undo.addClass('disabled');
-  if (redo) $redo.removeClass('disabled'); else $redo.addClass('disabled');
+  MF.menubar.setItemEnabled('undo-board', undo);
+  MF.menubar.setItemEnabled('redo-board', redo);
 }
 
 /*
@@ -2632,7 +3040,7 @@ $('.wrap').on('click', '.board .text', function (ev) {
   $('.board .note').removeClass('selected');
   $note.addClass('selected');
   SKB.selectedNote = $note[0];
-  $('.color-menu').removeClass('disabled');
+  MF.menubar.setMenuEnabled('color', true);
 
   startEditing($(this), ev);
   return false;
@@ -2821,69 +3229,94 @@ $('.wrap').on('input propertychange', '.board .note .edit', function () {
 });
 
 //
-// Helper function to flash menu item and handle click
-function flash($el) {
-  $el.addClass('menu-flashing');
-  setTimeout(() => { $el.removeClass('menu-flashing'); }, 600);
-}
-function handleClick(fn) {
-  return function () {
-    flash($(this));
-    fn.call(this);
-    return false;
-  };
-}
-
-$('header').on('click', '.add-note-first', handleClick(() => {
-  const $fl = $('.wrap .board .lists .list').first();
-  if ($fl.length) addNote($fl);
-}));
-
-$('header').on('click', '.del-board', handleClick(deleteBoard));
-$('header').on('click', '.undo-board', handleClick(undoBoard));
-$('header').on('click', '.redo-board', handleClick(redoBoard));
-
+// Menubar — rendered by core/menubar from a config; actions route via registry.
 //
-// Color menu handler
-//
-$('header').on('click', '.set-color', handleClick(function () {
-  if ($('.color-menu').hasClass('disabled')) return;
-  const color = $(this).data('color');
-  const $note = $(SKB.selectedNote);
-  if (!$note.length) return;
-  $note.removeClass('note-yellow note-blue note-green note-pink note-purple note-gray');
-  $note.addClass(`note-${color}`);
-  const listIndex = $note.closest('.list').index();
-  const noteIndex = $note.index();
-  if (SKB.board.lists[listIndex] && SKB.board.lists[listIndex].notes[noteIndex]) {
-    SKB.board.lists[listIndex].notes[noteIndex].color = color;
-    saveBoard();
-  }
-}));
+const menuConfig = {
+  appTitle: 'Stickies Kanban Board',
+  icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wIQEiomp6E+bgAAAHdJREFUOMvtkssRgCAMRF8cK6EVS5GybIVWaCVe9CDgJP5GD+6NTHhk2cBrSigJ/RBohRkS1+Vh6WvVTJjXTgGsYKoOO9Ieorsz7L6qxPOwU5Pp2P6KynvGv0sBIwAAZXIBhSiPBbC/tGRjuiAH38q6hZbnX1c1Ax//IvZpwr+QAAAAAElFTkSuQmCC',
+  clock: true,
+  menus: [
+    {
+      id: 'file',
+      label: 'File',
+      items: [
+        { label: 'New Note on first list', action: 'add-note-first' },
+        { divider: true },
+        { label: 'Reset Board…', action: 'delete-board', warn: true },
+      ],
+    },
+    {
+      id: 'edit',
+      label: 'Edit',
+      items: [
+        { label: 'Undo', action: 'undo-board' },
+        { label: 'Redo', action: 'redo-board' },
+        { divider: true },
+        { label: 'Add List', action: 'add-list' },
+      ],
+    },
+    {
+      id: 'color',
+      label: 'Color',
+      color: true,
+      items: [
+        { label: 'Yellow', action: 'set-color', value: 'yellow' },
+        { label: 'Blue', action: 'set-color', value: 'blue' },
+        { label: 'Green', action: 'set-color', value: 'green' },
+        { label: 'Pink', action: 'set-color', value: 'pink' },
+        { label: 'Purple', action: 'set-color', value: 'purple' },
+        { label: 'Gray', action: 'set-color', value: 'gray' },
+      ],
+    },
+  ],
+};
 
-// Update color menu checkmarks when hovering over Color menu
-$('header').on('mouseenter', '.color-menu', () => {
-  $('.color-dropdown a').removeClass('active');
-
-  if (SKB.selectedNote) {
-    const $note = $(SKB.selectedNote);
-    let currentColor = 'gray';
-
-    // Extract color from class
-    const classes = $note.attr('class').split(' ');
-    for (let i = 0; i < classes.length; i += 1) {
-      if (classes[i].match(/^note-/)) {
-        currentColor = classes[i].replace('note-', '');
-        break;
-      }
+function noteCurrentColor($note) {
+  let currentColor = 'gray';
+  const classes = $note.attr('class').split(' ');
+  for (let i = 0; i < classes.length; i += 1) {
+    if (classes[i].match(/^note-/)) {
+      currentColor = classes[i].replace('note-', '');
+      break;
     }
+  }
+  return currentColor;
+}
 
-    $(`.color-dropdown a[data-color="${currentColor}"]`).addClass('active');
+MF.menubar.on('action', ({ action, element }) => {
+  if (action === 'add-note-first') {
+    const $fl = $('.wrap .board .lists .list').first();
+    if ($fl.length) addNote($fl);
+    return;
+  }
+  if (action === 'delete-board') { deleteBoard(); return; }
+  if (action === 'undo-board') { undoBoard(); return; }
+  if (action === 'redo-board') { redoBoard(); return; }
+  if (action === 'add-list') { addList(); return; }
+  if (action === 'set-color') {
+    if (!SKB.selectedNote) return;
+    const color = element.dataset.color;
+    const $note = $(SKB.selectedNote);
+    if (!$note.length) return;
+    $note.removeClass('note-yellow note-blue note-green note-pink note-purple note-gray');
+    $note.addClass(`note-${color}`);
+    const listIndex = $note.closest('.list').index();
+    const noteIndex = $note.index();
+    if (SKB.board.lists[listIndex] && SKB.board.lists[listIndex].notes[noteIndex]) {
+      SKB.board.lists[listIndex].notes[noteIndex].color = color;
+      saveBoard();
+    }
   }
 });
 
-//
-$('header').on('click', '.add-list', handleClick(addList));
+// Keep the Color menu's checkmark on the selected note's color when opened.
+MF.menubar.on('color-open', () => {
+  if (SKB.selectedNote) {
+    MF.menubar.setActiveColor(noteCurrentColor($(SKB.selectedNote)));
+  } else {
+    MF.menubar.setActiveColor(null);
+  }
+});
 
 $('.wrap').on('click', '.board .del-list', function () {
   deleteList($(this).closest('.list'));
@@ -2928,7 +3361,7 @@ $('.wrap').on('click', '.board .note', function (ev) {
   SKB.selectedNote = this;
 
   // Enable color menu
-  $('.color-menu').removeClass('disabled');
+  MF.menubar.setMenuEnabled('color', true);
 
   return false;
 });
@@ -2940,7 +3373,7 @@ $('.wrap').on('click', (ev) => {
     SKB.selectedNote = null;
 
     // Disable color menu
-    $('.color-menu').addClass('disabled');
+    MF.menubar.setMenuEnabled('color', false);
   }
 });
 
@@ -2994,6 +3427,12 @@ const conf = SKB.storage.getConfig();
 	 *	the ui
 	 */
 initDragAndDrop();
+
+// Register app sounds with the shared core sound module (drag-drop pop).
+MF.sound.register('pop', 'data:audio/x-wav;base64,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');
+
+// Render the menubar from the declarative config (core/menubar).
+MF.menubar.render(menuConfig);
 
 SKB.varAdjust = new VarAdjust();
 
@@ -3064,11 +3503,11 @@ if (SKB.board) {
     selectWelcomeBoardNote();
   } else {
     // Initialize color menu as disabled (will enable when note is selected)
-    $('.color-menu').addClass('disabled');
+    MF.menubar.setMenuEnabled('color', false);
   }
 } else {
   // Initialize color menu as disabled (will enable when note is selected)
-  $('.color-menu').addClass('disabled');
+  MF.menubar.setMenuEnabled('color', false);
 }
 
 //
@@ -3076,22 +3515,7 @@ setInterval(adjustListScroller, 100);
 
 setupListScrolling();
 
-// Menubar clock
-function updateMenubarClock() {
-  const now = new Date();
-  let hours = now.getHours();
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12 || 12;
-
-  const clockEl = document.getElementById('menubar-clock');
-  if (clockEl) {
-    clockEl.textContent = `${hours}:${minutes}${ampm}`;
-  }
-}
-
-updateMenubarClock();
-setInterval(updateMenubarClock, 1000);
+// Menubar clock is owned by core/menubar (startClock); nothing to do here.
 
 </script>
 

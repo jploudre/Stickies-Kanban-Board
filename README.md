@@ -12,18 +12,26 @@ This is a single-board scratchpad. The app maintains up to 20 board revisions fo
 
 The shipped app stays a **single, self-contained `index.html`** (all CSS, JS, and binary assets inlined as `data:` URIs) — great for sharing as one file.
 
-Development works on **split source files** under `src/` so each piece is small enough to fit in context, with the stable binaries (fonts, icons, sound) kept out of the way:
+Development works on **split source files** under `src/` so each piece is small enough to fit in context, with a reusable **core shell** separated from the app itself:
 
 ```
 index.html          <- BUILT artifact (single file, committed)
-build.py            <- assembles index.html from src/
+build.py            <- assembles index.html from src/ (--app picks the app)
 src/
-  index.html        <- dev shell (links css/js, references assets/)
-  css/              01-fonts, 02-layout, 03-board, 04-lists, 05-notes, 06-dragster
-  js/               01-lib, 02-util, 03-state, 04-model, 05-drag, 06-varadjust, 07-app
-  assets/           binaries (fonts, images, sound) referenced by path
-  sw.js             (see note below)
-tools/split.py      <- one-off: produced src/ from the original single file
+  core/             <- REUSABLE "Mac Fantasy App" shell (MF.* namespace)
+    shell.js  lib.js  util.js          Cash DOM lib + MF bootstrap
+    theme/            fonts.css, tokens.css, assets/ (fonts)
+    sound/            sound.js (MF.sound registry)
+    menubar/          menubar.js + menubar.css (config-driven)
+    window/           window.js + window.css (MF.Window / WindowManager)
+  apps/
+    stickies/         <- this app (composes core + its own files)
+      index.html      dev shell (links core + app files)
+      model.js  state.js  drag.js  varadjust.js  app.js  app.css
+      assets/         app binaries (sound, favicons, desktop bg)
+sw.js             <- production service worker (repo root)
+tools/            <- split.py (one-off), build-diff.sh, run-tests.sh
+test/             <- headless unit tests (node --test)
 ```
 
 ### Development workflow
@@ -31,13 +39,13 @@ tools/split.py      <- one-off: produced src/ from the original single file
 Edit files under `src/`, then rebuild the single file when done:
 
 ```bash
-make dev     # serve src/ locally -> http://localhost:8000 (split files, fast preview)
+make dev     # serve src/ locally -> http://localhost:8000/apps/stickies/index.html
 make watch   # rebuild index.html automatically whenever src/ changes
 make         # build index.html once from src/
-make verify  # syntax-check JS and do a test build
+make verify  # syntax-check JS, build, byte-diff guard, and headless tests
 ```
 
-Or run the Python directly: `python3 build.py` (add `--watch` / `--out FILE`).
+Or run the Python directly: `python3 build.py` (add `--watch` / `--out FILE` / `--app <app>`).
 
 > **Note:** The production service worker (`sw.js` at the repo root) caches `./index.html`. During dev you serve `src/`, so the SW won't register there — that's expected and harmless.
 

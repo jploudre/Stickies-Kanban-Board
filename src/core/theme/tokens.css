@@ -1,0 +1,22 @@
+/* story: e02s02 */
+/* core/theme/tokens.css — shared Mac Fantasy design tokens.
+   Every app inherits this scale and may override locally in its own scope.
+   Kept additive: loading these must not change existing rendering. */
+
+:root {
+  /* Font stack — the single source of truth for --ff across apps. */
+  --ff: 'Espy Sans Revived Ten', sans-serif;
+
+  /* Shared type scale (retro 10px-based). */
+  --mf-font-size: 10px;
+  --mf-line-height: 13px;
+
+  /* Shared spacing rhythm. */
+  --mf-space-1: 4px;
+  --mf-space-2: 8px;
+  --mf-space-3: 12px;
+
+  /* Menubar + window metrics (retro chrome). */
+  --mf-menubar-height: 20px;
+  --mf-window-title-height: 17px;
+}

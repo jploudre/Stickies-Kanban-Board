@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stickies-2026.Aug.13';
+const CACHE_NAME = 'stickies-2026.Aug.13-v2';
 const urlsToCache = ['./index.html'];
 
 self.addEventListener('install', (event) => {

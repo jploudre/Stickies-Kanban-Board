@@ -1,0 +1,83 @@
+/* story: e02s05 */
+/* core/window/window.css — generic Mac window chrome.
+   Derived from the original app.css (window, window-focus strip pattern,
+   title, buttons, content). Board-specific .board.window overrides stay in
+   app.css. */
+	.window{
+		position: relative;
+		border: 1px solid #525252;
+		border-right-width: 2px;
+		border-bottom-width: 2px;
+		background-color: #fff;
+	}
+
+	.window.window-focus{
+		background: url('../assets/window-stripe.png') repeat-x top left #fff;
+		background-size: 1px 17px;
+		border-color: #000;
+	}
+
+	.window>.window-title{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 17px;
+		padding: 0 6px;
+		border-bottom: 1px solid #000;
+		color: #848484;
+	}
+
+	.window.window-focus>.window-title{
+		border-left: 1px solid #ceceff;
+		border-right: 1px solid #ceceff;
+		box-shadow: inset 1px 0 0 #efefef, inset -1px 0 0 #efefef;
+		color: #000;
+	}
+
+	.window.window-focus>.window-title>span.title{
+		padding: 2px 7px;
+		background-color: #efefef;
+		line-height: 1;
+	}
+
+	.window.window-focus>.window-title>a{
+		padding: 0 1px;
+		height: 11px;
+		width: 11px;
+		margin-top: 3px;
+		background-color: #efefef;
+		position: relative;
+	}
+
+	.window.window-focus>.window-title>a.btn-close{
+		float: left;
+	}
+
+	.window.window-focus>.window-title>a.btn-close::after{
+		background: url('../assets/btn-menu-a.png') no-repeat #efefef;
+		display: block;
+		position: absolute;
+		width: 11px;
+		height: 11px;
+		left: 1px;
+		content: " ";
+	}
+
+	.window.window-focus>.window-title>a.btn-maximize{
+		float: right;
+	}
+
+	.window.window-focus>.window-title>a.btn-maximize::after{
+		background: url('../assets/btn-menu-b.png') no-repeat #efefef;
+		display: block;
+		position: absolute;
+		width: 11px;
+		height: 11px;
+		left: 1px;
+		content: " ";
+	}
+
+	.window>.window-content{
+		display: block;
+	}
+

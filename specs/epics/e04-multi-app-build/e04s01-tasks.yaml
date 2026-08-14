@@ -1,27 +1,30 @@
 story_id: e04s01
-title: "build.py --app flag / per-app build config"
-status: todo
+title: build.py --app flag / per-app build config
+status: passing
 bcps: 4
-context: >-
-  build.py currently concatenates css/ js/ from src/ into one root index.html.
-  After e03 there is a core/ + an apps/ tree; several apps must each build to
-  their own single-file index.html (default: stickies). Keep the no-bundler,
-  inline-to-data-URI model. The build regexes css/ links and js/ scripts in the
-  app shell index.html, so core + app files must be composed in that shell.
+context: 'build.py currently concatenates css/ js/ from src/ into one root index.html.
+  After e03 there is a core/ + an apps/ tree; several apps must each build to their
+  own single-file index.html (default: stickies). Keep the no-bundler, inline-to-data-URI
+  model. The build regexes css/ links and js/ scripts in the app shell index.html,
+  so core + app files must be composed in that shell.'
 tasks:
-  - id: 1
-    description: "Extend build.py (and Makefile) with a --app flag (default stickies) and/or a small per-app build config listing which css/js paths compose that app's index.html."
-    verify: "python3 build.py --app stickies --out /tmp/app1.html && echo 'built'"
-    status: todo
-  - id: 2
-    description: "Generalize the asset inline so core/theme assets and app assets both resolve to data: URIs regardless of source dir."
-    verify: "grep -q 'data:' /tmp/app1.html && echo 'assets inlined'"
-    status: todo
-  - id: 3
-    description: "Confirm default (no --app) still builds the root deliverable identically; keep make/build working."
-    verify: "make verify 2>&1 | grep -i 'build OK'"
-    status: todo
-  - id: 4
-    description: "Document the build in CLAUDE.md / README (how to build each app)."
-    verify: "grep -q '--app' README.md && echo documented"
-    status: todo
+- id: 1
+  description: Extend build.py (and Makefile) with a --app flag (default stickies)
+    and/or a small per-app build config listing which css/js paths compose that app's
+    index.html.
+  verify: python3 build.py --app stickies --out /tmp/app1.html && echo 'built'
+  status: passing
+- id: 2
+  description: 'Generalize the asset inline so core/theme assets and app assets both
+    resolve to data: URIs regardless of source dir.'
+  verify: grep -q 'data:' /tmp/app1.html && echo 'assets inlined'
+  status: passing
+- id: 3
+  description: Confirm default (no --app) still builds the root deliverable identically;
+    keep make/build working.
+  verify: make verify 2>&1 | grep -i 'build OK'
+  status: passing
+- id: 4
+  description: Document the build in CLAUDE.md / README (how to build each app).
+  verify: grep -q '--app' README.md && echo documented
+  status: passing

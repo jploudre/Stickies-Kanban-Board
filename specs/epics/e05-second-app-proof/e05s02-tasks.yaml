@@ -1,22 +1,26 @@
 story_id: e05s02
-title: "Promote duplicated code back into core"
-status: todo
+title: Promote duplicated code back into core
+status: passing
 bcps: 3
-context: >-
-  Whatever the second app had to duplicate (e05s01 task 4 / core-gaps.md) is a
-  sign the core is not yet generic. This story promotes each gap into core so
-  future apps never repeat the duplication, then removes the duplicate from the
-  second app so it consumes the promoted component.
+context: Whatever the second app had to duplicate (e05s01 task 4 / core-gaps.md) is
+  a sign the core is not yet generic. This story promotes each gap into core so future
+  apps never repeat the duplication, then removes the duplicate from the second app
+  so it consumes the promoted component.
 tasks:
-  - id: 1
-    description: "For each item in core-gaps.md, if generic (not app-specific), promote it into src/core/ (e.g. a shared util, a window behavior, a menubar feature)."
-    verify: "bash tools/run-tests.sh 2>&1 | grep -i pass"
-    status: todo
-  - id: 2
-    description: "If a gap is genuinely app-specific, record an ADR explaining why it stays out of core (documented decision, not silent duplication)."
-    verify: "test -d specs/tech-architecture/adr && grep -q 'app-specific' specs/tech-architecture/adr/ADR-*.md && echo adr"
-    status: todo
-  - id: 3
-    description: "After promotion, both Stickies and the second app build green and pass their harness; update core-gaps.md to resolved."
-    verify: "python3 build.py --app stickies && python3 build.py --app pomodoro && make verify | grep -i 'build OK'"
-    status: todo
+- id: 1
+  description: For each item in core-gaps.md, if generic (not app-specific), promote
+    it into src/core/ (e.g. a shared util, a window behavior, a menubar feature).
+  verify: bash tools/run-tests.sh 2>&1 | grep -i pass
+  status: passing
+- id: 2
+  description: If a gap is genuinely app-specific, record an ADR explaining why it
+    stays out of core (documented decision, not silent duplication).
+  verify: test -d specs/tech-architecture/adr && grep -q 'app-specific' specs/tech-architecture/adr/ADR-*.md
+    && echo adr
+  status: passing
+- id: 3
+  description: After promotion, both Stickies and the second app build green and pass
+    their harness; update core-gaps.md to resolved.
+  verify: python3 build.py --app stickies && python3 build.py --app pomodoro && make
+    verify | grep -i 'build OK'
+  status: passing

@@ -1,9 +1,10 @@
+/* story: e02s02 */
 
     @font-face {
     font-family: 'Espy Sans Revived Ten';
     font-weight: normal;
     font-style: normal;
-    src: url("../assets/font-espy-regular.woff2"
+    src: url("assets/font-espy-regular.woff2"
 ) format('woff2');
   }
 
@@ -11,7 +12,7 @@
     font-family: 'Espy Sans Revived Ten';
     font-weight: bold;
     font-style: normal;
-    src: url("../assets/font-espy-bold.woff2"
+    src: url("assets/font-espy-bold.woff2"
 ) format('woff2');
   }
   

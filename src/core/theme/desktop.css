@@ -1,0 +1,14 @@
+/* story: e05s02 */
+/* core/theme/desktop.css — shared retro desktop backdrop.
+   Promoted from the Stickies app (e05s02) so every Mac Fantasy app gets the
+   same desktop without duplicating the rule or asset. Apps may override by
+   setting their own body background later in their own CSS. */
+
+body {
+	background-image: url('assets/bg-desktop.gif');
+	background-repeat: repeat;
+	/* Keep the retro desktop background crisp when zoomed in:
+	   nearest-neighbor scaling instead of blurry smoothing, so at 200%
+	   each pixel is an exact 2x2 block rather than an interpolated one. */
+	image-rendering: pixelated;
+}
