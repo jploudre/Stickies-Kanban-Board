@@ -1,0 +1,6 @@
+# Vision — north star / strategic intent.
+vision:
+  north_star: >-
+    Reusable "Mac Fantasy App" core (theme, menubar, window, sound) with
+    Stickies as the first app, extensible to other fantasy retro-Mac apps.
+  note: Fill via scope-work / elaborate-spec.

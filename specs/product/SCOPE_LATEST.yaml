@@ -1,0 +1,105 @@
+# Scope — Generalize Stickies Kanban Board into a shared "Mac Fantasy App" core
+# Planning-spine step 1 of 3 (scope-work). Source of truth for what to build.
+
+scope:
+  core_value: >-
+    Turn Stickies Kanban Board from one app into a reusable "Mac Fantasy App"
+    shell (theme, sound, menubar, window) plus Stickies as the first consumer,
+    so future fantasy-retro-Mac apps reuse the same core instead of duplicating it.
+
+  summary: >-
+    Stickies Kanban Board is a single-file "fantasy retro Mac" app shipped as one
+    self-contained index.html, built from split source under src/ by a Python
+    no-bundler pipeline. Today its font, sound, menus, and window chrome are
+    entangled with app-specific code. This initiative extracts those four pieces
+    into a generic, reusable core shell (namespace MF.*) while preserving the
+    byte-identical look and behavior of the existing Stickies app, then refactors
+    Stickies to consume that shell as a proof of concept, and finally proves the
+    shell is truly reusable by building one minimal second app from core alone.
+    Anything the second app must duplicate gets promoted back into core.
+
+    Success is measured by: (1) Stickies rebuilt from the extracted shell with
+    identical rendering and behavior, (2) a second app assembled from the shared
+    core without copying app-specific code, and (3) the single-file,
+    no-bundler build pipeline still producing one inlined index.html per app.
+
+  in_scope:
+    - id: EXTRACT-CORE
+      what: >-
+        Extract a reusable core shell under src/core/ (MF.* namespace) from the
+        four entangled pieces — theme/font, sound, menubar, window — with
+        behavior visually identical to today's app. Core is app-agnostic.
+    - id: REFACTOR-STICKIES
+      what: >-
+        Refactor Stickies to consume the core: its index.html shrinks to
+        "load core + app files"; hard-coded menubar markup becomes a declarative
+        config object; the board becomes a MF.Window; drag code calls
+        MF.sound.play('pop') instead of document.getElementById('soundPopr').
+    - id: SECOND-APP
+      what: >-
+        Build one minimal second "Mac Fantasy App" — a **Pomodoro timer**
+        (apps/pomodoro) — using only core/. Promote back into core anything the
+        second
+        app forces it to duplicate. This is the real generalization test.
+    - id: BUILD-MULTI-APP
+      what: >-
+        Extend the build so more than one app can be produced from the shared
+        core (per-app build flag or per-app config), keeping the no-bundler,
+        single-inlined-file model for every app.
+    - id: CONVENTIONS-BASELINE
+      what: >-
+        Add the missing verification/tooling baseline needed to make the
+        refactor safe: a byte-identical/build-diff check for Phase-1 extraction
+        and a minimal TDD test harness, so the generalization proceeds under
+        green gates rather than blind.
+
+  out_of_scope:
+    - id: ESM-OR-BUNDLER
+      what: "Migrating to ES modules, a bundler (webpack/rollup/vite), or npm tooling."
+      why: "Deliberately excluded. The single-file, script-tag + concat model is a core product constraint and the plan leans to keep it."
+    - id: VISUAL-CHANGE
+      what: "Changing the retro look, fonts, sounds, or rendering of the existing Stickies app."
+      why: "Excluded. Phase 1 must be byte-identical; preserving the retro aesthetic is a hard guardrail."
+    - id: NEW-APP-FEATURES
+      what: "Adding new end-user features to Stickies (more boards, new list/note behaviors, sync/cloud)."
+      why: "Out of the generalization's scope. Functional extension belongs in a separate initiative."
+    - id: PHASE4-DESKTOP-LAYER
+      what: "Desktop/icon layer — app icons on the desktop, double-click to open app windows, per-app register metadata."
+      why: "Optional Phase 4 in the plan; deferred until Phase 3 proves the core is actually reusable."
+    - id: PACKAGE-EXTRACTION
+      what: "Splitting core/ into its own separate repository or npm package."
+      why: "Deferred. Single-repo core/ + apps/ is lower friction; split only if a third app materializes."
+    - id: FUNCTIONAL-WINDOW-BUTTONS-EARLY
+      what: "Making close/maximize window buttons functionally close/resize in Phase 1."
+      why: "Deferred to after the shell is extracted. Phase 1 keeps buttons visually identical; functional behavior lands in the second-app proof only if it aids generality."
+
+  constraints:
+    - "Preserve the single-file, self-contained index.html deliverable per app."
+    - "No bundler, ES modules, or git submodules. Keep script-tag order + namespaced MF.* globals."
+    - "Retro pixel aesthetic and identical rendering of the existing Stickies app must be maintained."
+    - "Core code must be app-agnostic (no hard-coded board/list/note or Stickies selectors in core)."
+    - "The Cash library (src/js/01-lib.js) is generic and stays out of the per-app coupling; move into core/ unchanged."
+    - "Build pipeline regexes css/ links and js/ scripts in a shell index.html (build.py) — per-app build must respect this."
+
+  success_criteria:
+    - "Stickies rebuilt from the extracted core renders and behaves identically to today (verified by a byte-identical/build-diff check on the built index.html and/or screenshot)."
+    - "Drag2 drop uses MF.sound.play('pop'); no remaining document.getElementById('soundPopr') in app/drag code."
+    - "Menubar markup/config is data-driven (MF.app / MF.menubar); no menu click handlers hard-coded to Stickies selectors in core."
+    - "The board is a MF.Window whose content is the app; window chrome styles live in core/window/."
+    - "A second app builds from core/ alone, and anything it needed to duplicate was promoted into core."
+    - "At least two apps (stickies + second) each build to a single-file index.html via the no-bundler pipeline."
+    - "Green Preflight (make verify plus the new baseline checks) at every stage."
+
+  references:
+    - "specs/tech-architecture/GENERALIZE_LATEST.md — the source design plan (copied from doc/generalize.md)"
+    - "specs/tech-architecture/tech-stack.md — cold codebase analysis and extraction-target map"
+    - "specs/product/VISION_LATEST.yaml — north star"
+
+  decisions_adopted: >-
+    The source plan left five open decisions; this scope adopts the plan's lean
+    recommendations so work can proceed without blocking: (1) namespace style =
+    script-tag order + namespaced MF.* globals, no ESM/bundler; (2) menu config
+    schema generalizes swatches/checkmarks/enable-disable, items remain app data;
+    (3) window buttons stay decorative/identical through Phase 1, functional
+    behavior deferred to Phase 3 only if it aids generality; (4) single-repo
+    core/ + apps/ layout; (5) build extended with a per-app flag/config.

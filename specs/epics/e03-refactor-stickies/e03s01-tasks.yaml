@@ -1,0 +1,22 @@
+story_id: e03s01
+title: "Shrink Stickies index.html to load core + app only"
+status: todo
+bcps: 3
+context: >-
+  After e02 the core files live in src/core/ with script-tag wiring. This story
+  makes src/apps/stickies into the app shell: index.html (or an app/app.js)
+  composes core + the app's own files (model.js, app.js, app.css, sw.js),
+  referencing shared core by path. The single-file build still concatenates them.
+tasks:
+  - id: 1
+    description: "Introduce src/apps/stickies/ and move Stickies-specific files (model, app js, app css, sw.js) out of the shared src/js, src/css into it."
+    verify: "test -f src/apps/stickies/app.js && test -d src/apps/stickies && echo ok"
+    status: todo
+  - id: 2
+    description: "Write src/apps/stickies/index.html that links/scripts core files (by path) + app files, in dependency order, and route it through build.py."
+    verify: "grep -q 'core' src/apps/stickies/index.html && echo 'core composed'"
+    status: todo
+  - id: 3
+    description: "Rebuild and confirm the shipped index.html still produces the same app (build-diff guard + manual UAT)."
+    verify: "bash tools/build-diff.sh && echo 'app builds from core+app'"
+    status: todo

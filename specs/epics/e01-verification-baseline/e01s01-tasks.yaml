@@ -1,0 +1,31 @@
+story_id: e01s01
+title: "Byte-identical / build-diff guard for extraction safety"
+status: todo
+bcps: 3
+context: >-
+  The generalization moves files around (into src/core/) and rewires module
+  load order. Phase-1 extraction MUST be behaviour-identical. Today nothing
+  asserts that. This story adds a tool that confirms the built single-file
+  index.html (or its rendered output) does not change when only file locations
+  / load wiring change.
+tasks:
+  - id: 1
+    description: >-
+      Add tools/build-diff.sh (or extend make verify) that (a) builds a
+      reference index.html from today's layout and stores a hash, then
+      (b) rebuilds and fails if the byte hash drifts when only file moves /
+      load-order wiring changed.
+    verify: "bash tools/build-diff.sh && echo 'reference hash written'; bash tools/build-diff.sh && echo 'clean'"
+    status: todo
+  - id: 2
+    description: >-
+      Wire the build-diff check into Preflight (make verify) so extraction
+      cannot silently change the shipped artifact bytes.
+    verify: "make verify 2>&1 | grep -Ei 'build-diff|OK|clean'"
+    status: todo
+  - id: 3
+    description: >-
+      Write a regression test proving build-diff flags a planted byte change
+      in a source file (negative path: guard actually fires).
+    verify: "bash tools/build-diff.sh --self-test 2>&1 | grep -i 'fired|detected'"
+    status: todo

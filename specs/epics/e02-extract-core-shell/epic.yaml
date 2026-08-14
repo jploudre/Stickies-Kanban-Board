@@ -1,0 +1,40 @@
+id: e02
+title: "Extract reusable Mac Fantasy core shell (identical behavior)"
+wsjf: 5.0
+total_bcps: 19
+status: planned
+delta:
+  - ADDED: src/core/ with MF.* namespace (lib, util, theme, sound, menubar, window)
+  - RENAMED: src/js/01-lib.js -> src/core/lib.js (unchanged content)
+  - MODIFIED: Drag2 drop sound now calls MF.sound.play('pop')
+stories:
+  - id: e02s01
+    title: "Move Cash lib + util into core/ unchanged"
+    bcps: 2
+    status: todo
+    spec: e02s01-core-lib.md
+    tasks: e02s01-tasks.yaml
+  - id: e02s02
+    title: "Promote theme/font layer into core/theme/"
+    bcps: 2
+    status: todo
+    spec: e02s02-core-theme.md
+    tasks: e02s02-tasks.yaml
+  - id: e02s03
+    title: "Extract sound module (MF.sound) and rewire Drag2"
+    bcps: 4
+    status: todo
+    spec: e02s03-core-sound.md
+    tasks: e02s03-tasks.yaml
+  - id: e02s04
+    title: "Extract menubar component (MF.menubar) from config"
+    bcps: 6
+    status: todo
+    spec: e02s04-core-menubar.md
+    tasks: e02s04-tasks.yaml
+  - id: e02s05
+    title: "Extract window component (MF.Window) + window CSS"
+    bcps: 5
+    status: todo
+    spec: e02s05-core-window.md
+    tasks: e02s05-tasks.yaml

@@ -1,0 +1,13 @@
+# Discover-phase checklist — driving state for the pre-coding planning spine.
+discover:
+  surveyed: false
+  scoped: true
+  researched: true
+  elaborated: true
+  released_plan: true
+  sliced: true
+  planned: true
+  note: >-
+    Planning complete: scope (SCOPE_LATEST.yaml), release index (release-plan.yaml),
+    and 5 epics with 13 stories / 46 tasks all carrying verify commands.
+    No external dependencies (research-first N/A). Next: plan approval then build.

@@ -1,0 +1,26 @@
+story_id: e02s01
+title: "Move Cash lib + util into core/ unchanged"
+status: todo
+bcps: 2
+context: >-
+  Cash (src/js/01-lib.js) and the generic util (src/js/02-util.js) are already
+  app-agnostic; move them into src/core/ unchanged. The MF namespace bootstrap
+  (a small core/shell.js defining MF and an app-registration API) is added here
+  so core modules can publish under MF.*.
+tasks:
+  - id: 1
+    description: "Create src/core/ and move 01-lib.js -> src/core/lib.js unchanged."
+    verify: "diff <(git show HEAD:src/js/01-lib.js) src/core/lib.js && echo unchanged"
+    status: todo
+  - id: 2
+    description: "Move 02-util.js -> src/core/util.js unchanged (clamp + confirm/alert patch)."
+    verify: "diff <(git show HEAD:src/js/02-util.js) src/core/util.js && echo unchanged"
+    status: todo
+  - id: 3
+    description: "Add src/core/shell.js defining window.MF namespace and an app-registration stub (MF.app)."
+    verify: "node --check src/core/shell.js && echo ok"
+    status: todo
+  - id: 4
+    description: "Update src/index.html script references to point at core/ files; rebuild and confirm byte-identical via build-diff guard (e01s01)."
+    verify: "bash tools/build-diff.sh && echo 'identical'"
+    status: todo

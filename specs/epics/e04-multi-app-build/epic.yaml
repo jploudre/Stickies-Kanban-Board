@@ -1,0 +1,14 @@
+id: e04
+title: "Multi-app no-bundler build (per-app flag)"
+wsjf: 3.5
+total_bcps: 4
+status: planned
+delta:
+  - MODIFIED: build.py accepts an app flag / per-app config producing one index.html per app
+stories:
+  - id: e04s01
+    title: "build.py --app flag / per-app build config"
+    bcps: 4
+    status: todo
+    spec: e04s01-build-flag.md
+    tasks: e04s01-tasks.yaml

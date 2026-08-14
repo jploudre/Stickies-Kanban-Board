@@ -1,0 +1,31 @@
+story_id: e01s02
+title: "Minimal headless TDD harness, single command"
+status: todo
+bcps: 3
+context: >-
+  There is no test infrastructure. As core modules (sound, menubar, window)
+  are extracted, they must be testable headlessly with a single command per
+  CONVENTIONS.md (Tests). This story stands up a minimal, dependency-free
+  harness that runs pure-logic tests against the split core files in a browser
+  context or Node, invoked by one command folded into Preflight.
+tasks:
+  - id: 1
+    description: >-
+      Choose and scaffold a minimal headless test runner (e.g. node test runner
+      or a tiny jsdom-free harness) that can load plain JS core files and assert
+      outcomes. Record the single command in CLAUDE.md Commands > Test.
+    verify: "bash tools/run-tests.sh 2>&1 | tail -3"
+    status: todo
+  - id: 2
+    description: >-
+      Add a smoke test fixture exercising a pure function from core (e.g. a
+      Color swatch map or the sound registry) to prove the harness can load
+      core JS and assert.
+    verify: "bash tools/run-tests.sh 2>&1 | grep -i 'pass|ok'"
+    status: todo
+  - id: 3
+    description: >-
+      Fold the test command into Preflight (make verify) so every change runs
+      the harness, not just a JS syntax check.
+    verify: "make verify 2>&1 | grep -iE 'tests? (pass|ok)|1 passing|ok'"
+    status: todo

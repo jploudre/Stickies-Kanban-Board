@@ -1,0 +1,21 @@
+id: e05
+title: "Second app proof from core/ alone"
+wsjf: 3.0
+total_bcps: 9
+status: planned
+delta:
+  - ADDED: a minimal second "Mac Fantasy App" — a Pomodoro timer (apps/pomodoro) — built from core/ only
+  - MODIFIED: anything the second app duplicates is promoted back into core
+stories:
+  - id: e05s01
+    title: "Build minimal second app from core/ alone"
+    bcps: 6
+    status: todo
+    spec: e05s01-second-app.md
+    tasks: e05s01-tasks.yaml
+  - id: e05s02
+    title: "Promote duplicated code back into core"
+    bcps: 3
+    status: todo
+    spec: e05s02-promote-core.md
+    tasks: e05s02-tasks.yaml

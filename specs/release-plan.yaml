@@ -1,0 +1,42 @@
+# Release index — versioned release plan with WSJF-ordered epics and BCP baselines.
+# version is a non-authoritative mirror label only; semantic-release decides the real tag.
+release:
+  version: "2.0.0"
+  codename: "Mac Fantasy Core"
+  status: planning            # planning | in_progress | released
+  semantic_release: true
+  bump_hint: minor            # patch | minor | major — CI decides at merge
+
+# WSJF = (Business Value + Time Criticality + Risk Reduction) / Job Size (BCP).
+# Ordered highest-first: the verification baseline leads (highest risk reduction),
+# then shell extraction, app refactor, build plumbing, and the second-app proof.
+epics:
+  - id: e01
+    title: "Verification baseline (byte-identical + TDD harness)"
+    wsjf: 6.0
+    total_bcps: 6
+    capsule_dir: epics/e01-verification-baseline
+  - id: e02
+    title: "Extract reusable Mac Fantasy core shell (identical behavior)"
+    wsjf: 5.0
+    total_bcps: 19
+    capsule_dir: epics/e02-extract-core-shell
+  - id: e03
+    title: "Refactor Stickies to consume the core shell"
+    wsjf: 4.5
+    total_bcps: 12
+    capsule_dir: epics/e03-refactor-stickies
+  - id: e04
+    title: "Multi-app no-bundler build (per-app flag)"
+    wsjf: 3.5
+    total_bcps: 4
+    capsule_dir: epics/e04-multi-app-build
+  - id: e05
+    title: "Second app proof from core/ alone"
+    wsjf: 3.0
+    total_bcps: 9
+    capsule_dir: epics/e05-second-app-proof
+
+bugs:
+  total: 0
+  registry: specs/bugs/registry.yaml

@@ -1,0 +1,20 @@
+# Session state — canonical source of truth for session phase / active flow / handoff.
+workflow_mode: solo-git
+active_flow: null
+active_epic_id: null
+active_story_id: null
+
+session:
+  project: Stickies Kanban Board
+  phase: plan
+  handoff:
+    next_skill: kickoff-branch
+
+git:
+  branch: main
+  head: e0bc6bf
+
+release:
+  last_tag: null
+  last_publish: null
+  target_version: null

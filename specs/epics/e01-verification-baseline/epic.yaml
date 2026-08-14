@@ -1,0 +1,20 @@
+id: e01
+title: "Verification baseline (byte-identical + TDD harness)"
+wsjf: 6.0
+total_bcps: 6
+status: planned
+delta:
+  - MODIFIED: build/verify tooling gains a byte-diff guard for extracted output
+stories:
+  - id: e01s01
+    title: "Byte-identical / build-diff guard for extraction safety"
+    bcps: 3
+    status: todo
+    spec: e01s01-build-diff-guard.md
+    tasks: e01s01-tasks.yaml
+  - id: e01s02
+    title: "Minimal headless TDD harness, single command"
+    bcps: 3
+    status: todo
+    spec: e01s02-tdd-harness.md
+    tasks: e01s02-tasks.yaml

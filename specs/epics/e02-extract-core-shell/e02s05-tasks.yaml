@@ -1,0 +1,24 @@
+story_id: e02s05
+title: "Extract window component (MF.Window) + window CSS"
+status: todo
+bcps: 5
+context: >-
+  Window chrome (.window, .window-focus, .window-title, .window-content,
+  .btn-close, .btn-maximize) lives in app.css; the board template in index.html
+  uses it; there is no generic Window JS. Extract core/window/window.css and a
+  generic Window class (title, content, strip pattern, centered title, window
+  buttons) + WindowManager so any app (including Stickies) can put content in a
+  window. Keep the retro look; buttons remain decorative/identical in this phase.
+tasks:
+  - id: 1
+    description: "Add src/core/window/window.css with generic .window* rules (strip pattern, .window-title, .btn-close/.btn-maximize sprites, .window-content) moved from app.css; app.css keeps .board.window-specific overrides."
+    verify: "test -f src/core/window/window.css && echo ok"
+    status: todo
+  - id: 2
+    description: "Add src/core/window/window.js with class MF.Window({title, content, width, height, position, onClose}) that owns the titlebar/buttons, plus a MF.WindowManager for placement/z-focus. Buttons kept presentational this phase."
+    verify: "node --check src/core/window/window.js && bash tools/run-tests.sh | grep -i 'window.*pass'"
+    status: todo
+  - id: 3
+    description: "Rebuild and verify the window chrome renders identically (manual UAT + build-diff guard); no app behavior change yet."
+    verify: "bash tools/build-diff.sh && echo 'wiring-only identity'"
+    status: todo

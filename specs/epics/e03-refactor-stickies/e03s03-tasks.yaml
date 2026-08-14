@@ -1,0 +1,23 @@
+story_id: e03s03
+title: "Board becomes a MF.Window"
+status: todo
+bcps: 5
+context: >-
+  e02s05 gave us MF.Window. This story makes the Stickies board the content of a
+  MF.Window instance (new MF.Window({ title: board title, content: <board html>,
+  ... })) instead of the board markup carrying its own .board.window chrome.
+  Window buttons stay presentational/per retro look unless the second-app proof
+  later makes them functional.
+tasks:
+  - id: 1
+    description: "Render the board as a MF.Window whose content is the kanban lists/notes, wired through MF.WindowManager for placement."
+    verify: "grep -q 'new MF.Window' src/apps/stickies/app.js && echo 'board is a window'"
+    status: todo
+  - id: 2
+    description: "Preserve board title editing: titlebar title reflects the board title and is click-to-edit as today."
+    verify: "grep -q 'board.title' src/apps/stickies/app.js && echo 'title wired'"
+    status: todo
+  - id: 3
+    description: "Rebuild and UAT: board renders in a window, drag/drop, editing, lists, notes, reset all behave identically."
+    verify: "bash tools/build-diff.sh && echo 'board-in-window identity'"
+    status: todo
