@@ -1,0 +1,8 @@
+# Cycle-time ledger — per-story: BCPs, start, end, cycle minutes.
+#
+# Intentionally empty. The honest source of cycle-time data is git history
+# (see scripts/record-cycle-time.sh, git-hours model with 120-min idle
+# threshold). It requires a `Story: <id>` trailer on each commit; no commit in
+# this repo's history carries one, so per-story effort cannot be attributed
+# without fabricating rows. Populate from the script once Story trailers are
+# introduced on future work.

@@ -3,7 +3,7 @@
 release:
   version: "2.0.0"
   codename: "Mac Fantasy Core"
-  status: planning            # planning | in_progress | released
+  status: released            # planning | in_progress | released
   semantic_release: true
   bump_hint: minor            # patch | minor | major — CI decides at merge
 
@@ -39,7 +39,7 @@ epics:
   - id: e06
     title: "Draggable window titlebar + drop window titling"
     wsjf: 1.0
-    total_bcps: 8
+    total_bcps: 11
     capsule_dir: epics/e06-window-drag
 
 bugs:

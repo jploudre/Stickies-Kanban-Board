@@ -12,9 +12,9 @@ session:
       + position persistence per app. Preflight green (24 tests). Next task: survey-context.
 git:
   branch: main
-  head: 192816278f46d60cc8b5c5be22a220534d605ecd
+  head: ee5d1a3a924264f82bdffff24e91f05434d028a6
 release:
   last_tag: null
-  last_publish: '2026-08-13'
-  target_version: null
+  last_publish: '2026-08-14'
+  target_version: "2.0.0"
   ci_verified: true
