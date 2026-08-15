@@ -1,4 +1,4 @@
-// story: e03s02, e03s03
+// story: e03s02, e03s03, e06s02
 
 
 let easyMartina = false;
@@ -204,9 +204,6 @@ function deleteBoard() {
   // Single-board app: replace the board with a fresh empty one
   createBoard('Untitled Board');
   showBoard(true);
-
-  $('.wrap .board .head').addClass('brand-new');
-  $('.wrap .board .head .text')[0].click();
 }
 
 //
@@ -250,18 +247,16 @@ function showBoard(quick) {
 
   const $wrap = $('.wrap');
 
-  // The board is a MF.Window: the titlebar holds the editable board title, and
-  // the window content holds the lists.
-  const $title = $('<span class="title"><span class="text board-title-display"></span></span>');
-  const $edit = $('<input class="edit" spellcheck="false" placeholder="Name of the board">');
+  // The board is a MF.Window. Since e06s02 the window titlebar no longer doubles
+  // as a board-title editor (leftover from the multi-board era); it shows a
+  // static, non-editable title and acts as the drag handle (core e06s01).
   const win = new MF.Window({
-    titleEl: [$title[0], $edit[0]],
+    title: 'Stickies Kanban Board',
     buttons: false,
   });
   win.el.classList.add('board');
   win.el.boardId = board.id;
   SKB.boardWindow = win;
-  setText($title.find('.text'), board.title);
 
   const $content = $(win.contentEl);
   $content.append('<div class="lists-scroller"><div></div></div>');
@@ -312,7 +307,7 @@ function createDemoBoard() {
   // Add default lists
   const firstList = SKB.board.addList('Ideas/Someday');
   firstList.addNote('Awesome running 200% Zoom and Fullscreen', 'green');
-  firstList.addNote('Board titles and list titles can be changed by clicking on them.', 'gray');
+  firstList.addNote('Notes and list titles can be edited by clicking on them. Drag the window by its titlebar to move it.', 'gray');
   firstList.addNote('Control-Enter while editing to make a new note below', 'pink');
   firstList.addNote('Organize by:\n• Dragging & Dropping notes\n• Changing colors\n• Control-Shift-8 for bullets', 'gray');
   SKB.board.addList('Doing');
@@ -453,8 +448,6 @@ function stopEditing($edit, viaEscape, viaXclick) {
 
   if (textNow !== textWas || brandNew) {
     setText($text, textNow);
-
-    if ($item.parent().hasClass('board')) SKB.board.title = textNow;
 
     updatePageTitle();
     saveBoard();
@@ -613,7 +606,10 @@ const SKB = {
 
 // Global hotkeys removed
 
-$('.wrap').on('click', '.board .text', function (ev) {
+// Click-to-edit the text of a note or a list heading. The static window titlebar
+// (span.title > span.text) is deliberately NOT selected here; it is a drag handle
+// (core e06s01), not an editable field.
+$('.wrap').on('click', '.board .note .text, .board .list .text', function (ev) {
   if (this.was_dragged) {
     this.was_dragged = false;
     return false;
@@ -630,93 +626,6 @@ $('.wrap').on('click', '.board .text', function (ev) {
 
   startEditing($(this), ev);
   return false;
-});
-
-// Special handler for board title in window titlebar
-$('.wrap').on('click', '.board .window-title.head .text', function (_ev) {
-  const $head = $(this).closest('.window-title.head');
-  const $edit = $head.find('.edit');
-  const $text = $(this);
-  const $titleSpan = $head.find('span.title');
-
-  $edit.val(getText($text));
-
-  // Match the width of the gray title area (span.title)
-  // span.title has padding: 0 7px (14px total)
-  // edit input has padding: 2px 7px (14px) + border: 1px (2px) = 16px total
-  // .width() sets content width, so subtract edit padding+border from span outerWidth
-  const titleWidth = $titleSpan.outerWidth() - 16;
-  $edit.width(titleWidth);
-
-  $head.addClass('editing');
-
-  if ($edit.length) $edit[0].focus();
-
-  return false;
-});
-
-// Board title edit keydown handler
-$('.wrap').on('keydown', '.board .window-title.head .edit', function (ev) {
-  const $this = $(this);
-  const $head = $this.closest('.window-title.head');
-
-  // Enter or Escape to finish editing
-  if (ev.keyCode === 13 || ev.keyCode === 27) {
-    const $text = $head.find('.text');
-    const textNow = $this.val().trimRight();
-
-    if (ev.keyCode === 13 && textNow) {
-      setText($text, textNow);
-      if (SKB.board) SKB.board.title = textNow;
-      saveBoard();
-    }
-
-    $head.removeClass('editing');
-    return false;
-  }
-});
-
-// Board title edit blur handler
-$('.wrap').on('blur', '.board .window-title.head .edit', function (_ev) {
-  const $this = $(this);
-  const $head = $this.closest('.window-title.head');
-  const $text = $head.find('.text');
-  const textNow = $this.val().trimRight();
-
-  if (textNow) {
-    setText($text, textNow);
-    if (SKB.board) SKB.board.title = textNow;
-    saveBoard();
-  }
-
-  $head.removeClass('editing');
-});
-
-// Board title edit input handler - resize as typing
-$('.wrap').on('input', '.board .window-title.head .edit', function () {
-  const $this = $(this);
-  const $head = $this.closest('.window-title.head');
-
-  // Calculate what span.title width would be with this text
-  // span.title has padding: 0 7px
-  const tempSpan = $('<span>').css({
-    'font-size': '10px',
-    'font-family': $this.css('font-family'),
-    'font-weight': 'bold',
-    padding: '0 7px',
-    visibility: 'hidden',
-    position: 'absolute',
-    'white-space': 'nowrap',
-  }).text($this.val() || 'A').appendTo('body');
-
-  // Get the outerWidth (includes padding) and subtract edit input's padding+border
-  const titleOuterWidth = tempSpan.outerWidth();
-  tempSpan.remove();
-
-  const contentWidth = titleOuterWidth - 16; // Subtract edit input's padding (14px) + border (2px)
-  const maxWidth = $head.width() - 100; // Leave room for buttons
-
-  $this.width(Math.max(100, Math.min(contentWidth, maxWidth)));
 });
 
 //

@@ -7,6 +7,10 @@
 body {
 	background-image: url('assets/bg-desktop.gif');
 	background-repeat: repeat;
+	/* Always fill at least the viewport so an absolutely-positioned (dragged)
+	   window — the only in-flow sizing element gone — never collapses the
+	   retro desktop backdrop. e06s01 */
+	min-height: 100vh;
 	/* Keep the retro desktop background crisp when zoomed in:
 	   nearest-neighbor scaling instead of blurry smoothing, so at 200%
 	   each pixel is an exact 2x2 block rather than an interpolated one. */

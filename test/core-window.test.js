@@ -14,11 +14,21 @@ function makeFakeDocument() {
   function el(tag) {
     return {
       tagName: tag, className: '', style: {}, href: '', textContent: '', children: [],
-      setAttribute() {}, appendChild(c) { this.children.push(c); return c; },
-      querySelector() { return null; }, classList: { add() {}, remove() {}, toggle() {} },
+      _listeners: {}, parentNode: null, getBoundingClientRect: () => ({ left: 0, top: 0 }),
+      closest: () => null,
+      addEventListener(type, fn) { (this._listeners[type] = this._listeners[type] || []).push(fn); },
+      removeEventListener(type, fn) { if (this._listeners[type]) this._listeners[type] = this._listeners[type].filter((f) => f !== fn); },
+      dispatch(type, ev) { (this._listeners[type] || []).forEach((fn) => fn(ev)); },
+      setAttribute() {}, appendChild(c) { this.children.push(c); c.parentNode = this; return c; },
+      querySelector() { return null; }, classList: { add() {}, remove() {}, contains() { return false; } },
     };
   }
-  return { createElement: el, body: el('body') };
+  const doc = {
+    createElement: el, body: el('body'), _listeners: {},
+    addEventListener(type, fn) { (this._listeners[type] = this._listeners[type] || []).push(fn); },
+    removeEventListener(type, fn) { if (this._listeners[type]) this._listeners[type] = this._listeners[type].filter((f) => f !== fn); },
+  };
+  return doc;
 }
 
 test('MF.Window stores metadata and registers with the manager', () => {
@@ -78,5 +88,45 @@ test('MF.Window defaults to rendering the close/maximize buttons', () => {
   const classes = head.children.map((c) => c.className);
   assert.ok(classes.includes('btn-close'), 'default includes close button');
   assert.ok(classes.includes('btn-maximize'), 'default includes maximize button');
+  delete global.document;
+});
+
+test('MF.Window defaults draggable true; draggable:false is honored', () => {
+  const a = new MF.Window({ title: 'a' });
+  assert.strictEqual(a.draggable, true, 'draggable on by default');
+  const b = new MF.Window({ title: 'b', draggable: false });
+  assert.strictEqual(b.draggable, false, 'draggable:false honored');
+});
+
+test('titlebar mousedown starts a drag: body class + doc mousemove listener', () => {
+  global.document = makeFakeDocument();
+  MF.WindowManager.windows.length = 0;
+  const w = new MF.Window({ title: 'draggable', x: 10, y: 20 });
+  const head = w.el.children[0];
+  let added = 0;
+  const origAdd = global.document.addEventListener.bind(global.document);
+  global.document.addEventListener = function (t, fn) { if (t === 'mousemove') added += 1; origAdd(t, fn); };
+  const bodyAdd = global.document.body.classList.add;
+  let bodyClassAdded = false;
+  global.document.body.classList.add = function (c) { if (c === 'mf-window-dragging') bodyClassAdded = true; bodyAdd(c); };
+
+  head.dispatch('mousedown', { button: 0, clientX: 50, clientY: 60, target: w.el.children[1], preventDefault() {} });
+  assert.strictEqual(added, 1, 'document mousemove listener registered while dragging');
+  assert.ok(bodyClassAdded, 'mf-window-dragging class applied to body');
+  delete global.document;
+});
+
+test('first drag converts a flow window to absolute at its current spot', () => {
+  global.document = makeFakeDocument();
+  MF.WindowManager.windows.length = 0;
+  const w = new MF.Window({ title: 'flow', buttons: false });
+  const head = w.el.children[0];
+  w.el.getBoundingClientRect = () => ({ left: 42, top: 37 });
+
+  head.dispatch('mousedown', { button: 0, clientX: 10, clientY: 10, target: w.el.children[0], preventDefault() {} });
+  assert.strictEqual(w.el.style.position, 'absolute', 'converted to absolute');
+  assert.strictEqual(w.el.style.margin, '0', 'centering margins cleared');
+  assert.strictEqual(w.el.style.left, '42px', 'snapshot left kept');
+  assert.strictEqual(w.el.style.top, '37px', 'snapshot top kept');
   delete global.document;
 });

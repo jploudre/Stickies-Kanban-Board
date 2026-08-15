@@ -29,6 +29,13 @@
 		font-weight: bold;
 		font-size: 10px;
 		color: #848484;
+		cursor: move;
+	}
+
+	/* While a window is being dragged, block text selection across the page
+	   so the retro desktop isn't accidentally marquee-selected. */
+	body.mf-window-dragging{
+		user-select: none;
 	}
 
 	.window.window-focus>.window-title{

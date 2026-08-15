@@ -36,6 +36,11 @@ epics:
     wsjf: 3.0
     total_bcps: 9
     capsule_dir: epics/e05-second-app-proof
+  - id: e06
+    title: "Draggable window titlebar + drop window titling"
+    wsjf: 1.0
+    total_bcps: 8
+    capsule_dir: epics/e06-window-drag
 
 bugs:
   total: 0

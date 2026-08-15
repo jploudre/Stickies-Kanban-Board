@@ -1,14 +1,18 @@
-// story: e02s05
+// story: e02s05, e06s01
 // core/window/window.js — generic Mac window component + manager.
-// MF.Window owns the strip-pattern titlebar, centered title, and the
-// close/maximize buttons (presentational this phase). MF.WindowManager places
-// windows on the desktop and manages z-order/focus.
+// MF.Window owns the strip-pattern titlebar, centered title, the close/maximize
+// buttons, and (since e06s01) dragging the window by its titlebar.
+// MF.WindowManager positions windows on the desktop and manages z-order/focus.
 //
 //   var w = new MF.Window({ title, content, width, height, x, y, onClose })
 //   MF.WindowManager.add(w) / remove(w)   (auto-added by the constructor)
 //
+// Dragging: press and move on the .window-title head to reposition the window.
+// A flow-layout window (no x/y) is converted to absolute positioning at its
+// current spot on first drag. Set { draggable: false } to disable.
+//
 // Node-safe: without a document the element is not built, but the manager
-// registry and window metadata still work (tests).
+// registry, window metadata, and draggable flag still work (tests).
 (function (root) {
   'use strict';
 
@@ -32,6 +36,9 @@
     // Whether the titlebar shows the close/maximize chrome buttons. A flow-layout
     // window (e.g. a board) can opt out with { buttons: false }.
     this.buttons = opts.buttons !== false;
+    // Whether pressing and dragging the titlebar moves the window. On by default
+    // so every Mac window is draggable; an app can opt out with { draggable: false }.
+    this.draggable = opts.draggable !== false;
     // Optional custom titlebar content: an element (or array of elements) that
     // replaces the default span.title — lets an app embed an editable title.
     this.titleEl = opts.titleEl || null;
@@ -93,6 +100,61 @@
     w.appendChild(content);
     this.el = w;
     this.contentEl = content;
+
+    this._enableTitleDrag(head);
+    return w;
+  };
+
+  // Let the window be moved by pressing and dragging its titlebar. Handlers run
+  // in the browser only (no document here means no-op, keeping tests node-safe).
+  Window.prototype._enableTitleDrag = function (head) {
+    var self = this;
+    if (typeof document === 'undefined' || !head.addEventListener) return;
+    head.addEventListener('mousedown', function (ev) {
+      self._beginDrag(ev);
+    });
+  };
+
+  Window.prototype._beginDrag = function (ev) {
+    if (!this.draggable || ev.button !== 0) return;
+    // Never hijack the titlebar's own controls (close/maximize, an edit field).
+    if (ev.target && ev.target.closest && ev.target.closest('a, input, .edit')) return;
+    ev.preventDefault();
+
+    var el = this.el;
+    var scrollX = (typeof window !== 'undefined' && window.pageXOffset) || 0;
+    var scrollY = (typeof window !== 'undefined' && window.pageYOffset) || 0;
+
+    // A flow-layout window has no inline position; snapshot its current on-screen
+    // spot and switch to absolute so we can move it. Snapshot the rect first, then
+    // clear the centering margins (e.g. the board's `28px auto`), then position at
+    // the captured spot so the window doesn't jump. Width/min/max are untouched.
+    if (!el.style.position) {
+      var rect = el.getBoundingClientRect();
+      el.style.position = 'absolute';
+      el.style.margin = '0';
+      el.style.left = (rect.left + scrollX) + 'px';
+      el.style.top = (rect.top + scrollY) + 'px';
+    }
+
+    var startX = ev.clientX;
+    var startY = ev.clientY;
+    var startLeft = parseInt(el.style.left, 10) || 0;
+    var startTop = parseInt(el.style.top, 10) || 0;
+
+    function onMove(e) {
+      el.style.left = (startLeft + e.clientX - startX) + 'px';
+      el.style.top = (startTop + e.clientY - startY) + 'px';
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      if (document.body && document.body.classList) document.body.classList.remove('mf-window-dragging');
+    }
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    if (document.body && document.body.classList) document.body.classList.add('mf-window-dragging');
   };
 
   MF.Window = Window;

@@ -76,64 +76,6 @@
 	}
 
 /* Board-specific window titlebar overrides */
-	.board.window.window-focus > .window-title.head > span.title{
-		position: relative;
-		z-index: 1;
-		cursor: pointer;
-	}
-
-	.board.window.window-focus > .window-title.head > span.title > .text{
-		font-weight: bold;
-		font-family: var(--ff);
-		font-size: 10px;
-		border: none;
-		padding: 0;
-		margin: 0;
-		min-height: 0;
-		white-space: normal;
-		overflow: visible;
-		position: relative;
-		top: 1px;
-		cursor: pointer;
-		pointer-events: auto;
-	}
-
-	.board.window.window-focus > .window-title.head > .edit{
-		display: none;
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(calc(-50% + 1px), calc(-50% + 1px));
-		min-width: 100px;
-		max-width: calc(100% - 100px);
-		height: 13px;
-		line-height: 13px;
-		font-size: 10px;
-		font-family: var(--ff);
-		font-weight: bold;
-		padding: 2px 7px;
-		border: 1px solid #000;
-		text-align: center;
-		background-color: rgb(204 204 251);
-		z-index: 10;
-	}
-
-	.board.window.window-focus > .window-title.head.editing > span.title{
-		visibility: hidden;
-	}
-
-	.board.window.window-focus > .window-title.head.editing > .edit{
-		display: block;
-	}
-
-	.board.window.window-focus > .window-title.head > .edit::placeholder{
-		font-weight: 400;
-		text-transform: uppercase;
-		color: #1489db;
-		opacity: 0.8;
-	}
-
-/* Override default .board .head styles for window titlebar */
 	.board.window > .window-title.head{
 		background: none !important;
 		padding: 0 6px;
