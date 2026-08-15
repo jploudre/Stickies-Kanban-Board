@@ -20,3 +20,27 @@
   --mf-menubar-height: 20px;
   --mf-window-title-height: 17px;
 }
+
+/* Base typography + link reset shared by every Mac Fantasy app, so an app built
+   from core alone (e.g. Pomodoro) inherits the retro font and un-underlined
+   anchors instead of the browser defaults. Keep additive: identical rules also
+   lived in stickies/app.css and were removed once this became the single home. */
+html, body, input, textarea{
+  font-family: var(--ff);
+  font-size: 10px;
+  line-height: 13px;
+}
+
+html, body, h1, textarea, input{
+  padding: 0;
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+  transition: color 200ms;
+}
+
+a, a:active, a:focus, textarea, input{
+  outline: none;
+}

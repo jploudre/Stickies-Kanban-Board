@@ -256,6 +256,7 @@ function showBoard(quick) {
   const $edit = $('<input class="edit" spellcheck="false" placeholder="Name of the board">');
   const win = new MF.Window({
     titleEl: [$title[0], $edit[0]],
+    buttons: false,
   });
   win.el.classList.add('board');
   win.el.boardId = board.id;
@@ -1020,20 +1021,6 @@ MF.sound.register('pop', '../../core/sound/assets/sound-pop.wav');
 MF.menubar.render(menuConfig);
 
 SKB.varAdjust = new VarAdjust();
-
-// Insert favicon into menu.right
-const faviconLink = document.querySelector('link[rel="icon"][sizes="32x32"]');
-if (faviconLink) {
-  const img = document.createElement('img');
-  img.src = faviconLink.href;
-  img.className = 'icon';
-  img.alt = '';
-
-  const menuItem = document.querySelector('header .menu.right li a');
-  if (menuItem) {
-    menuItem.insertBefore(img, menuItem.firstChild);
-  }
-}
 
 // Generate PWA manifest dynamically
 (function() {

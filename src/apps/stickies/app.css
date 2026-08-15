@@ -8,17 +8,7 @@
 		scrollbar-gutter: stable;
 	}
 
-	html, body, input, textarea{
-		font-family: var(--ff);
-		font-size: 10px;
-		line-height: 13px;
-	}
-
-/**  */
-	html, body, h1, textarea, input{
-		padding: 0;
-		margin: 0;
-	}
+/* base typography + link reset live in core/theme/tokens.css (shared by all apps) */
 
 /**  */
 /* CSS transitions to replace jQuery .animate() */
@@ -40,15 +30,6 @@
 
 	.slide-up{
 		opacity: 0;
-	}
-
-	a{
-		text-decoration: none;
-		transition: color 200ms;
-	}
-
-	a, a:active, a:focus, textarea, input{
-		outline: none;
 	}
 
 /* Menu item flash animation on select */
@@ -161,19 +142,7 @@
 		position: relative;
 	}
 
-/* Window buttons */
-	.board.window.window-focus > .window-title.head > .btn-close,
-	.board.window.window-focus > .window-title.head > .btn-maximize{
-		pointer-events: none;
-		display: inline-block;
-		position: relative;
-		z-index: 1;
-	}
-
-	.board.window.window-focus > .window-title.head.editing > .btn-close,
-	.board.window.window-focus > .window-title.head.editing > .btn-maximize{
-		display: none;
-	}
+/* Window buttons: the board window is created with buttons:false, so none are rendered. */
 
 /**  */
 	.board{

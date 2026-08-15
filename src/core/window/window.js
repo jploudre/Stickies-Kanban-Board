@@ -29,6 +29,9 @@
     this.y = (opts.y !== undefined) ? opts.y : null;
     this.onClose = opts.onClose || null;
     this.content = opts.content || null;
+    // Whether the titlebar shows the close/maximize chrome buttons. A flow-layout
+    // window (e.g. a board) can opt out with { buttons: false }.
+    this.buttons = opts.buttons !== false;
     // Optional custom titlebar content: an element (or array of elements) that
     // replaces the default span.title — lets an app embed an editable title.
     this.titleEl = opts.titleEl || null;
@@ -52,15 +55,13 @@
     var head = document.createElement('div');
     head.className = 'window-title head';
 
-    var close = document.createElement('a');
-    close.className = 'btn-close';
-    close.href = '#';
+    if (this.buttons) {
+      var close = document.createElement('a');
+      close.className = 'btn-close';
+      close.href = '#';
+      head.appendChild(close);
+    }
 
-    var maxi = document.createElement('a');
-    maxi.className = 'btn-maximize';
-    maxi.href = '#';
-
-    head.appendChild(close);
     if (this.titleEl) {
       (Array.isArray(this.titleEl) ? this.titleEl : [this.titleEl]).forEach(function (el) {
         head.appendChild(el);
@@ -74,7 +75,12 @@
       title.appendChild(text);
       head.appendChild(title);
     }
-    head.appendChild(maxi);
+    if (this.buttons) {
+      var maxi = document.createElement('a');
+      maxi.className = 'btn-maximize';
+      maxi.href = '#';
+      head.appendChild(maxi);
+    }
 
     var content = document.createElement('div');
     content.className = 'window-content';
