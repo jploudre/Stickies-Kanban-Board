@@ -130,3 +130,53 @@ test('first drag converts a flow window to absolute at its current spot', () => 
   assert.strictEqual(w.el.style.top, '37px', 'snapshot top kept');
   delete global.document;
 });
+
+test('Window.savePos/loadPos round-trip and guard malformed data', () => {
+  const store = {};
+  global.localStorage = {
+    getItem(k) { return store[k] === undefined ? null : store[k]; },
+    setItem(k, v) { store[k] = String(v); },
+  };
+  assert.ok(MF.Window.savePos('t.pos', 123, 456), 'save succeeds');
+  assert.deepStrictEqual(MF.Window.loadPos('t.pos'), { x: 123, y: 456 }, 'load round-trips');
+  assert.strictEqual(MF.Window.loadPos('missing.pos'), null, 'absent key -> null');
+  store['bad.pos'] = 'not-json{'; // user-edited / corrupt value
+  assert.strictEqual(MF.Window.loadPos('bad.pos'), null, 'malformed JSON -> null');
+  store['no.nums'] = JSON.stringify({ x: 'a', y: null });
+  assert.strictEqual(MF.Window.loadPos('no.nums'), null, 'non-numeric x/y -> null');
+  delete global.localStorage;
+});
+
+test('MF.Window restores a persisted position from rememberKey', () => {
+  global.localStorage = {
+    getItem(k) { return k === 'k.pos' ? JSON.stringify({ x: 33, y: 44 }) : null; },
+    setItem() {},
+  };
+  MF.WindowManager.windows.length = 0;
+  const w = new MF.Window({ title: 't', x: 5, y: 6, rememberKey: 'k.pos' });
+  assert.strictEqual(w.x, 33, 'persisted x overrides default');
+  assert.strictEqual(w.y, 44, 'persisted y overrides default');
+  delete global.localStorage;
+});
+
+test('dragging a rememberKey window saves its position on mouseup', () => {
+  global.document = makeFakeDocument();
+  global.window = { pageXOffset: 0, pageYOffset: 0 };
+  const store = {};
+  global.localStorage = {
+    getItem(k) { return store[k] === undefined ? null : store[k]; },
+    setItem(k, v) { store[k] = String(v); },
+  };
+  MF.WindowManager.windows.length = 0;
+  const w = new MF.Window({ title: 'p', x: 10, y: 20, rememberKey: 'p.pos' });
+  const head = w.el.children[0];
+
+  head.dispatch('mousedown', { button: 0, clientX: 0, clientY: 0, target: w.el.children[1], preventDefault() {} });
+  global.document._listeners.mousemove[0]({ clientX: 30, clientY: 40 });
+  global.document._listeners.mouseup[0]();
+
+  assert.strictEqual(store['p.pos'], JSON.stringify({ x: 40, y: 60 }), 'position saved after drag');
+  delete global.document;
+  delete global.localStorage;
+  delete global.window;
+});

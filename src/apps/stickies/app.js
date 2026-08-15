@@ -1,4 +1,4 @@
-// story: e03s02, e03s03, e06s02
+// story: e03s02, e03s03, e06s02, e06s03
 
 
 let easyMartina = false;
@@ -253,6 +253,7 @@ function showBoard(quick) {
   const win = new MF.Window({
     title: 'Stickies Kanban Board',
     buttons: false,
+    rememberKey: 'stickiesboard.window.pos',
   });
   win.el.classList.add('board');
   win.el.boardId = board.id;

@@ -1,4 +1,4 @@
-// story: e05s01
+// story: e05s01, e06s03
 // Pomodoro Timer — second Mac Fantasy App, built from core/ alone (e05).
 // Uses MF namespace, theme, menubar (config), window, and sound. Anything it
 // needed that core lacked was promoted into core (see core-gaps.md).
@@ -90,6 +90,7 @@
     height: 220,
     x: 90,
     y: 70,
+    rememberKey: 'pomodoro.window.pos',
     content: '<div class="pomo">'
       + '<div class="pomo-time" id="pomo-time"></div>'
       + '<div class="pomo-controls">'

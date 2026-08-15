@@ -1,4 +1,4 @@
-// story: e02s05, e06s01
+// story: e02s05, e06s01, e06s03
 // core/window/window.js — generic Mac window component + manager.
 // MF.Window owns the strip-pattern titlebar, centered title, the close/maximize
 // buttons, and (since e06s01) dragging the window by its titlebar.
@@ -11,8 +11,13 @@
 // A flow-layout window (no x/y) is converted to absolute positioning at its
 // current spot on first drag. Set { draggable: false } to disable.
 //
+// Persistence (e06s03): pass { rememberKey: 'app.window.pos' } to restore a saved
+// {x,y} on construction and save it when a drag ends (localStorage, wrapped in
+// try/catch so private-mode/storage-throwing browsers still work).
+//
 // Node-safe: without a document the element is not built, but the manager
-// registry, window metadata, and draggable flag still work (tests).
+// registry, window metadata, draggable flag, and position persistence still work
+// (tests).
 (function (root) {
   'use strict';
 
@@ -39,16 +44,53 @@
     // Whether pressing and dragging the titlebar moves the window. On by default
     // so every Mac window is draggable; an app can opt out with { draggable: false }.
     this.draggable = opts.draggable !== false;
+    // Optional localStorage key that persists the window's {x,y} so a dragged
+    // window reopens where the user put it (see Window.savePos / Window.loadPos).
+    this.rememberKey = opts.rememberKey || null;
     // Optional custom titlebar content: an element (or array of elements) that
     // replaces the default span.title — lets an app embed an editable title.
     this.titleEl = opts.titleEl || null;
     this.el = null;    // DOM element, built lazily in build() (browser only)
     this.contentEl = null;
 
+    // Restore a persisted position before building/placing (overrides defaults
+    // but stays null when nothing was saved, keeping flow-layout windows flow).
+    if (this.rememberKey) {
+      var saved = Window.loadPos(this.rememberKey);
+      if (saved) {
+        this.x = saved.x;
+        this.y = saved.y;
+      }
+    }
+
     if (typeof document !== 'undefined') this.build();
 
     MF.WindowManager.add(this);
   }
+
+  // Save a window position `{ x: x, y: y }` under a localStorage key. Returns
+  // false when storage is unavailable (e.g. private mode) so apps never break.
+  Window.savePos = function (key, x, y) {
+    try {
+      localStorage.setItem(key, JSON.stringify({ x: x, y: y }));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  // Load a persisted position, or null when absent / malformed / unavailable.
+  Window.loadPos = function (key) {
+    try {
+      var raw = localStorage.getItem(key);
+      if (!raw) return null;
+      var pos = JSON.parse(raw);
+      if (typeof pos.x !== 'number' || typeof pos.y !== 'number') return null;
+      return pos;
+    } catch (e) {
+      return null;
+    }
+  };
 
   Window.prototype.build = function () {
     var w = document.createElement('div');
@@ -116,6 +158,7 @@
   };
 
   Window.prototype._beginDrag = function (ev) {
+    var self = this;
     if (!this.draggable || ev.button !== 0) return;
     // Never hijack the titlebar's own controls (close/maximize, an edit field).
     if (ev.target && ev.target.closest && ev.target.closest('a, input, .edit')) return;
@@ -150,6 +193,9 @@
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseup', onUp);
       if (document.body && document.body.classList) document.body.classList.remove('mf-window-dragging');
+      if (self.rememberKey) {
+        Window.savePos(self.rememberKey, parseInt(el.style.left, 10) || 0, parseInt(el.style.top, 10) || 0);
+      }
     }
 
     document.addEventListener('mousemove', onMove);
@@ -170,6 +216,9 @@
         // (e.g. a centered flow-layout board) keep their CSS layout.
         if (w.x !== null || w.y !== null) {
           w.el.style.position = 'absolute';
+          // Abs-pos windows are placed at exact pixels; drop any flow centering
+          // margin (e.g. the board's `28px auto`) so the position is exact.
+          w.el.style.margin = '0';
           if (w.x !== null) w.el.style.left = w.x + 'px';
           if (w.y !== null) w.el.style.top = w.y + 'px';
         }

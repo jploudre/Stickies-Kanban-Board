@@ -8,8 +8,8 @@ session:
   handoff:
     next_skill: survey-context
     note: >-
-      e06 shipped: window titlebar drag (core) + removed window titling (stickies).
-      Preflight green (21 tests). Next task should survey-context.
+      e06 shipped: window titlebar drag (core) + removed window titling (stickies)
+      + position persistence per app. Preflight green (24 tests). Next task: survey-context.
 git:
   branch: main
   head: 192816278f46d60cc8b5c5be22a220534d605ecd

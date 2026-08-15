@@ -29,7 +29,6 @@
 		font-weight: bold;
 		font-size: 10px;
 		color: #848484;
-		cursor: move;
 	}
 
 	/* While a window is being dragged, block text selection across the page
